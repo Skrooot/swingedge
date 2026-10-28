@@ -67,7 +67,9 @@ fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, request
                 }
                 Text("Köp och behåll med ombalansering vid månadsslut, ingen trendregel. Handlas på Xetra i EUR med courtage och 0,25 % växling.",
                     style = MaterialTheme.typography.bodySmall)
-                Text("Tillägg efter rapporten. Okt 2019 – sep 2026 (amerikanska Avantis-fonder som proxy, korrelation 0,98–0,99 mot UCITS-fonderna): 50 % Avantis + 50 % SwingEdge med guld gav 19,5 %/år, Sharpe 1,12, största nedgång −19 %, mot 23,7 %, 1,07 och −19 % för SwingEdge med guld. Kort period och inget signifikanstest.",
+                Text("Testat jun 2015 – sep 2026 med Dimensional-fonder som proxy (samma metod, korrelation 0,996 mot Avantis-trion 2019–2026). SwingEdge med guld: 32,5 %/år, Sharpe 1,31, största nedgång −19 %. Med 25 % Avantis: 27,4 %, 1,33, −18 %. Med 50 %: 22,1 %, 1,29, −19 %. Med 75 %: 16,7 %, 1,11, −22 %.",
+                    style = MaterialTheme.typography.bodySmall)
+                Text("Slutsats: Avantis-kärnan ger ingen säkerställd förbättring (p = 0,30–0,83). Den sprider risken bort från Bitcoin och sänker avkastning och svängningar i ungefär samma takt. Ensam slog kärnan inte världsindex 2008–2026 (Sharpe 0,74 mot 0,83).",
                     style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
             }
         }

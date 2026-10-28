@@ -114,7 +114,16 @@ och Emerging Markets Equity (AVEM), en tredjedel var. Alla tre är UCITS-ETF:er 
 SwingEdges hinkar skalas ned i samma proportion. Kärnan köps och behålls utan trendregel och ombalanseras vid
 månadsslut tillsammans med lika vikt.
 
-Testet ligger i `research/borslabbet/study_avantis.py`. Det täcker okt 2019 – sep 2026 och använder de amerikanska
-Avantis-fonderna som proxy (korrelation 0,98–0,99 mot UCITS-fonderna). 50 % Avantis plus 50 % SwingEdge med guld gav
-19,5 % per år, Sharpe 1,12 och största nedgång −19 %. SwingEdge med guld ensamt gav 23,7 %, 1,07 och −19 %.
-Perioden är kort och inget signifikanstest har gjorts.
+Det längre testet ligger i `research/borslabbet/study_avantis2.py`. Det täcker jun 2015 – sep 2026 och använder
+Dimensional-fonder som proxy. De bygger på samma metod och har korrelationen 0,996 mot Avantis-trion 2019–2026.
+
+| Portfölj (jun 2015 – sep 2026) | Avkastning/år | Sharpe | Största nedgång |
+| --- | --- | --- | --- |
+| SwingEdge med guld | 32,5 % | 1,31 | −19 % |
+| 25 % Avantis + SwingEdge med guld | 27,4 % | 1,33 | −18 % |
+| 50 % Avantis + SwingEdge med guld | 22,1 % | 1,29 | −19 % |
+| 75 % Avantis + SwingEdge med guld | 16,7 % | 1,11 | −22 % |
+
+Ingen andel ger en säkerställd förbättring (blockbootstrap p = 0,30–0,83). Avantis-kärnan ensam slog inte världsindex
+2008–2026: Sharpe 0,74 mot 0,83. Det kortare testet 2019–2026 (`study_avantis.py`) såg bättre ut, men höll inte över den
+längre perioden.

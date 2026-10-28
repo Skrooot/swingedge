@@ -77,7 +77,13 @@ private fun PortfolioHeader(s: UiState) {
         KeyValue("Senaste analys", if (r == null) "–" else fmtTime(r.time))
         KeyValue("Nästa planerade analys", fmtTime(nextPlannedAnalysis(java.time.Instant.now())))
         if (s.settings.active == PortfolioKind.PAPER) Text("Papperskonto med virtuellt kapital.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
-        if (r?.customSleeves == true) Text("Avviker från den testade modellen (20/40/40 utan guld och Avantis): egna vikter, guld eller Avantis-kärna.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+        // Säg exakt vad som avviker från rapportens modell och vad tilläggets eget test visade
+        if (s.settings.sleeves != se.dahlander.swingedge.core.DEFAULT_SLEEVES)
+            Text("Egna vikter: avviker från rapportens testade 20/40/40.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+        if (s.settings.includeGold)
+            Text("Guld i lika vikt: tillval testat separat (maj 2015 – okt 2026), högre Sharpe men valt bland sex varianter.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (s.settings.avantisShare > 0)
+            Text("Avantis-kärna ${pct(s.settings.avantisShare, 0)}: tillval testat separat (jun 2015 – sep 2026). Ungefär samma Sharpe som utan, lägre avkastning och svängningar.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
     }
 }
 

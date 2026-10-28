@@ -13,8 +13,8 @@ android {
         applicationId = "se.dahlander.swingedge"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "2.0"
+        versionCode = 8
+        versionName = "2.1"
     }
 
     buildTypes {

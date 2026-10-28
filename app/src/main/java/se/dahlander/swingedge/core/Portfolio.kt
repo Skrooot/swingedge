@@ -152,3 +152,15 @@ fun orders(valuation: Valuation, target: Target, instruments: Set<Instrument>, t
         }
     }
 }
+
+/** Hela andelar som ryms i [amountSek] inklusive avgiften, och avgiften för just det antalet. */
+data class Fill(val quantity: Int, val costSek: Double, val feeSek: Double)
+
+fun unitsForAmount(ins: Instrument, amountSek: Double, price: Double, fxRate: Double, eurSek: Double): Fill {
+    val unit = price * fxRate
+    if (amountSek <= 0 || unit <= 0) return Fill(0, 0.0, 0.0)
+    var q = kotlin.math.floor(amountSek / unit).toInt()
+    while (q > 0 && q * unit + tradeCostSek(ins, q * unit, eurSek) > amountSek + 1e-9) q--
+    val cost = q * unit
+    return Fill(q, cost, if (q > 0) tradeCostSek(ins, cost, eurSek) else 0.0)
+}

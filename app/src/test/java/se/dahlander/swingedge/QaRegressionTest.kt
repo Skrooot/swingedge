@@ -88,6 +88,16 @@ class QaRegressionTest {
         assertEquals(138.0, big, 1e-9)
     }
 
+    @Test fun amountGivesWholeUnitsAfterFee() {
+        val f = unitsForAmount(Instrument.XACT, 10_000.0, 400.0, 1.0, 11.0)
+        assertEquals(24, f.quantity)                         // 25 st = 10 000 kr + 69 kr courtage > 10 000
+        assertEquals(9_600.0, f.costSek, 1e-9); assertEquals(69.0, f.feeSek, 1e-9)
+        val e = unitsForAmount(Instrument.SXR8, 20_000.0, 600.0, 11.0, 11.0)
+        assertEquals(3, e.quantity)                          // 3 x 6 600 kr + 137,50 kr avgift = 19 937,50 kr
+        assertTrue(e.costSek + e.feeSek <= 20_000.0)
+        assertEquals(0, unitsForAmount(Instrument.SXR8, 5_000.0, 600.0, 11.0, 11.0).quantity)
+    }
+
     // Forward test
     @Test fun forwardTestLogsOnlyLiveSignalsAndUsesFirstTradablePrice() {
         val exec = Instant.parse("2026-10-27T08:00:00Z")

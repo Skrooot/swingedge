@@ -24,6 +24,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -36,6 +37,7 @@ import se.dahlander.swingedge.core.Instrument
 import se.dahlander.swingedge.core.Side
 import se.dahlander.swingedge.core.Trade
 import se.dahlander.swingedge.core.ledger
+import se.dahlander.swingedge.core.unitsForAmount
 import se.dahlander.swingedge.core.num
 import se.dahlander.swingedge.core.pct
 import se.dahlander.swingedge.core.sek
@@ -138,13 +140,21 @@ private fun TradeDialog(side: Side, s: UiState, onDismiss: () -> Unit, onSave: (
     val isCash = side == Side.DEPOSIT || side == Side.WITHDRAW
     var ins by remember { mutableStateOf(Instrument.XBT) }
     var date by remember { mutableStateOf(LocalDate.now().toString()) }
+    fun last(i: Instrument) = s.cache?.series?.get(i.yahoo)?.let { it.lastPrice ?: it.closes.lastOrNull() }?.let { "%.2f".format(it) }
     var qty by remember { mutableStateOf("") }
-    var price by remember { mutableStateOf("") }
+    var price by remember { mutableStateOf(if (isCash) "" else last(Instrument.XBT) ?: "") }
     var fee by remember { mutableStateOf("0") }
+    var amount by remember { mutableStateOf("") }
     val eursek = s.cache?.series?.get("EURSEK=X")?.let { it.lastPrice ?: it.closes.lastOrNull() }
     var fx by remember { mutableStateOf(eursek?.let { "%.4f".format(it) } ?: "") }
     var error by remember { mutableStateOf<String?>(null) }
     fun d(x: String) = x.replace(',', '.').replace(" ", "").toDoubleOrNull()
+    // köp: en summa räknas om till hela andelar och courtage så fort summa, kurs, växelkurs eller produkt ändras
+    val fill = if (side != Side.BUY) null else d(amount)?.let { a ->
+        val p = d(price); val r = if (ins.currency == "SEK") 1.0 else d(fx)
+        if (p == null || r == null) null else unitsForAmount(ins, a, p, r, eursek ?: r)
+    }
+    LaunchedEffect(fill) { fill?.let { qty = it.quantity.toString(); fee = "%.2f".format(it.feeSek) } }
     AlertDialog(
         onDismissRequest = onDismiss,
         title = { Text(side.sv()) },
@@ -152,13 +162,22 @@ private fun TradeDialog(side: Side, s: UiState, onDismiss: () -> Unit, onSave: (
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (!isCash) {
                     Row(Modifier.horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
-                        Instrument.entries.forEach { i -> FilterChip(selected = ins == i, onClick = { ins = i; price = s.cache?.series?.get(i.yahoo)?.lastPrice?.let { "%.2f".format(it) } ?: price }, label = { Text(i.ticker.take(11)) }) }
+                        Instrument.entries.forEach { i -> FilterChip(selected = ins == i, onClick = { ins = i; price = last(i) ?: price }, label = { Text(i.ticker.take(11)) }) }
                     }
                     Text(ins.displayName, style = MaterialTheme.typography.bodySmall)
                 }
                 OutlinedTextField(date, { date = it }, label = { Text("Datum (ÅÅÅÅ-MM-DD)") }, singleLine = true)
+                if (side == Side.BUY) {
+                    OutlinedTextField(amount, { amount = it }, label = { Text("Summa att investera, kr") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
+                    fill?.let { f ->
+                        Text(if (f.quantity == 0) "Summan räcker inte till en hel andel inklusive courtage."
+                            else "${f.quantity} st för ${sek(f.costSek)} + courtage ${sek(f.feeSek)} = ${sek(f.costSek + f.feeSek)}. Kvar: ${sek(d(amount)!! - f.costSek - f.feeSek)}.",
+                            style = MaterialTheme.typography.bodySmall,
+                            color = if (f.quantity == 0) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurfaceVariant)
+                    }
+                }
                 if (!isCash) {
-                    OutlinedTextField(qty, { qty = it }, label = { Text("Antal") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
+                    OutlinedTextField(qty, { qty = it; amount = "" }, label = { Text(if (side == Side.BUY) "Antal (räknas ut från summan)" else "Antal") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                     OutlinedTextField(price, { price = it }, label = { Text("Kurs i ${ins.currency}") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                     OutlinedTextField(fee, { fee = it }, label = { Text("Courtage och avgifter, kr") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))
                     if (ins.currency != "SEK") OutlinedTextField(fx, { fx = it }, label = { Text("Växelkurs ${ins.currency}/SEK inkl. växlingsavgift") }, singleLine = true, keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal))

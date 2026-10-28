@@ -1,129 +1,88 @@
 # SwingEdge
 
-Android-app i Kotlin och Jetpack Compose som dagligen räknar strategierna från rapporten
-"Swingstrategier via Avanza" (27 okt 2026) och visar vad du behöver göra. Allt körs på telefonen:
-ingen server, inga API-nycklar. Appen lägger inga ordrar; ordrar läggs manuellt i Avanza.
+Android-app i Kotlin och Jetpack Compose för en enda fryst strategi, **SwingEdge med guld**. Appen räknar
+signalerna på telefonen varje timme och visar vad du behöver köpa, sälja eller bevaka idag. Den har ingen server
+och inga API-nycklar och lägger inga ordrar. Affärer görs manuellt i Avanza och registreras i appen.
 
-## Strategierna (frysta regler från signals.py)
+Ladda ner: [SwingEdge.apk](https://github.com/Skrooot/swingedge/raw/main/SwingEdge.apk) (version 2.0).
+Inget i appen är ett köp- eller säljråd.
 
-| Del | Standardvikt | Regel | Instrument |
+## Strategin (fryst 28 okt 2026)
+
+| Del | Vikt | Regel | Produkt (Avanza) |
 | --- | --- | --- | --- |
-| Bitcoin Trend | 20 % | Investerad när BTC-USD:s senaste färdiga dagsstängning är **över** SMA150. Exakt lika = kontanter (som `c[-1] > m`). Kontroll dagligen. | Bitcoin Tracker One, SE0007126024 |
-| Lika vikt | 40 % | En tredjedel var. Ombalansering vid Stockholmsbörsens sista handelsdag i månaden, handel nästa handelsdag, tolerans 2 procentenheter. | XACT OMXS30, SXR8, Bitcoin Tracker One |
-| S&P 500 Trend | 40 % | Beslut vid NYSE:s sista handelsdag i månaden: investerad om S&P 500 > SMA200. Oförändrat mellan kontrollerna. | SXR8, IE00B5BMR087 |
+| Bitcoin Trend | 20 % | Investerad när BTC-USD:s senaste färdiga dagsstängning (00:00 UTC) är **över** SMA150, annars kontanter. Exakt lika = kontanter. | Bitcoin Tracker One, SE0007126024, First North Stockholm, SEK |
+| Lika vikt | 40 % | 10 % vardera. Ombalansering efter Stockholmsbörsens sista handelsdag i månaden, när en vikt avviker mer än 2 procentenheter. | XACT OMXS30 (SE0000693293), SXR8 (IE00B5BMR087), Bitcoin Tracker One, Xetra-Gold (DE000A0S9GB0) |
+| S&P 500 Trend | 40 % | Beslut på NYSE:s sista handelsdag i månaden: investerad om S&P 500 > SMA200, annars kontanter. Oförändrat mellan besluten. | SXR8, Xetra, EUR |
 
-**Tillval sedan version 1.1:** Xetra-Gold (4GLD, DE000A0S9GB0) som fjärde instrument i lika vikt, avstängt som standard
-(Inställningar → Guld i lika vikt). Med standardvikter blir målet då SXR8 50 %, Bitcoin Tracker One 30 %, XACT 10 % och
-guld 10 %. Testat efter rapporten i `qa/swing/study3.py`: Sharpe för lika vikt 1,23 → 1,34 och största nedgång −41 % → −32 %
-(maj 2015 – okt 2026). Guld valdes bland sex varianter under en stark period för guld, så resultatet är osäkrare än rapportens.
+- **Målvikter med båda trenderna positiva:** SXR8 50 %, Bitcoin Tracker One 30 %, XACT 10 %, guld 10 %.
+- **Exekvering:** handel tidigast vid nästa öppning för produkten, alltså Stockholm för XBT och XACT och Xetra för SXR8 och guld. Svenska, tyska och amerikanska helgdagar räknas med. Bitcoin-signaler som kommer på helgen väntar till måndag.
+- **Datakontroll:** data som är en dag gammal eller mer ger inga nya signaler och visas som föråldrade. Data äldre än fem dagar stoppar signalerna helt.
+- **Reglerna ligger på ett ställe:** `core/Strategies.kt` (indikatorer), `core/Portfolio.kt` (vikter och ordrar) och `core/Analyzer.kt` (signaler och datakontroll). Vikterna kan inte ändras i appen. En ändring kräver en ny validering.
 
-En avstängd trendstrategi ger kontanter. Vikter för samma instrument summeras, och det blir en order per instrument.
+### Varför den här strategin
 
-## Tidsregler och datakontroll
+Strategin valdes 28 oktober 2026 bland alla som fanns i projektet, se `research/archive/borslabbet/study_winner.py`.
+Tabellen visar samma osedda månader, jan 2020 – sep 2026, efter kostnader:
 
-- BTC-dagsstapeln för datum D är färdig 00:00 UTC dag D+1. Ofärdiga staplar används aldrig.
-- S&P 500-stapeln är färdig 15 minuter efter NYSE:s stängning (16:00 New York).
-- Signaler handlas tidigast vid nästa öppning för produkten (Stockholmsbörsen eller Xetra), med svenska, tyska och amerikanska helgdagar.
-- Data som är en eller flera dagar för gamla ger inga nya signaler; tidigare läge behålls. Äldre än fem dagar stoppar signalerna helt (samma regel som signals.py).
-- En misslyckad hämtning skapar aldrig en köp- eller säljsignal. Varje körning loggas med indata och resultat (Signaler → Beräkningslogg).
+| Kandidat | Avkastning/år | Sharpe | Största nedgång |
+| --- | --- | --- | --- |
+| Kryptotrend SMA150 (BTC + ETH) | 48,0 % | 0,91 | −42 % (−50 % dagsvis) |
+| **SwingEdge med guld** | **24,5 %** | **1,09** | **−19 %** |
+| Global trendföljning (Börslabbet) | 10,0 % | 0,69 | −17 % |
+| Köp och behåll BTC + ETH | 56,1 % | 0,92 | −71 % |
 
-## Avvikelser från signals.py, med motivering
+Kryptotrend hade högst avkastning, men vinsten kom från några få stora trender. Utan de tre bästa affärerna per
+tillgång sjönk avkastningen till 3 % per år, och största nedgången var −50 %. SwingEdge med guld valdes för sin
+lägre risk och höga Sharpe. Trend på SMA150 gav ingen fördel på 67 av 69 testade marknader (bara på Bitcoin och
+Ether). Momentum och faktorstrategier kunde inte testas utan överlevnadsbias.
 
-- **S&P 500 vid första körningen:** signals.py tar dagens läge vid första körningen. Appen använder alltid senaste färdiga månadsslut, vilket är vad studiens backtest gjorde.
-- **Lika vikt** ersätter rotationen, enligt den rättade rapporten (rotation gav samma Sharpe, 0,92 mot 0,91).
-- **Månadsslut** bestäms med börskalendrar i stället för "nästa vardag".
+Hela portföljen jun 2015 – sep 2026: **32,5 % per år, Sharpe 1,31, största nedgång −19 %**. Världsindex gav
+11,9 %, 0,84 och −17 % under samma period.
 
-## Funktioner
+### Kända svagheter
 
-Översikt med "Vad behöver jag göra idag?", tre strategikort och målportfölj · signalhistorik med status (aktiv, väntar, historisk, ogiltig) och Avanza-länkar · portfölj med köp, sälj, insättning och uttag, genomsnittsmetoden för anskaffningsvärde, realiserat och orealiserat resultat, utvecklingsgraf · papperskonto med virtuellt kapital · forskningsresultat från rapporten och nya backtester på aktuella kurser, redovisade separat · instrumentvy med produkt och signalkälla åtskilda · notiser via WorkManager ungefär varje timme.
+- **Inget är statistiskt säkerställt.** Bitcoin Trend har 81 % sannolikhet i bootstrap, inte 95 %.
+- **Avkastningen kommer till stor del från Bitcoin.** Bitcoin Trend ensam föll −64 % på produkten 2017–2019.
+- **S&P 500 Trend** är ett kraschskydd. Den har gett lägre avkastning än köp och behåll.
+- **Guldet lades till efter rapporten.** Det valdes bland sex varianter under en stark period för guld.
+- **Forward-testet började i oktober 2026.** Ett meningsfullt test tar flera år.
+
+## Appen
+
+- **Översikt:** om strategin är aktiv, trendlägen, antal köp- och säljorder, senaste och nästa analys, "Vad behöver jag göra idag?" och portföljvärde.
+- **Möjligheter:** de fyra produkterna med åtgärderna Köp, Behåll, Sälj eller Avvakta. För varje produkt visas kurs, målvikt och nuvarande vikt, order med antal andelar och kostnad, köpzon, indikatorer, exakt exitregel, historik och Avanza-länk. Produkter med en åtgärd visas först.
+- **Portfölj:** innehav, värde, total avkastning, exponering mot målet, ordrar och kontantandel. Här registrerar du köp, sälj, insättningar och uttag med genomsnittsmetoden, och kan använda ett papperskonto.
+- **Strategin** (från Översikt): regler, resultat, svagheter, signallogg och beräkningslogg, forward test och nya backtester på aktuella kurser.
+- **Notiser:** WorkManager kontrollerar ungefär en gång i timmen och skickar notis vid köp, sälj, ombalansering och datafel, utan dubbletter.
+
+### Borttaget i version 2.0
+
+Allt finns kvar i Git-taggen `v1.4.1-full` och i grenen `archive/full-platform`.
+
+- **Edge Discovery och Global Opportunities:** 8 strategifamiljer på 71 marknader, notiser och forskningshämtning från GitHub.
+- **Factor & Global Allocation:** Global trendföljning, Factor Scanner, strategijämförelse och aktieuniversum.
+- **Tillval och inställningar:** Avantis-kärnan, guld som tillval (nu en fast del), viktreglage och notisinställningar för de borttagna delarna.
+- **Skärmar:** instrumentvyn (ersatt av Möjligheter), Global-fliken och Analys-fliken (nu Strategin).
+- **Tester:** för de borttagna modulerna (Edge-paritet, Global trendföljning, faktorrangordning och Avantis).
+- **Cachefiler på telefonen:** för de borttagna funktionerna. De raderas vid första starten, medan portföljer, affärer och signaler behålls.
+
+Forskningen är flyttad till `research/archive/` för spårbarhet.
 
 ## Data
 
-Yahoo Finance chart-API (BTC-USD, ^GSPC, BITCOIN-XBT.ST, XACT-OMXS30.ST, SXR8.DE, EURSEK=X) och Binance som reserv för BTC. Båda är öppna utan nyckel men utan formellt avtal för privat bruk; om Yahoo ändrar sitt API slutar hämtningen fungera och appen visar datafel i stället för signaler.
+Yahoo Finance chart-API (BTC-USD, ^GSPC, BITCOIN-XBT.ST, XACT-OMXS30.ST, SXR8.DE, 4GLD.DE, EURSEK=X), med Binance som
+reserv för BTC. Båda är öppna utan nyckel men saknar formellt avtal. Om Yahoo ändrar sitt API visar appen datafel i
+stället för signaler.
 
-## Bygga och testa
+## Bygga, testa och installera
 
 ```bash
 export JAVA_HOME=/c/Users/fredrik/android-build/jdk
-./gradlew testDebugUnitTest   # 24 tester, bl.a. jämförelse mot Python-reglerna på 4 400 BTC-dagar och 250 månadsslut
-./gradlew assembleRelease     # app/build/outputs/apk/release/app-release.apk
+./gradlew testDebugUnitTest assembleRelease
 ```
 
-Testfixturen `app/src/test/resources/parity.json` är exporterad från `qa/swing/strategies.py`.
-
-## Begränsningar
-
-- Release-APK:n är signerad med debug-nyckeln, för egen installation.
-- Extraordinära börsstängningar (t.ex. sorgedagar i USA) finns inte i kalendrarna; de fångas av datakontrollen.
-- Android kan skjuta upp bakgrundskontrollen vid batterisparläge.
-- Nya backtester i appen handlar på stängningen dagen efter signalen (studien använde öppningen), så siffrorna skiljer något.
-- Inget i appen är ett köp- eller säljråd.
-
-## Global Opportunities (version 1.2)
-
-En separat forsknings- och skanningsmotor över 71 marknader i tio tillgångsslag: aktieindex, ädelmetaller,
-industrimetaller, energi, jordbruksråvaror, räntor, valutor, fastigheter och infrastruktur, sektorer och krypto.
-Den ändrar inte SwingEdges tre strategier eller målportföljen.
-
-**Forskning (dator, `qa/edge/`):**
-
-1. `universe.json` – marknaderna, deras underliggande serie (nivå A) och sökord för Avanza-produkter. Nya marknader läggs till här.
-2. `mapper.py` och `mapper_fix.py` – hittar köpbara produkter utan hävstång via Avanzas offentliga produktdata, läser ISIN,
-   handelsplats, status och hävstång, och godtar en Yahoo-kursserie bara om kursen stämmer med Avanzas inom 3 %.
-3. `edge.py` – testar sju strategifamiljer (SMA150, SMA200 månadsvis, tidsseriemomentum, Donchian 55/20,
-   volatilitetsstyrd trend, samt kandidaterna dipp i upptrend och relativt momentum) på varje marknad och på produkten (nivå B).
-   Validering: träning till och med 2015, test 2016–2026, blockbootstrap, Benjamini–Hochberg, Deflated Sharpe Ratio,
-   PBO (CSCV), parametervarianter, tre delperioder, kontroll av att urvalet håller på test, och ett portföljtest av kombinationer valda på träningsdata.
-4. `export_app.py` – skriver `research/edge-app.json`, som appen hämtar från GitHub.
-
-Klassning: *Validerad*, *Stark hypotes*, *Hypotes* eller *Ingen edge* (regler i appen under Global → Metod).
-Strategilämplighet, evidens och aktuellt tillfälle visas var för sig, inte som en sammanvägd poäng.
-
-**Appen:** fliken Global hämtar forskningen och skannar dagligen de underliggande serierna med samma frysta familjer
-(`edge/EdgeEngine.kt`, verifierade mot Python i `EdgeParityTest`). Notis vid ny köpsignal för vald evidensnivå.
-
-**Begränsningar:** Yahoo-terminer (t.ex. GC=F) är frontmånadskontrakt; avkastningen där är inte investerbar, därför
-krävs produkttestet. Dagens Avanza-utbud används för hela historiken (överlevnadsbias i urvalet av produkter).
-Valutapar saknar produkter utan hävstång och är bara forskning.
-
-## Factor & Global Allocation (version 1.3)
-
-Ny kategori under fliken Global, framtagen i en oberoende granskning av Börslabbets publika strategier
-(`research/borslabbet/`). Den påverkar inte SwingEdges befintliga strategier eller målportföljen.
-
-- **Strategier:** jämförelse av Global trendföljning, utökad global trendföljning, Sammansatt momentum, Trendande värde,
-  Trendande kvalitet och Trendande utdelning. För varje strategi visas regler, marknader, ombalansering,
-  historiska resultat, evidensstatus, forskningshinder och aktuella kandidater.
-- **Global Allocation:** Global trendföljning räknas i appen med nio produkter som går att köpa på Avanza
-  (indexfonder och Xetra-Gold). Fondvärdena hämtas från Avanzas publika fond-API, och guldet från Yahoo.
-  Appen visar topp 3, rangordningen för 3, 6 och 12 månader, en förhandsvisning för den pågående månaden,
-  historiken över byten och papperhandelns utveckling. När innehaven byts vid ett månadsskifte skickas en notis,
-  som kan stängas av i inställningarna. `GlobalAllocationParityTest` kontrollerar att appen ger samma innehav som
-  `gtf.py`, månad för månad.
-- **Factor Scanner:** rangordnar dagens Large och Mid Cap enligt förenklade versioner av de fyra aktiestrategierna.
-  Underlaget är Avanzas nyckeltal och kursändringar. Resultaten är forskningskandidater utan signaler, eftersom
-  historiska bokslut med publiceringsdatum saknas och strategierna därför inte kan backtestas.
-
-Evidensstatus: ingen strategi är oberoende verifierad. Global trendföljning, den utökade varianten och momentum är
-lovande men otillräckligt verifierade. Värde, kvalitet och utdelning är endast publikt dokumenterade.
-
-## Avantis-kärna (version 1.4)
-
-Tillval under Inställningar: 25, 50 eller 75 % av portföljen i Avantis Global Equity (AVWC), Global Small Cap Value (AVWS)
-och Emerging Markets Equity (AVEM), en tredjedel var. Alla tre är UCITS-ETF:er på Xetra som går att köpa på Avanza.
-SwingEdges hinkar skalas ned i samma proportion. Kärnan köps och behålls utan trendregel och ombalanseras vid
-månadsslut tillsammans med lika vikt.
-
-Det längre testet ligger i `research/borslabbet/study_avantis2.py`. Det täcker jun 2015 – sep 2026 och använder
-Dimensional-fonder som proxy. De bygger på samma metod och har korrelationen 0,996 mot Avantis-trion 2019–2026.
-
-| Portfölj (jun 2015 – sep 2026) | Avkastning/år | Sharpe | Största nedgång |
-| --- | --- | --- | --- |
-| SwingEdge med guld | 32,5 % | 1,31 | −19 % |
-| 25 % Avantis + SwingEdge med guld | 27,4 % | 1,33 | −18 % |
-| 50 % Avantis + SwingEdge med guld | 22,1 % | 1,29 | −19 % |
-| 75 % Avantis + SwingEdge med guld | 16,7 % | 1,11 | −22 % |
-
-Ingen andel ger en säkerställd förbättring (blockbootstrap p = 0,30–0,83). Avantis-kärnan ensam slog inte världsindex
-2008–2026: Sharpe 0,74 mot 0,83. Det kortare testet 2019–2026 (`study_avantis.py`) såg bättre ut, men höll inte över den
-längre perioden.
+Testerna (32 st) jämför bland annat reglerna med Python-originalet på över 4 000 BTC-dagar och över 230 S&P-månadsslut,
+och appens backtest med en oberoende Python-referens (`research/archive/borslabbet/ref_backtest.py`). APK:n hamnar i
+`app/build/outputs/apk/release/app-release.apk`. Installera den genom att öppna filen på telefonen och tillåta
+installation från okänd källa. Den är signerad med debug-nyckeln, för egen installation.

@@ -211,15 +211,12 @@ fun analyze(
         if (empty) flagged += Instrument.entries
         if (prev.alignedBtc != null && prev.alignedBtc != states.btcInvested) flagged += Instrument.XBT
         if (prev.alignedSp != null && prev.alignedSp != states.spInvested) flagged += Instrument.SXR8
-        // instrument som ombalanseras vid månadsslut: lika vikt och, om den är påslagen, Avantis-kärnan
-        val monthly = ew + (if ((sleeves[StrategyId.AVANTIS_CORE] ?: 0.0) > 0) AVANTIS_CORE else emptyList())
-        if (rebalanceDue) flagged += monthly
+        if (rebalanceDue) flagged += ew
         ords += orders(valuation, tgt, flagged, Rules.REBALANCE_TOLERANCE, market.quotes) { ins ->
             when {
                 empty -> "Bygg upp målportföljen"
                 ins == Instrument.XBT && prev.alignedBtc != states.btcInvested -> if (states.btcInvested) "Bitcoin-trenden blev positiv" else "Bitcoin-trenden blev negativ"
                 ins == Instrument.SXR8 && prev.alignedSp != states.spInvested -> if (states.spInvested) "S&P 500 över SMA200 vid månadsskiftet" else "S&P 500 under SMA200 vid månadsskiftet"
-                ins in AVANTIS_CORE -> "Månatlig ombalansering av Avantis-kärnan"
                 else -> "Månatlig ombalansering till lika vikt"
             }
         }
@@ -228,14 +225,13 @@ fun analyze(
         aligned = aligned.copy(
             alignedBtc = if (prev.alignedBtc == null || within(Instrument.XBT)) states.btcInvested else prev.alignedBtc,
             alignedSp = if (prev.alignedSp == null || within(Instrument.SXR8)) states.spInvested else prev.alignedSp,
-            rebalancedFor = if (rebalanceDue && monthly.all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
+            rebalancedFor = if (rebalanceDue && ew.all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
         )
         if (rebalanceDue) emit(SignalRecord(
             key = "rebalance:${schedule.lastRebalanceClose}", time = now.toEpochMilli(), strategy = StrategyId.EQUAL_WEIGHT,
             type = SignalType.REBALANCE, signalDate = schedule.lastRebalanceClose.toString(),
             targetWeight = sleeves[StrategyId.EQUAL_WEIGHT]!! / ew.size,
-            action = "Ombalansera ${ew.joinToString { it.shortName }} till lika vikt" +
-                if (monthly.size > ew.size) " och Avantis-kärnan till tredjedelar" else "",
+            action = "Ombalansera ${ew.joinToString { it.shortName }} till lika vikt",
             reason = "Månadsslut på Stockholmsbörsen ${schedule.lastRebalanceClose}. Handel från ${schedule.tradeDay}.",
         ))
     }

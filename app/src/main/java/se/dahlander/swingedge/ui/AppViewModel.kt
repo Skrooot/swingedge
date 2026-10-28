@@ -10,9 +10,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import se.dahlander.swingedge.core.AnalysisResult
 import se.dahlander.swingedge.core.BacktestRun
-import se.dahlander.swingedge.core.DEFAULT_SLEEVES
 import se.dahlander.swingedge.core.SignalRecord
-import se.dahlander.swingedge.core.StrategyId
 import se.dahlander.swingedge.core.Trade
 import se.dahlander.swingedge.data.MarketData
 import se.dahlander.swingedge.data.PortfolioKind
@@ -34,14 +32,7 @@ data class UiState(
     val backtests: List<BacktestRun> = emptyList(),
     val runs: List<RunLog> = emptyList(),
     val forward: List<se.dahlander.swingedge.core.ForwardEntry> = emptyList(),
-    val edge: se.dahlander.swingedge.data.EdgeRepository.Result? = null,
-    val edgeLoading: Boolean = false,
     val backtestRunning: Boolean = false,
-    val allocation: se.dahlander.swingedge.data.FactorRepository.Allocation? = null,
-    val allocationLoading: Boolean = false,
-    val scanner: se.dahlander.swingedge.data.ScannerCache? = null,
-    /** Pågående Factor Scanner-skanning: (klara, totalt). */
-    val scanProgress: Pair<Int, Int>? = null,
     val message: String? = null,
 )
 
@@ -50,53 +41,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state
 
-    private val edgeRepo = se.dahlander.swingedge.data.EdgeRepository(repo.store)
-    private val factorRepo = se.dahlander.swingedge.data.FactorRepository(repo.store, app)
-
-    fun refreshAllocation(force: Boolean) {
-        if (_state.value.allocationLoading) return
-        _state.update { it.copy(allocationLoading = true) }
-        viewModelScope.launch(Dispatchers.IO) {
-            val r = try { factorRepo.refreshAllocation(force) } catch (e: Exception) { null }
-            if (r != null && repo.store.settings.notifications && repo.store.settings.gtfNotify) Notifier.show(getApplication(), r.notify)
-            _state.update { it.copy(allocation = r ?: it.allocation, allocationLoading = false, message = if (r == null) "Fondvärdena kunde inte hämtas" else it.message) }
-        }
-    }
-
-    fun scan(force: Boolean) {
-        if (_state.value.scanProgress != null) return
-        _state.update { it.copy(scanProgress = 0 to 1) }
-        viewModelScope.launch(Dispatchers.IO) {
-            val r = try { factorRepo.scan(force) { d, n -> _state.update { it.copy(scanProgress = d to n) } } } catch (e: Exception) { null }
-            _state.update { it.copy(scanner = r ?: it.scanner, scanProgress = null, message = if (r == null || r.stocks.isEmpty()) "Skanningen misslyckades" else it.message) }
-        }
-    }
-
-    fun nextRebalance() = factorRepo.nextRebalance()
-
-    fun setGtfNotify(on: Boolean) {
-        repo.store.settings = repo.store.settings.copy(gtfNotify = on)
-        reload(null)
-    }
-
-    fun refreshEdge(force: Boolean) {
-        if (_state.value.edgeLoading) return
-        _state.update { it.copy(edgeLoading = true) }
-        viewModelScope.launch(Dispatchers.IO) {
-            val r = try { edgeRepo.refresh(force) } catch (e: Exception) { null }
-            if (r != null && repo.store.settings.notifications && repo.store.settings.edgeNotify) Notifier.show(getApplication(), r.notify)
-            _state.update { it.copy(edge = r ?: it.edge, edgeLoading = false, message = if (r == null) "Skanningen misslyckades" else it.message) }
-        }
-    }
-
-    fun setEdgeNotify(on: Boolean, min: String) {
-        repo.store.settings = repo.store.settings.copy(edgeNotify = on, edgeMinEvidence = min)
-        reload(null)
-    }
-
     init {
-        viewModelScope.launch(Dispatchers.IO) { _state.update { it.copy(edge = edgeRepo.cached()) }; refreshEdge(false) }
-        viewModelScope.launch(Dispatchers.IO) { _state.update { it.copy(allocation = factorRepo.cachedAllocation(), scanner = factorRepo.cachedScanner().takeIf { c -> c.at > 0 }) } }
         // Visa sparade kurser direkt och hämta nya i bakgrunden
         viewModelScope.launch(Dispatchers.IO) {
             // Utan sparade kurser finns inget att räkna på ännu; annars skulle det loggas som ett datafel
@@ -143,23 +88,6 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     fun setActive(kind: PortfolioKind) {
         repo.store.settings = repo.store.settings.copy(active = kind)
-        recompute()
-    }
-
-    fun setSleeves(s: Map<StrategyId, Double>) {
-        repo.store.settings = repo.store.settings.copy(sleeves = s)
-        recompute()
-    }
-
-    fun resetSleeves() = setSleeves(DEFAULT_SLEEVES)
-
-    fun setAvantisShare(v: Double) {
-        repo.store.settings = repo.store.settings.copy(avantisShare = v)
-        recompute()
-    }
-
-    fun setIncludeGold(on: Boolean) {
-        repo.store.settings = repo.store.settings.copy(includeGold = on)
         recompute()
     }
 

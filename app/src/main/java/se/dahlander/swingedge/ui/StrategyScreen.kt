@@ -22,12 +22,25 @@ import se.dahlander.swingedge.core.num
 import se.dahlander.swingedge.core.pct
 
 @Composable
-fun AnalysisScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, openInstruments: () -> Unit = {}) {
+fun StrategyScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, openSignals: () -> Unit) {
     LazyColumn(Modifier.padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
-            androidx.compose.material3.OutlinedButton(onClick = openInstruments) { Text("Instrument och kursdiagram") }
-            Text("Forskningsrapportens resultat", style = MaterialTheme.typography.titleLarge)
-            Text("Historiska backtester från rapporten Swingstrategier via Avanza, 27 okt 2026. Det här är inte din portföljs resultat.",
+            SectionCard(se.dahlander.swingedge.core.Strategy.NAME) {
+                Text("Fryst strategi. Reglerna ändras bara efter en ny validering.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                se.dahlander.swingedge.core.Strategy.RULES.forEach { Text("• $it", style = MaterialTheme.typography.bodyMedium) }
+                androidx.compose.material3.OutlinedButton(onClick = openSignals) { Text("Signallogg och beräkningslogg") }
+            }
+        }
+        item {
+            SectionCard("Hela portföljen, historiskt") {
+                ResearchTable(se.dahlander.swingedge.core.Strategy.RESULTS)
+                Text("Kända svagheter", style = MaterialTheme.typography.titleSmall)
+                se.dahlander.swingedge.core.Strategy.WEAKNESSES.forEach { Text("• $it", style = MaterialTheme.typography.bodySmall) }
+            }
+        }
+        item {
+            Text("Delarna var för sig", style = MaterialTheme.typography.titleLarge)
+            Text("Historiska backtester. Det här är inte din portföljs resultat.",
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)
         }
         items(RESEARCH) { res ->
@@ -53,7 +66,7 @@ fun AnalysisScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, openIns
                         (e.entryPrice?.let { " · ingång ${num(it, 2)} ${e.instrument.currency}" } ?: " · väntar på första handelsbara kurs") +
                         (e.exitReason?.let { " · $it" } ?: "") + (r?.let { " · ${pct(it)}" } ?: ""), style = MaterialTheme.typography.bodySmall)
                 }
-                Text(if (done.size < 20) "För få avslutade affärer för slutsatser. Bitcoin Trend ger cirka 4 affärer per år och S&P 500 Trend färre, så ett meningsfullt forward test tar flera år."
+                Text(if (done.size < 20) "För få avslutade affärer för slutsatser. Bitcoin Trend ger cirka 3–4 affärer per år och S&P 500 Trend under 1, så ett meningsfullt forward test tar flera år."
                     else "Jämför med backtestets antaganden: affär på stängningen dagen efter signalen.",
                     style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
             }

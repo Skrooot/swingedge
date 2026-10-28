@@ -101,12 +101,11 @@ fun target(states: StrategyStates, sleeves: Map<StrategyId, Double> = DEFAULT_SL
     val btc = sleeves.getValue(StrategyId.BTC_TREND)
     val ewSleeve = sleeves.getValue(StrategyId.EQUAL_WEIGHT)
     val sp = sleeves.getValue(StrategyId.SP500_TREND)
-    val core = sleeves[StrategyId.AVANTIS_CORE] ?: 0.0
     val per = mapOf(
         StrategyId.BTC_TREND to if (states.btcInvested) mapOf(Instrument.XBT to btc) else emptyMap(),
         StrategyId.EQUAL_WEIGHT to ew.associateWith { ewSleeve / ew.size },
         StrategyId.SP500_TREND to if (states.spInvested) mapOf(Instrument.SXR8 to sp) else emptyMap(),
-    ) + (if (core > 0) mapOf(StrategyId.AVANTIS_CORE to AVANTIS_CORE.associateWith { core / AVANTIS_CORE.size }) else emptyMap())
+    )
     val total = Instrument.entries.associateWith { ins -> per.values.sumOf { it[ins] ?: 0.0 } }
     return Target(per, total, 1.0 - total.values.sum())
 }

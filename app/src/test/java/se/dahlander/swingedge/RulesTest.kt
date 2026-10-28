@@ -159,27 +159,27 @@ class RulesTest {
     }
 
     // ---------- Portfölj ----------
+    // Fryst strategi: SwingEdge med guld, 20/40/40 med lika vikt på fyra produkter
     @Test fun combinedWeightsWhenBothTrendsOn() {
         val t = target(StrategyStates(btcInvested = true, spInvested = true))
-        assertEquals(0.5333, t.total.getValue(Instrument.SXR8), 1e-4)
-        assertEquals(0.3333, t.total.getValue(Instrument.XBT), 1e-4)
-        assertEquals(0.1333, t.total.getValue(Instrument.XACT), 1e-4)
-        assertEquals(0.0, t.cash, 1e-9)
-    }
-
-    @Test fun goldOptionSplitsEqualWeightInFour() {
-        val t = target(StrategyStates(btcInvested = true, spInvested = true), DEFAULT_SLEEVES, equalWeightInstruments(true))
         assertEquals(0.5, t.total.getValue(Instrument.SXR8), 1e-9)
         assertEquals(0.3, t.total.getValue(Instrument.XBT), 1e-9)
         assertEquals(0.1, t.total.getValue(Instrument.XACT), 1e-9)
         assertEquals(0.1, t.total.getValue(Instrument.GOLD), 1e-9)
-        assertEquals(0.0, target(StrategyStates(true, true)).total.getValue(Instrument.GOLD), 1e-12)
+        assertEquals(0.0, t.cash, 1e-9)
+    }
+
+    @Test fun frozenStrategyHasOnlyItsFourProducts() {
+        assertEquals(setOf(Instrument.XBT, Instrument.XACT, Instrument.SXR8, Instrument.GOLD), Instrument.entries.toSet())
+        assertEquals(listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT, Instrument.GOLD), EW_BASE)
+        assertEquals(mapOf(StrategyId.BTC_TREND to 0.2, StrategyId.EQUAL_WEIGHT to 0.4, StrategyId.SP500_TREND to 0.4), DEFAULT_SLEEVES)
     }
 
     @Test fun trendOffGoesToCashNotOtherInstruments() {
         val t = target(StrategyStates(btcInvested = false, spInvested = false))
-        assertEquals(0.1333, t.total.getValue(Instrument.SXR8), 1e-4)
-        assertEquals(0.1333, t.total.getValue(Instrument.XBT), 1e-4)
+        assertEquals(0.1, t.total.getValue(Instrument.SXR8), 1e-9)
+        assertEquals(0.1, t.total.getValue(Instrument.XBT), 1e-9)
+        assertEquals(0.1, t.total.getValue(Instrument.GOLD), 1e-9)
         assertEquals(0.6, t.cash, 1e-9)
     }
 
@@ -187,15 +187,16 @@ class RulesTest {
         Instrument.XBT to Quote(Instrument.XBT, 100.0, 100.0, Instant.EPOCH, 1.0),
         Instrument.XACT to Quote(Instrument.XACT, 100.0, 100.0, Instant.EPOCH, 1.0),
         Instrument.SXR8 to Quote(Instrument.SXR8, 10.0, 10.0, Instant.EPOCH, 10.0),
+        Instrument.GOLD to Quote(Instrument.GOLD, 10.0, 10.0, Instant.EPOCH, 10.0),
     )
 
     @Test fun sameInstrumentInTwoStrategiesGivesOneOrder() {
         val trades = listOf(Trade("1", "2026-10-01", Side.DEPOSIT, price = 100000.0))
         val v = value(ledger(trades), quotes())
         val o = orders(v, target(StrategyStates(true, true)), Instrument.entries.toSet(), 0.02) { "x" }
-        assertEquals(3, o.size)
+        assertEquals(4, o.size)
         assertEquals(1, o.count { it.instrument == Instrument.SXR8 })
-        assertEquals(53333.0, o.first { it.instrument == Instrument.SXR8 }.amountSek, 1.0)
+        assertEquals(50000.0, o.first { it.instrument == Instrument.SXR8 }.amountSek, 1.0)
     }
 
     @Test fun averageCostAndRealizedResult() {
@@ -224,13 +225,14 @@ class RulesTest {
         val prev = EngineState(btcInvested = true, btcDate = "2026-10-31", spInvested = true, spDate = "2026-10-30", alignedBtc = true, alignedSp = true, rebalancedFor = "2026-09-30")
         val r = analyze(now, MarketSnapshot(btc, sp, quotes()), trades, prev)
         assertTrue(r.rebalanceDue)
-        assertEquals(setOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT), r.orders.map { it.instrument }.toSet())
+        assertEquals(setOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT, Instrument.GOLD), r.orders.map { it.instrument }.toSet())
         assertEquals("2026-09-30", r.state.rebalancedFor)
         // efter ombalansering inom toleransen markeras månaden som klar
         val aligned = listOf(Trade("1", "2026-10-01", Side.DEPOSIT, price = 100000.0),
-            Trade("2", "2026-11-02", Side.BUY, Instrument.XACT, 133.33, 100.0),
-            Trade("3", "2026-11-02", Side.BUY, Instrument.XBT, 333.33, 100.0),
-            Trade("4", "2026-11-02", Side.BUY, Instrument.SXR8, 533.33, 10.0, fxToSek = 10.0))
+            Trade("2", "2026-11-02", Side.BUY, Instrument.XACT, 100.0, 100.0),
+            Trade("3", "2026-11-02", Side.BUY, Instrument.XBT, 300.0, 100.0),
+            Trade("4", "2026-11-02", Side.BUY, Instrument.SXR8, 500.0, 10.0, fxToSek = 10.0),
+            Trade("5", "2026-11-02", Side.BUY, Instrument.GOLD, 100.0, 10.0, fxToSek = 10.0))
         val r2 = analyze(now, MarketSnapshot(btc, sp, quotes()), aligned, r.state)
         assertTrue(r2.orders.isEmpty())
         assertEquals("2026-10-30", r2.state.rebalancedFor)

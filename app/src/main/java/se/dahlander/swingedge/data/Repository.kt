@@ -47,7 +47,7 @@ class Repository(context: Context) {
         }
         val kind = settings.active
         val prev = store.engine(kind)
-        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, se.dahlander.swingedge.core.effectiveSleeves(settings.sleeves, settings.avantisShare), se.dahlander.swingedge.core.equalWeightInstruments(settings.includeGold))
+        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, se.dahlander.swingedge.core.DEFAULT_SLEEVES, se.dahlander.swingedge.core.EW_BASE)
         store.saveEngine(kind, result.state)
         store.appendSignals(kind, result.newSignals)
         // forward test: bara signaler som skapas nu, följda med produktens kurser
@@ -88,7 +88,7 @@ class Repository(context: Context) {
     /** Valfri portfölj räknad mot senaste kurser, utan att ändra den aktiva portföljens tillstånd. */
     fun preview(kind: PortfolioKind, now: Instant = Instant.now()): AnalysisResult? {
         val cache = store.cache ?: return null
-        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), se.dahlander.swingedge.core.effectiveSleeves(store.settings.sleeves, store.settings.avantisShare), se.dahlander.swingedge.core.equalWeightInstruments(store.settings.includeGold))
+        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), se.dahlander.swingedge.core.DEFAULT_SLEEVES, se.dahlander.swingedge.core.EW_BASE)
     }
 
     /** Nytt backtest med de frysta reglerna på hela den historik som Yahoo har. */
@@ -97,6 +97,7 @@ class Repository(context: Context) {
         fun load(s: String) = try { MarketData.yahoo(s, null).bars() } catch (e: Exception) { errors += "$s: ${e.message}"; emptyList() }
         val btc = load("BTC-USD"); val xbt = load(Instrument.XBT.yahoo); val sp = load("^GSPC")
         val sxr8 = load(Instrument.SXR8.yahoo); val xact = load(Instrument.XACT.yahoo); val omx = load("^OMX"); val eursek = load("EURSEK=X")
+        val gold = load(Instrument.GOLD.yahoo)
         val lines = mutableListOf<BacktestLine>()
         if (btc.isNotEmpty() && xbt.isNotEmpty()) {
             val (s, b) = Backtests.btcOnProduct(btc, xbt)
@@ -110,11 +111,12 @@ class Repository(context: Context) {
                 metrics(s, from)?.let { lines += BacktestLine("S&P 500 Trend på index, från ${from.year}", it, metrics(b, from), "Köp och behåll", "Index utan utdelning som proxy för SXR8") }
             }
         }
-        if (xact.isNotEmpty() && omx.isNotEmpty() && sxr8.isNotEmpty() && eursek.isNotEmpty() && xbt.isNotEmpty()) {
+        if (xact.isNotEmpty() && omx.isNotEmpty() && sxr8.isNotEmpty() && eursek.isNotEmpty() && xbt.isNotEmpty() && gold.isNotEmpty()) {
             val xactFixed = repairGaps(xact, omx)
-            val ew = Backtests.equalWeight(listOf(xactFixed, toSek(sxr8, eursek), xbt), listOf(Backtests.COST_SE, Backtests.COST_FOREIGN, Backtests.COST_CRYPTO))
+            val ew = Backtests.equalWeight(listOf(xactFixed, toSek(sxr8, eursek), xbt, toSek(gold, eursek)),
+                listOf(Backtests.COST_SE, Backtests.COST_FOREIGN, Backtests.COST_CRYPTO, Backtests.COST_FOREIGN))
             for (from in listOf<LocalDate?>(null, LocalDate.of(2021, 1, 1))) {
-                metrics(ew, from)?.let { lines += BacktestLine("Lika vikt, tre produkter i SEK" + if (from != null) ", från 2021" else ", hela historiken", it, null, "", "Ombalansering vid Stockholmsbörsens månadsslut") }
+                metrics(ew, from)?.let { lines += BacktestLine("Lika vikt, fyra produkter i SEK" + if (from != null) ", från 2021" else ", hela historiken", it, null, "", "Ombalansering vid Stockholmsbörsens månadsslut") }
             }
         }
         val run = BacktestRun(System.currentTimeMillis(), listOf(btc, sp, xbt).mapNotNull { it.lastOrNull()?.date }.minOrNull()?.toString() ?: "", lines, errors)

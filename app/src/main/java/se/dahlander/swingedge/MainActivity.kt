@@ -14,8 +14,6 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Insights
-import androidx.compose.material.icons.filled.Public
-import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -43,25 +41,24 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.currentBackStackEntryAsState
 import androidx.navigation.compose.rememberNavController
-import se.dahlander.swingedge.ui.AnalysisScreen
 import se.dahlander.swingedge.ui.AppViewModel
 import se.dahlander.swingedge.ui.DashboardScreen
-import se.dahlander.swingedge.ui.GlobalScreen
-import se.dahlander.swingedge.ui.InstrumentsScreen
+import se.dahlander.swingedge.ui.OpportunitiesScreen
 import se.dahlander.swingedge.ui.PortfolioScreen
 import se.dahlander.swingedge.ui.SettingsScreen
 import se.dahlander.swingedge.ui.SignalsScreen
+import se.dahlander.swingedge.ui.StrategyScreen
 import se.dahlander.swingedge.ui.SwingEdgeTheme
 
 private data class Tab(val route: String, val label: String, val icon: ImageVector)
 
 private val TABS = listOf(
     Tab("dashboard", "Översikt", Icons.Filled.Dashboard),
-    Tab("global", "Global", Icons.Filled.Public),
-    Tab("signals", "Signaler", Icons.Filled.NotificationsActive),
+    Tab("opportunities", "Möjligheter", Icons.Filled.Insights),
     Tab("portfolio", "Portfölj", Icons.Filled.AccountBalanceWallet),
-    Tab("analysis", "Analys", Icons.Filled.Insights),
 )
+/** Undersidor (inga flikar) och deras rubriker. */
+private val SUB = mapOf("strategy" to "Strategin", "signals" to "Signallogg", "settings" to "Inställningar")
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -85,7 +82,11 @@ private fun App(startTab: String?) {
     val requestNotifications = { if (Build.VERSION.SDK_INT >= 33) permission.launch(Manifest.permission.POST_NOTIFICATIONS) }
     LaunchedEffect(Unit) {
         if (s.settings.notifications) requestNotifications()
-        if (startTab != null && TABS.any { it.route == startTab }) nav.navigate(startTab)
+        // notiser öppnar signalloggen; okända flikar från äldre notiser ignoreras
+        when {
+            startTab == "signals" -> nav.navigate("signals")
+            startTab != null && TABS.any { it.route == startTab } -> nav.navigate(startTab)
+        }
     }
     LaunchedEffect(s.message) { s.message?.let { snack.showSnackbar(it); vm.dismissMessage() } }
 
@@ -93,7 +94,7 @@ private fun App(startTab: String?) {
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text(TABS.firstOrNull { it.route == route }?.label?.let { if (it == "Översikt") "SwingEdge" else if (it == "Global") "Global Opportunities" else it } ?: if (route == "instruments") "Instrument" else "Inställningar") },
+                    title = { Text(SUB[route] ?: TABS.firstOrNull { it.route == route }?.label?.takeIf { it != "Översikt" } ?: "SwingEdge") },
                     actions = {
                         IconButton(onClick = { vm.refresh() }, enabled = !s.loading) { Icon(Icons.Filled.Refresh, contentDescription = "Uppdatera nu") }
                         IconButton(onClick = { nav.navigate("settings") { launchSingleTop = true } }) { Icon(Icons.Filled.Settings, contentDescription = "Inställningar") }
@@ -108,8 +109,8 @@ private fun App(startTab: String?) {
                     NavigationBarItem(
                         selected = route == t.route,
                         onClick = {
-                            // Inställningar är ingen flik: stäng den först, annars sparas den i flikens tillstånd och kommer tillbaka
-                            if (route == "settings" || route == "instruments") nav.popBackStack()
+                            // undersidor är inga flikar: stäng dem först, annars sparas de i flikens tillstånd
+                            while (nav.currentDestination?.route in SUB.keys) { if (!nav.popBackStack()) break }
                             nav.navigate(t.route) { popUpTo(nav.graph.findStartDestination().id) { saveState = true }; launchSingleTop = true; restoreState = true }
                         },
                         icon = { Icon(t.icon, contentDescription = null) },
@@ -121,12 +122,11 @@ private fun App(startTab: String?) {
         snackbarHost = { SnackbarHost(snack) },
     ) { padding ->
         NavHost(nav, startDestination = "dashboard") {
-            composable("dashboard") { DashboardScreen(s, padding) }
-            composable("signals") { SignalsScreen(s, padding) }
+            composable("dashboard") { DashboardScreen(s, padding) { nav.navigate("strategy") { launchSingleTop = true } } }
+            composable("opportunities") { OpportunitiesScreen(s, padding) }
             composable("portfolio") { PortfolioScreen(s, vm, padding) }
-            composable("global") { GlobalScreen(s, vm, padding) }
-            composable("analysis") { AnalysisScreen(s, vm, padding) { nav.navigate("instruments") { launchSingleTop = true } } }
-            composable("instruments") { InstrumentsScreen(s, padding) }
+            composable("strategy") { StrategyScreen(s, vm, padding) { nav.navigate("signals") { launchSingleTop = true } } }
+            composable("signals") { SignalsScreen(s, padding) }
             composable("settings") { SettingsScreen(s, vm, padding, requestNotifications) }
         }
     }

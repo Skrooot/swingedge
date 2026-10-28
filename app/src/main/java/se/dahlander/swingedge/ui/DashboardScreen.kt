@@ -77,7 +77,7 @@ private fun PortfolioHeader(s: UiState) {
         KeyValue("Senaste analys", if (r == null) "–" else fmtTime(r.time))
         KeyValue("Nästa planerade analys", fmtTime(nextPlannedAnalysis(java.time.Instant.now())))
         if (s.settings.active == PortfolioKind.PAPER) Text("Papperskonto med virtuellt kapital.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
-        if (r?.customSleeves == true) Text("Egna vikter: avviker från den testade modellen 20/40/40.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+        if (r?.customSleeves == true) Text("Avviker från den testade modellen (20/40/40 utan guld och Avantis): egna vikter, guld eller Avantis-kärna.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
     }
 }
 

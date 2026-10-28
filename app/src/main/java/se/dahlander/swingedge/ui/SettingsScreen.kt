@@ -1,0 +1,72 @@
+package se.dahlander.swingedge.ui
+
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
+import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.lazy.LazyColumn
+import androidx.compose.material3.Button
+import androidx.compose.material3.MaterialTheme
+import androidx.compose.material3.OutlinedButton
+import androidx.compose.material3.Slider
+import androidx.compose.material3.Switch
+import androidx.compose.material3.Text
+import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
+import androidx.compose.ui.Alignment
+import androidx.compose.ui.Modifier
+import androidx.compose.ui.unit.dp
+import se.dahlander.swingedge.core.DEFAULT_SLEEVES
+import se.dahlander.swingedge.core.StrategyId
+import se.dahlander.swingedge.core.pct
+import kotlin.math.roundToInt
+
+@Composable
+fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, requestNotifications: () -> Unit) {
+    var draft by remember(s.settings.sleeves) { mutableStateOf(s.settings.sleeves) }
+    val sum = draft.values.sum()
+    LazyColumn(Modifier.padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
+        item {
+            SectionCard("Portföljdelarnas vikter") {
+                Text("Testad modell: Bitcoin Trend 20 %, Lika vikt 40 %, S&P 500 Trend 40 %. Andra vikter är avvikelser från det som testades och märks så i appen.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+                StrategyId.entries.forEach { id ->
+                    Column {
+                        Text("${id.displayName}: ${pct(draft[id] ?: 0.0, 0)}")
+                        Slider(value = (draft[id] ?: 0.0).toFloat(), onValueChange = { v -> draft = draft + (id to (v * 20).roundToInt() / 20.0) }, valueRange = 0f..1f, steps = 19)
+                    }
+                }
+                Text("Summa ${pct(sum, 0)}${if (kotlin.math.abs(sum - 1.0) > 1e-6) ", måste vara 100 %" else ""}",
+                    color = if (kotlin.math.abs(sum - 1.0) > 1e-6) MaterialTheme.colorScheme.error else MaterialTheme.colorScheme.onSurface)
+                if (draft != DEFAULT_SLEEVES) Text("Avviker från den testade modellen.", color = toneColor(Tone.PENDING), style = MaterialTheme.typography.bodySmall)
+                Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    Button(onClick = { vm.setSleeves(draft) }, enabled = kotlin.math.abs(sum - 1.0) < 1e-6 && draft != s.settings.sleeves) { Text("Spara") }
+                    OutlinedButton(onClick = { vm.resetSleeves() }) { Text("Återställ 20/40/40") }
+                }
+            }
+        }
+        item {
+            SectionCard("Notiser") {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Notiser om signaler, ombalansering och datafel", Modifier.weight(1f))
+                    Switch(checked = s.settings.notifications, onCheckedChange = { vm.setNotifications(it); if (it) requestNotifications() })
+                }
+                Text("Appen kontrollerar ungefär en gång i timmen, även när den är stängd. Android kan skjuta upp kontrollen när batteriet sparas.",
+                    style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+            }
+        }
+        item {
+            SectionCard("Om appen") {
+                Text("SwingEdge räknar reglerna från rapporten Swingstrategier via Avanza direkt på telefonen. Kurser hämtas från Yahoo Finance, med Binance som reserv för Bitcoin. Alla innehav, affärer och signaler sparas bara på den här telefonen.",
+                    style = MaterialTheme.typography.bodySmall)
+                Text("Appen lägger inga ordrar. Avanza har inget officiellt API för privatkunders orderläggning, så ordrar läggs manuellt i Avanza och registreras sedan här.",
+                    style = MaterialTheme.typography.bodySmall)
+                Text("Inget i appen är ett köp- eller säljråd.", style = MaterialTheme.typography.bodySmall)
+            }
+        }
+    }
+}

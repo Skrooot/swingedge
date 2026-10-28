@@ -50,6 +50,18 @@ fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, request
             }
         }
         item {
+            SectionCard("Guld i lika vikt") {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Lägg till Xetra-Gold som fjärde instrument", Modifier.weight(1f))
+                    Switch(checked = s.settings.includeGold, onCheckedChange = { vm.setIncludeGold(it) })
+                }
+                Text("Lika-vikt-delen delas då på fyra: XACT OMXS30, SXR8, Bitcoin Tracker One och Xetra-Gold, 10 % var av portföljen med standardvikter.",
+                    style = MaterialTheme.typography.bodySmall)
+                Text("Tillägg efter rapporten. I efterhandstestet maj 2015 – okt 2026 steg Sharpe för lika vikt från 1,23 till 1,34 och största nedgången minskade från −41 % till −32 %. Guld valdes bland sex testade varianter under en stark period för guld, så resultatet är osäkrare än rapportens.",
+                    style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+            }
+        }
+        item {
             SectionCard("Notiser") {
                 Row(verticalAlignment = Alignment.CenterVertically) {
                     Text("Notiser om signaler, ombalansering och datafel", Modifier.weight(1f))

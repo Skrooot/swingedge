@@ -29,8 +29,18 @@ enum class Instrument(
         Exchange.XETR, "EUR", "S&P 500, ackumulerande indexfond. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
         "SXR8.DE",
         "https://www.avanza.se/borshandlade-produkter/etf-torg/om-fonden.html/1063851/ishares-core-s-p-500-ucits-etf-usd-acc",
+    ),
+    GOLD(
+        "Xetra-Gold ETC", "Xetra-Gold", "4GLD", "DE000A0S9GB0",
+        Exchange.XETR, "EUR", "Fysiskt guld, ETC från Deutsche Börse Commodities. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
+        "4GLD.DE",
+        "https://www.avanza.se/borshandlade-produkter/certifikat-torg/om-certifikatet.html/1077331/xetra-gold-etc",
     );
 }
+
+/** Lika vikt enligt rapporten. Guld är ett tillval som testades efter rapporten (study3.py, 28 okt 2026). */
+val EW_BASE = listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT)
+fun equalWeightInstruments(includeGold: Boolean) = if (includeGold) EW_BASE + Instrument.GOLD else EW_BASE
 
 /** Signalkällor. Priset på signalkällan är aldrig priset på produkten. */
 enum class SignalSource(val displayName: String, val yahoo: String, val currency: String) {

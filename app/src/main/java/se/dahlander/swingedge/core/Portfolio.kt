@@ -97,13 +97,13 @@ data class StrategyStates(val btcInvested: Boolean, val spInvested: Boolean)
 /** Målvikt per instrument och per strategi. En avstängd trendstrategi ger kontanter, inte andra instrument. */
 data class Target(val perStrategy: Map<StrategyId, Map<Instrument, Double>>, val total: Map<Instrument, Double>, val cash: Double)
 
-fun target(states: StrategyStates, sleeves: Map<StrategyId, Double> = DEFAULT_SLEEVES): Target {
+fun target(states: StrategyStates, sleeves: Map<StrategyId, Double> = DEFAULT_SLEEVES, ew: List<Instrument> = EW_BASE): Target {
     val btc = sleeves.getValue(StrategyId.BTC_TREND)
-    val ew = sleeves.getValue(StrategyId.EQUAL_WEIGHT)
+    val ewSleeve = sleeves.getValue(StrategyId.EQUAL_WEIGHT)
     val sp = sleeves.getValue(StrategyId.SP500_TREND)
     val per = mapOf(
         StrategyId.BTC_TREND to if (states.btcInvested) mapOf(Instrument.XBT to btc) else emptyMap(),
-        StrategyId.EQUAL_WEIGHT to listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT).associateWith { ew / 3 },
+        StrategyId.EQUAL_WEIGHT to ew.associateWith { ewSleeve / ew.size },
         StrategyId.SP500_TREND to if (states.spInvested) mapOf(Instrument.SXR8 to sp) else emptyMap(),
     )
     val total = Instrument.entries.associateWith { ins -> per.values.sumOf { it[ins] ?: 0.0 } }

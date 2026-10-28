@@ -39,7 +39,11 @@ val RESEARCH = listOf(
         "Yahoo Finance, produkter i SEK. XACT-luckor 2013–2019 fyllda med OMXS30-indexets dagsrörelser.",
         ResearchRow("Lika vikt", 0.215, 0.91, -0.362, 1.35, null, null, 1.0),
         ResearchRow("Köp och behåll Bitcoin Tracker One", 0.220, 0.63, -0.749, 0.95, null, null, 1.0),
-        listOf(ResearchRow("Rotation, 2 bästa på 12 mån (experimentell)", 0.242, 0.92, -0.308, 1.38, 2.4, null, 0.87)),
+        listOf(
+            ResearchRow("Rotation, 2 bästa på 12 mån (experimentell)", 0.242, 0.92, -0.308, 1.38, 2.4, null, 0.87),
+            ResearchRow("Tillval: lika vikt med guld, efterhandstest 2021–2026", 0.220, 1.13, -0.247, null, null, null, 1.0),
+            ResearchRow("Utan guld, samma metod 2021–2026", 0.222, 0.94, -0.355, null, null, null, 1.0),
+        ),
         "Rotation gav samma Sharpe som lika vikt efter datarättningen, så lika vikt används.",
     ),
     ResearchResult(

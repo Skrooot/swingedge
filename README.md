@@ -12,6 +12,11 @@ ingen server, inga API-nycklar. Appen lägger inga ordrar; ordrar läggs manuell
 | Lika vikt | 40 % | En tredjedel var. Ombalansering vid Stockholmsbörsens sista handelsdag i månaden, handel nästa handelsdag, tolerans 2 procentenheter. | XACT OMXS30, SXR8, Bitcoin Tracker One |
 | S&P 500 Trend | 40 % | Beslut vid NYSE:s sista handelsdag i månaden: investerad om S&P 500 > SMA200. Oförändrat mellan kontrollerna. | SXR8, IE00B5BMR087 |
 
+**Tillval sedan version 1.1:** Xetra-Gold (4GLD, DE000A0S9GB0) som fjärde instrument i lika vikt, avstängt som standard
+(Inställningar → Guld i lika vikt). Med standardvikter blir målet då SXR8 50 %, Bitcoin Tracker One 30 %, XACT 10 % och
+guld 10 %. Testat efter rapporten i `qa/swing/study3.py`: Sharpe för lika vikt 1,23 → 1,34 och största nedgång −41 % → −32 %
+(maj 2015 – okt 2026). Guld valdes bland sex varianter under en stark period för guld, så resultatet är osäkrare än rapportens.
+
 En avstängd trendstrategi ger kontanter. Vikter för samma instrument summeras, och det blir en order per instrument.
 
 ## Tidsregler och datakontroll
@@ -40,7 +45,7 @@ Yahoo Finance chart-API (BTC-USD, ^GSPC, BITCOIN-XBT.ST, XACT-OMXS30.ST, SXR8.DE
 
 ```bash
 export JAVA_HOME=/c/Users/fredrik/android-build/jdk
-./gradlew testDebugUnitTest   # 23 tester, bl.a. jämförelse mot Python-reglerna på 4 400 BTC-dagar och 250 månadsslut
+./gradlew testDebugUnitTest   # 24 tester, bl.a. jämförelse mot Python-reglerna på 4 400 BTC-dagar och 250 månadsslut
 ./gradlew assembleRelease     # app/build/outputs/apk/release/app-release.apk
 ```
 

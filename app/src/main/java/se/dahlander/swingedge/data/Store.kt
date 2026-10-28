@@ -23,6 +23,8 @@ data class Settings(
     val active: PortfolioKind = PortfolioKind.REAL,
     val notifications: Boolean = true,
     val experimentalRotation: Boolean = false,
+    /** Tillval: Xetra-Gold som fjärde instrument i lika vikt (testat efter rapporten). */
+    val includeGold: Boolean = false,
 )
 
 /** Ett dagligt värde per portfölj, för utvecklingsgrafen. */

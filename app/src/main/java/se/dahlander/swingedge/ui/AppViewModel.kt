@@ -98,6 +98,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     fun resetSleeves() = setSleeves(DEFAULT_SLEEVES)
 
+    fun setIncludeGold(on: Boolean) {
+        repo.store.settings = repo.store.settings.copy(includeGold = on)
+        recompute()
+    }
+
     fun setNotifications(on: Boolean) {
         repo.store.settings = repo.store.settings.copy(notifications = on)
         reload(null)

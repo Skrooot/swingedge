@@ -167,6 +167,15 @@ class RulesTest {
         assertEquals(0.0, t.cash, 1e-9)
     }
 
+    @Test fun goldOptionSplitsEqualWeightInFour() {
+        val t = target(StrategyStates(btcInvested = true, spInvested = true), DEFAULT_SLEEVES, equalWeightInstruments(true))
+        assertEquals(0.5, t.total.getValue(Instrument.SXR8), 1e-9)
+        assertEquals(0.3, t.total.getValue(Instrument.XBT), 1e-9)
+        assertEquals(0.1, t.total.getValue(Instrument.XACT), 1e-9)
+        assertEquals(0.1, t.total.getValue(Instrument.GOLD), 1e-9)
+        assertEquals(0.0, target(StrategyStates(true, true)).total.getValue(Instrument.GOLD), 1e-12)
+    }
+
     @Test fun trendOffGoesToCashNotOtherInstruments() {
         val t = target(StrategyStates(btcInvested = false, spInvested = false))
         assertEquals(0.1333, t.total.getValue(Instrument.SXR8), 1e-4)

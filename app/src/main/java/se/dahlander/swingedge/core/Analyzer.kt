@@ -99,6 +99,7 @@ fun analyze(
     trades: List<Trade>,
     prev: EngineState,
     sleeves: Map<StrategyId, Double> = DEFAULT_SLEEVES,
+    ew: List<Instrument> = EW_BASE,
 ): AnalysisResult {
     val btcBars = completedCryptoBars(market.btc, now)
     val spBars = completedExchangeBars(market.sp500, Exchange.NYSE, now)
@@ -192,7 +193,7 @@ fun analyze(
 
     // ---- Målportfölj och ordrar ----
     val states = if (btcInvested != null && spInvested != null) StrategyStates(btcInvested, spInvested) else null
-    val tgt = states?.let { target(it, sleeves) }
+    val tgt = states?.let { target(it, sleeves, ew) }
     val valuation = value(ledger(trades), market.quotes)
     val schedule = rebalanceSchedule(now)
     val todayXsto = now.atZone(STOCKHOLM).toLocalDate()
@@ -208,7 +209,7 @@ fun analyze(
         if (empty) flagged += Instrument.entries
         if (prev.alignedBtc != null && prev.alignedBtc != states.btcInvested) flagged += Instrument.XBT
         if (prev.alignedSp != null && prev.alignedSp != states.spInvested) flagged += Instrument.SXR8
-        if (rebalanceDue) flagged += listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT)
+        if (rebalanceDue) flagged += ew
         ords += orders(valuation, tgt, flagged, Rules.REBALANCE_TOLERANCE) { ins ->
             when {
                 empty -> "Bygg upp målportföljen"
@@ -222,13 +223,13 @@ fun analyze(
         aligned = aligned.copy(
             alignedBtc = if (prev.alignedBtc == null || within(Instrument.XBT)) states.btcInvested else prev.alignedBtc,
             alignedSp = if (prev.alignedSp == null || within(Instrument.SXR8)) states.spInvested else prev.alignedSp,
-            rebalancedFor = if (rebalanceDue && listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT).all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
+            rebalancedFor = if (rebalanceDue && ew.all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
         )
         if (rebalanceDue) emit(SignalRecord(
             key = "rebalance:${schedule.lastRebalanceClose}", time = now.toEpochMilli(), strategy = StrategyId.EQUAL_WEIGHT,
             type = SignalType.REBALANCE, signalDate = schedule.lastRebalanceClose.toString(),
-            targetWeight = sleeves[StrategyId.EQUAL_WEIGHT]!! / 3,
-            action = "Ombalansera XACT OMXS30, SXR8 och Bitcoin Tracker One till lika vikt",
+            targetWeight = sleeves[StrategyId.EQUAL_WEIGHT]!! / ew.size,
+            action = "Ombalansera ${ew.joinToString { it.shortName }} till lika vikt",
             reason = "Månadsslut på Stockholmsbörsen ${schedule.lastRebalanceClose}. Handel från ${schedule.tradeDay}.",
         ))
     }
@@ -251,7 +252,7 @@ fun analyze(
                 if (pending || now.isBefore(openAt)) " Kan läggas tidigast ${stockholmTime(openAt)}." else "",
             o.instrument)
     }
-    if (rebalanceDue && ords.isEmpty() && valuation.totalSek > 0) todo += TodoItem(Severity.INFO, "Månadens ombalansering är klar", "Alla tre instrument ligger inom 2 procentenheter från målvikten.")
+    if (rebalanceDue && ords.isEmpty() && valuation.totalSek > 0) todo += TodoItem(Severity.INFO, "Månadens ombalansering är klar", "Alla ${ew.size} instrument ligger inom 2 procentenheter från målvikten.")
     if (signals.any { it.type == SignalType.BUY || it.type == SignalType.SELL } && ords.isEmpty() && trades.isNotEmpty() && valuation.totalSek > 0)
         todo += TodoItem(Severity.INFO, "Strategin bytte läge", "Portföljen ligger redan inom toleransen mot målvikten.")
     if (todo.none { it.severity != Severity.INFO } && trades.isNotEmpty()) todo.add(0, TodoItem(Severity.INFO, "Inga åtgärder krävs", "Portföljen följer strategin."))
@@ -264,7 +265,7 @@ fun analyze(
         lastSuccess = if (ok) now.toEpochMilli() else prev.lastSuccess,
         failures = if (ok) 0 else prev.failures + 1,
     )
-    val custom = sleeves != DEFAULT_SLEEVES
+    val custom = sleeves != DEFAULT_SLEEVES || ew != EW_BASE
     return AnalysisResult(now, checks, btc, btcStatus, sp, spStatus, schedule, rebalanceDue, states, tgt, valuation, ords, todo, signals, state, custom)
 }
 

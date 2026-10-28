@@ -74,6 +74,7 @@ private fun ProductCard(ins: Instrument, s: UiState, ctx: android.content.Contex
             Instrument.XBT -> "Bitcoin Trend och Lika vikt"
             Instrument.SXR8 -> "S&P 500 Trend och Lika vikt"
             Instrument.XACT -> "Lika vikt"
+            Instrument.GOLD -> if (s.settings.includeGold) "Lika vikt (tillval)" else "Ingen strategi just nu. Kan slås på under Inställningar."
         }
         KeyValue("Används av", strategies)
         if (ins == Instrument.XBT) Text("Priset ovan är certifikatets pris i SEK, inte Bitcoins marknadspris. Signalen räknas på BTC-USD.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))

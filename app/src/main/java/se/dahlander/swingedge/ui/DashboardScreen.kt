@@ -135,7 +135,7 @@ private fun BtcCard(r: AnalysisResult, s: UiState) {
 @Composable
 private fun EqualWeightCard(r: AnalysisResult, s: UiState) {
     val sleeve = s.settings.sleeves[StrategyId.EQUAL_WEIGHT] ?: 0.0
-    val ins = listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT)
+    val ins = se.dahlander.swingedge.core.equalWeightInstruments(s.settings.includeGold)
     SectionCard("Lika vikt", trailing = { Text(pct(sleeve, 0), color = MaterialTheme.colorScheme.onSurfaceVariant) }) {
         StatusPill(if (r.rebalanceDue) "Ombalansering denna månad" else "Följer målvikten", if (r.rebalanceDue) Tone.PENDING else Tone.POSITIVE)
         Row(Modifier.fillMaxWidth()) {
@@ -147,10 +147,11 @@ private fun EqualWeightCard(r: AnalysisResult, s: UiState) {
             Row(Modifier.fillMaxWidth()) {
                 Text(i.shortName, modifier = Modifier.weight(1f))
                 Text(pct(r.valuation.holdings[i]?.weight ?: 0.0), modifier = Modifier.weight(0.4f))
-                Text(pct(sleeve / 3), modifier = Modifier.weight(0.4f))
+                Text(pct(sleeve / ins.size), modifier = Modifier.weight(0.4f))
             }
         }
         Text("Nu = instrumentets andel av hela portföljen, även den del som trendstrategierna äger.", style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
+        if (s.settings.includeGold) Text("Guld är ett tillval som testades efter rapporten.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
         KeyValue("Nästa ombalansering", "${fmtDate(r.rebalance.nextRebalanceClose)} vid stängning")
         val adj = r.orders.filter { it.reason.startsWith("Månatlig") }
         KeyValue("Justeringsbehov", if (adj.isEmpty()) "Inga" else adj.joinToString { "${if (it.side.name == "BUY") "köp" else "sälj"} ${it.instrument.shortName} ${sek(it.amountSek)}" })
@@ -178,8 +179,8 @@ private fun SpCard(r: AnalysisResult, s: UiState) {
 private fun TargetCard(r: AnalysisResult) {
     val t = r.target ?: return
     SectionCard("Målportfölj") {
-        val colors = listOf(MaterialTheme.colorScheme.primary, toneColor(Tone.PENDING), toneColor(Tone.POSITIVE))
-        val parts = listOf(Instrument.SXR8, Instrument.XBT, Instrument.XACT).map { it.shortName to (t.total[it] ?: 0.0) }
+        val colors = listOf(MaterialTheme.colorScheme.primary, toneColor(Tone.PENDING), toneColor(Tone.POSITIVE), MaterialTheme.colorScheme.secondary)
+        val parts = listOf(Instrument.SXR8, Instrument.XBT, Instrument.XACT, Instrument.GOLD).map { it.shortName to (t.total[it] ?: 0.0) }.filter { it.second > 0 }
         AllocationBar(parts, colors)
         parts.forEach { (n, w) -> KeyValue(n, pct(w)) }
         KeyValue("Kontanter", pct(t.cash))
@@ -189,6 +190,6 @@ private fun TargetCard(r: AnalysisResult) {
             val m = t.perStrategy[id] ?: emptyMap()
             KeyValue(id.displayName, if (m.isEmpty()) "Kontanter" else m.entries.joinToString { "${it.key.shortName} ${pct(it.value)}" })
         }
-        if (r.customSleeves) Text("Vikterna avviker från standard ${DEFAULT_SLEEVES.values.joinToString("/") { pct(it, 0) }}.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+        if (r.customSleeves) Text("Avviker från den testade modellen: standardvikter ${DEFAULT_SLEEVES.values.joinToString("/") { pct(it, 0) }}, lika vikt utan guld.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
     }
 }

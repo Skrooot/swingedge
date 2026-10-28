@@ -106,7 +106,11 @@ private fun App(startTab: String?) {
                 TABS.forEach { t ->
                     NavigationBarItem(
                         selected = route == t.route,
-                        onClick = { nav.navigate(t.route) { popUpTo(nav.graph.findStartDestination().id) { saveState = true }; launchSingleTop = true; restoreState = true } },
+                        onClick = {
+                            // Inställningar är ingen flik: stäng den först, annars sparas den i flikens tillstånd och kommer tillbaka
+                            if (route == "settings") nav.popBackStack()
+                            nav.navigate(t.route) { popUpTo(nav.graph.findStartDestination().id) { saveState = true }; launchSingleTop = true; restoreState = true }
+                        },
                         icon = { Icon(t.icon, contentDescription = null) },
                         label = { Text(t.label, style = MaterialTheme.typography.labelSmall) },
                     )

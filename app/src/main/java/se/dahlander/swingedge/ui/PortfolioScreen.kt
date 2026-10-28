@@ -1,5 +1,6 @@
 package se.dahlander.swingedge.ui
 
+import androidx.compose.foundation.horizontalScroll
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
@@ -91,6 +92,7 @@ fun PortfolioScreen(s: UiState, vm: AppViewModel, padding: PaddingValues) {
                 Instrument.entries.forEach { ins ->
                     val now = v.holdings[ins]?.weight ?: 0.0
                     val goal = r.target.total[ins] ?: 0.0
+                    if (now == 0.0 && goal == 0.0) return@forEach
                     KeyValue(ins.shortName, "${pct(now)} → ${pct(goal)}")
                 }
                 KeyValue("Kontanter", "${pct(v.cashSek / v.totalSek)} → ${pct(r.target.cash)}")
@@ -149,7 +151,7 @@ private fun TradeDialog(side: Side, s: UiState, onDismiss: () -> Unit, onSave: (
         text = {
             Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
                 if (!isCash) {
-                    Row(horizontalArrangement = Arrangement.spacedBy(6.dp)) {
+                    Row(Modifier.horizontalScroll(androidx.compose.foundation.rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(6.dp)) {
                         Instrument.entries.forEach { i -> FilterChip(selected = ins == i, onClick = { ins = i; price = s.cache?.series?.get(i.yahoo)?.lastPrice?.let { "%.2f".format(it) } ?: price }, label = { Text(i.ticker.take(11)) }) }
                     }
                     Text(ins.displayName, style = MaterialTheme.typography.bodySmall)

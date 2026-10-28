@@ -43,7 +43,7 @@ class Repository(context: Context) {
         }
         val kind = settings.active
         val prev = store.engine(kind)
-        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, settings.sleeves)
+        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, settings.sleeves, se.dahlander.swingedge.core.equalWeightInstruments(settings.includeGold))
         store.saveEngine(kind, result.state)
         store.appendSignals(kind, result.newSignals)
 
@@ -82,7 +82,7 @@ class Repository(context: Context) {
     /** Valfri portfölj räknad mot senaste kurser, utan att ändra den aktiva portföljens tillstånd. */
     fun preview(kind: PortfolioKind, now: Instant = Instant.now()): AnalysisResult? {
         val cache = store.cache ?: return null
-        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), store.settings.sleeves)
+        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), store.settings.sleeves, se.dahlander.swingedge.core.equalWeightInstruments(store.settings.includeGold))
     }
 
     /** Nytt backtest med de frysta reglerna på hela den historik som Yahoo har. */

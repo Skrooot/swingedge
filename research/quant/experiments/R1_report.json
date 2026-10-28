@@ -1,0 +1,4841 @@
+{
+ "round": "R1",
+ "data_version": "722dc502f9be00c9",
+ "periods": {
+  "dev": [
+   "2000-01-03",
+   "2015-12-31"
+  ],
+  "validation": [
+   "2016-01-01",
+   "2020-12-31"
+  ],
+  "holdout": [
+   "2021-01-01",
+   "2026-10-27"
+  ]
+ },
+ "gates": {
+  "min_years": 4.0,
+  "max_drawdown": -0.35,
+  "min_validation_sharpe": 0.5,
+  "min_wf_sharpe": 0.3,
+  "beat_benchmark_sharpe": true,
+  "min_dsr": 0.95,
+  "max_pbo": 0.3,
+  "min_neighbor_share": 0.6,
+  "cost_stress_positive": 2.0,
+  "max_fdr_q": 0.1,
+  "min_trades_per_year": {
+   "daily": 6.0,
+   "weekly": 3.0,
+   "monthly": 1.0
+  },
+  "min_total_trades": 30,
+  "max_exact_gap_cagr": 0.02,
+  "holdout_min_sharpe": 0.3,
+  "holdout_max_drawdown": -0.4
+ },
+ "inventory": {
+  "instruments": 434,
+  "tradable": 411,
+  "by_group": {
+   "crypto_x": 15,
+   "etp": 63,
+   "fx": 5,
+   "se_stock": 301,
+   "us_stock": 50
+  },
+  "data_issues": 1601
+ },
+ "search": {
+  "screened": 6000,
+  "valid_screen": 500,
+  "dev_evaluated": 500,
+  "refined_pool": 910,
+  "unique_strategies_tested": 6511,
+  "dev_months": 192
+ },
+ "pbo_top50": {
+  "pbo": 0.8849206349206349,
+  "logit_median": -1.2083112059245342,
+  "combinations": 252
+ },
+ "validation_spa": {
+  "spa_p": 0.572,
+  "rc_p": 0.53,
+  "stat": 0.8445974161438348,
+  "models": 11
+ },
+ "incumbent": {
+  "name": "SwingEdge med guld (app 2.2)",
+  "note": "in-sample: strategin valdes med data 2015–2026",
+  "dev": {
+   "cagr": 0.026335955461984195,
+   "vol": 0.11155227865038714,
+   "sharpe": 0.28915944688118056,
+   "sortino": 0.4024110961414552,
+   "maxdd": -0.16470512910916535,
+   "calmar": 0.1598976037020008,
+   "years": 16.563492063492063,
+   "skew": -1.1138544123096525,
+   "kurt": 48.65691759971094,
+   "trades": 4,
+   "trades_per_year": 0.24149496885481553,
+   "turnover_per_year": 0.46248073707997467
+  },
+  "validation": {
+   "cagr": 0.47819448696479916,
+   "vol": 0.23412859352664053,
+   "sharpe": 1.786370827189582,
+   "sortino": 2.9527488673426743,
+   "maxdd": -0.30905651465948636,
+   "calmar": 1.5472719851631873,
+   "years": 5.178571428571429,
+   "skew": 0.9682630373760992,
+   "kurt": 12.503620370226965,
+   "trades": 4,
+   "trades_per_year": 0.7724137931034483,
+   "turnover_per_year": 1.4115216367170094
+  },
+  "holdout": {
+   "cagr": 0.17103816719214882,
+   "vol": 0.1680486054108967,
+   "sharpe": 1.023838991125141,
+   "sortino": 1.5171647313793073,
+   "maxdd": -0.2262423875752848,
+   "calmar": 0.7559952360175383,
+   "years": 6.023809523809524,
+   "skew": -0.07728036969249114,
+   "kurt": 7.608622130717134,
+   "trades": 4,
+   "trades_per_year": 0.6640316205533597,
+   "turnover_per_year": 1.6491647408968142
+  }
+ },
+ "finalists": [
+  {
+   "spec_id": "6a6216cbff43",
+   "description": "se_stocks: entry rsi_pullback(n=2, thr=30); filter er_above(L=100, thr=0.2); max 3 positioner rangordnat mom252; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.28254955080649724,
+    "vol": 0.2019125010610786,
+    "sharpe": 1.3327137177052764,
+    "sortino": 2.2390455571896055,
+    "maxdd": -0.27083358972558635,
+    "calmar": 1.043258892269536,
+    "years": 16.563492063492063,
+    "skew": 1.5615551073767167,
+    "kurt": 19.98992823913589,
+    "trades": 274,
+    "trades_per_year": 16.542405366554863,
+    "turnover_per_year": 11.090381711075379
+   },
+   "avg_hold_days": 26.10989010989011,
+   "dsr": {
+    "dsr": 0.03465547494689536,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9999999943222897
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.26501150722392586,
+     "vol": 0.20968164850451207,
+     "sharpe": 1.2252913039968494,
+     "sortino": 2.032120136374449,
+     "maxdd": -0.29835907880523294,
+     "calmar": 0.888230075937873,
+     "years": 10.353174603174603,
+     "skew": 1.30935132277014,
+     "kurt": 17.34042629424333
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "6a6216cbff43",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.42215468702501235,
+       "vol": 0.20901613082132248,
+       "sharpe": 1.7902314368609327,
+       "sortino": 2.814680398817041,
+       "maxdd": -0.20760176362160643,
+       "calmar": 2.0334831441724615,
+       "years": 2.0674603174603177,
+       "skew": 0.11138880885001341,
+       "kurt": 10.859627718743537,
+       "trades": 37,
+       "trades_per_year": 17.89635316698656,
+       "turnover_per_year": 12.038893747209874
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "6a6216cbff43",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.1581894775547128,
+       "vol": 0.16069342732412037,
+       "sharpe": 0.9943760459768906,
+       "sortino": 1.5169191947651453,
+       "maxdd": -0.13642640717445786,
+       "calmar": 1.1595224182106108,
+       "years": 2.0753968253968256,
+       "skew": -0.014823190209308324,
+       "kurt": 14.346459624455028,
+       "trades": 23,
+       "trades_per_year": 11.082217973231357,
+       "turnover_per_year": 6.992807425804324
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "6a6216cbff43",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.01888428404704645,
+       "vol": 0.1682134950897722,
+       "sharpe": 0.1952142980237668,
+       "sortino": 0.2789442067993646,
+       "maxdd": -0.20657470527371347,
+       "calmar": 0.0914162458662332,
+       "years": 2.0674603174603177,
+       "skew": -0.01303382974711766,
+       "kurt": 11.346149409062885,
+       "trades": 30,
+       "trades_per_year": 14.510556621880996,
+       "turnover_per_year": 9.720922112621087
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "6a6216cbff43",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.10635818810500175,
+       "vol": 0.16906093594520152,
+       "sharpe": 0.681791201465093,
+       "sortino": 1.0749935014789058,
+       "maxdd": -0.20163675014955662,
+       "calmar": 0.5274742229584364,
+       "years": 2.0714285714285716,
+       "skew": 0.9286692855103844,
+       "kurt": 9.735120486912102,
+       "trades": 41,
+       "trades_per_year": 19.79310344827586,
+       "turnover_per_year": 12.748854428914054
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "6a6216cbff43",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.7446813185627399,
+       "vol": 0.3048609550822501,
+       "sharpe": 1.9763372651353084,
+       "sortino": 3.75056629135902,
+       "maxdd": -0.19130176920046515,
+       "calmar": 3.8927048174990384,
+       "years": 2.0714285714285716,
+       "skew": 1.7815962666386111,
+       "kurt": 13.446720111533338,
+       "trades": 44,
+       "trades_per_year": 21.241379310344826,
+       "turnover_per_year": 14.226955624953408
+      }
+     }
+    ],
+    "stable_choice": 1.0
+   },
+   "stability": {
+    "base_sharpe": 1.3327137177052764,
+    "neighbors": [
+     {
+      "spec_id": "481e385df3b7",
+      "sharpe": 1.0089184929738106
+     },
+     {
+      "spec_id": "bc12d8b64831",
+      "sharpe": 1.1157031105179036
+     },
+     {
+      "spec_id": "4ab31705772e",
+      "sharpe": 1.0141944160547067
+     },
+     {
+      "spec_id": "fe3b0fc9c216",
+      "sharpe": 1.3000756221326735
+     },
+     {
+      "spec_id": "60e3b394e0b4",
+      "sharpe": 0.9088689015351994
+     },
+     {
+      "spec_id": "8a5f4e744026",
+      "sharpe": 1.2161632733037493
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.28254955080649724,
+     "sharpe": 1.3327137177052764
+    },
+    "2.0": {
+     "cagr": 0.24213613177177362,
+     "sharpe": 1.168340819923325
+    },
+    "3.0": {
+     "cagr": 0.20154776033836863,
+     "sharpe": 0.996447851832827
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 1.4444363733487005,
+     "cagr": 0.25870628869870993
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 1.437215560906329,
+     "cagr": 0.2881017642620862
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 1.2549369262414354,
+     "cagr": 0.3158402661870485
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.5521092618079005,
+    "cagr_without_best_3_months": 0.204691194894431
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -1.4729463680100583,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -0.2661143255500964
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": 0.23253070331717915,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": 0.0038908717739949417
+     },
+     "etp_all": {
+      "sharpe": -1.479287315548723,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -0.25968110251855137
+     },
+     "etp_equity": {
+      "sharpe": -0.6340744269776875,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": -0.045059938901757746
+     },
+     "etp_real": {
+      "sharpe": -1.0591075588055368,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -0.13104648203420022
+     },
+     "us_stocks": {
+      "sharpe": 0.04014052775556703,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": -0.0025779474529684654
+     }
+    },
+    "share_beating_benchmark": 0.14285714285714285
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.1464439693332238,
+    "vol": 0.17138276514945272,
+    "sharpe": 0.8834970819790852,
+    "sortino": 1.2429979784477112,
+    "maxdd": -0.5736261033131688,
+    "calmar": 0.25529516262838775,
+    "years": 16.563492063492063,
+    "skew": -0.31188812434512625,
+    "kurt": 9.298267122693725,
+    "trades": 186,
+    "trades_per_year": 11.229516051748922,
+    "turnover_per_year": 0.14026349401170932
+   },
+   "mc_dev": {
+    "cagr_p05": 0.16700466729126678,
+    "cagr_p50": 0.2759123181406403,
+    "maxdd_p05": -0.3795461569324006,
+    "maxdd_p50": -0.26454505034011416
+   },
+   "validation": {
+    "cagr": 0.12591643891775273,
+    "vol": 0.23506628126748025,
+    "sharpe": 0.6221937570210648,
+    "sortino": 0.9026044424605717,
+    "maxdd": -0.47793202851439753,
+    "calmar": 0.2634609764680367,
+    "years": 5.178571428571429,
+    "skew": -0.04055721801189657,
+    "kurt": 10.22014160528502,
+    "trades": 122,
+    "trades_per_year": 23.55862068965517,
+    "turnover_per_year": 15.614301183609623
+   },
+   "validation_benchmark": {
+    "cagr": 0.2183848789241194,
+    "vol": 0.200037784368008,
+    "sharpe": 1.0902795251501811,
+    "sortino": 1.3992718223812435,
+    "maxdd": -0.4447409679852342,
+    "calmar": 0.4910383675995641,
+    "years": 5.178571428571429,
+    "skew": -2.751870887220948,
+    "kurt": 33.42585966396519,
+    "trades": 246,
+    "trades_per_year": 47.50344827586207,
+    "turnover_per_year": 0.2643711424994948
+   },
+   "validation_vs_benchmark": {
+    "p": 0.815,
+    "diff_lo": -1.6093412454684344,
+    "diff_hi": 0.37051612171192855
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": -0.08130712590054612,
+      "benchmark": -0.2411271961547823
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.165051852522908,
+      "benchmark": 0.01399277634805296
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.2759530877110796,
+      "benchmark": -0.43657610432631666
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.17470109359590702,
+      "benchmark_ann": 0.37392747447878877
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.11995206884489565,
+      "benchmark_ann": 0.07398848041779285
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": 0.03672908359837288,
+      "benchmark_ann": -0.09004972605471781
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": -0.14377300485921884,
+      "benchmark_ann": 0.12801589446229356
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.21626402149740068,
+      "benchmark_ann": 0.29306409839166225
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.7911522626911534,
+    "cagr_without_best_3_months": 0.025985260346476746
+   },
+   "exact": {
+    "cagr": 0.2414405899377745,
+    "vol": 0.21003808446890507,
+    "sharpe": 1.134207120570901,
+    "sortino": 1.8145315062550769,
+    "maxdd": -0.4617601995572378,
+    "calmar": 0.5228700744873239,
+    "years": 21.74206349206349,
+    "skew": 1.0395562295562302,
+    "kurt": 16.798002952418543,
+    "trades": 397,
+    "trades_per_year": 18.25953641175397
+   },
+   "exact_gap": 0.0020346095131464903,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "största nedgång i validering -48% sämre än -35%",
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "Deflated Sharpe 0.03 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "se_stocks",
+    "entry": {
+     "type": "rsi_pullback",
+     "n": 2,
+     "thr": 30
+    },
+    "exit": {
+     "type": "default"
+    },
+    "filter": {
+     "type": "er_above",
+     "L": 100,
+     "thr": 0.2
+    },
+    "confirm": 1,
+    "rank": "mom252",
+    "max_pos": 3,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "10ab96be87de",
+   "description": "se_stocks: entry donchian(n=200); exit ma_below(n=100); filter vol_below(q=0.5); max 10 positioner rangordnat mom252; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.21360098333920985,
+    "vol": 0.15069110822662388,
+    "sharpe": 1.3605914312980603,
+    "sortino": 1.9955980604057308,
+    "maxdd": -0.30842999231120505,
+    "calmar": 0.6925428416951326,
+    "years": 16.563492063492063,
+    "skew": -0.21637540405161101,
+    "kurt": 10.65306062009949,
+    "trades": 590,
+    "trades_per_year": 35.620507906085294,
+    "turnover_per_year": 7.091936424890519
+   },
+   "avg_hold_days": 57.36379310344827,
+   "dsr": {
+    "dsr": 0.05665040651739439,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9999999732011571
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.14293665074300277,
+     "vol": 0.16241258176243953,
+     "sharpe": 0.9041122032602907,
+     "sortino": 1.2951429651023807,
+     "maxdd": -0.2859681530943873,
+     "calmar": 0.4998341570427417,
+     "years": 10.353174603174603,
+     "skew": -0.2162425181686552,
+     "kurt": 10.893229479245457
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "10ab96be87de",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.24197859799349208,
+       "vol": 0.20253000011180286,
+       "sharpe": 1.1722116795712723,
+       "sortino": 1.6036136674768722,
+       "maxdd": -0.24102213799459826,
+       "calmar": 1.0039683491601723,
+       "years": 2.0674603174603177,
+       "skew": -0.7869463555011017,
+       "kurt": 13.406756142941305,
+       "trades": 76,
+       "trades_per_year": 36.760076775431855,
+       "turnover_per_year": 7.142688084075375
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "10ab96be87de",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.057594565107030204,
+       "vol": 0.10255962639766697,
+       "sharpe": 0.5972200566175422,
+       "sortino": 0.8775201309399246,
+       "maxdd": -0.1630965683427269,
+       "calmar": 0.35313167954584107,
+       "years": 2.0753968253968256,
+       "skew": 0.04513061888502442,
+       "kurt": 5.114623898493314,
+       "trades": 49,
+       "trades_per_year": 23.609942638623323,
+       "turnover_per_year": 4.2854270179176
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "10ab96be87de",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.018021447339684027,
+       "vol": 0.1766264038090262,
+       "sharpe": 0.18918871881276086,
+       "sortino": 0.2657728068109078,
+       "maxdd": -0.25640607953327954,
+       "calmar": 0.07028478955135298,
+       "years": 2.0674603174603177,
+       "skew": 0.16892741654317214,
+       "kurt": 8.131775470363381,
+       "trades": 98,
+       "trades_per_year": 47.40115163147792,
+       "turnover_per_year": 9.30067918829841
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "10ab96be87de",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.20134890139055162,
+       "vol": 0.13993091401238225,
+       "sharpe": 1.3812470448710887,
+       "sortino": 2.0755346134937698,
+       "maxdd": -0.12571312817315028,
+       "calmar": 1.6016537359027836,
+       "years": 2.0714285714285716,
+       "skew": -0.02127079277343597,
+       "kurt": 5.968352523177668,
+       "trades": 83,
+       "trades_per_year": 40.068965517241374,
+       "turnover_per_year": 7.584845108618239
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "10ab96be87de",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.21419602060781706,
+       "vol": 0.17236129273661926,
+       "sharpe": 1.2123521484090385,
+       "sortino": 1.829884350468722,
+       "maxdd": -0.19949668077825145,
+       "calmar": 1.073682127302682,
+       "years": 2.0714285714285716,
+       "skew": 0.11345145022594977,
+       "kurt": 5.524870503597793,
+       "trades": 100,
+       "trades_per_year": 48.275862068965516,
+       "turnover_per_year": 9.26060539946803
+      }
+     }
+    ],
+    "stable_choice": 1.0
+   },
+   "stability": {
+    "base_sharpe": 1.3605914312980603,
+    "neighbors": [
+     {
+      "spec_id": "412aba171f88",
+      "sharpe": 1.352168139224169
+     },
+     {
+      "spec_id": "c2cbc4e8a428",
+      "sharpe": 1.2254573101822153
+     },
+     {
+      "spec_id": "f9c73301555e",
+      "sharpe": 1.1831558291457727
+     },
+     {
+      "spec_id": "90aa917ddc41",
+      "sharpe": 1.3305614287246221
+     },
+     {
+      "spec_id": "1e670bfecf54",
+      "sharpe": 1.2295732116470157
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.21360098333920985,
+     "sharpe": 1.3605914312980603
+    },
+    "2.0": {
+     "cagr": 0.1688649121157284,
+     "sharpe": 1.0962229973870958
+    },
+    "3.0": {
+     "cagr": 0.09345849344438095,
+     "sharpe": 0.6408179730647907
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 1.7612003752427503,
+     "cagr": 0.23784577223688386
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.9914005421033593,
+     "cagr": 0.16609594548063034
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.911597503750747,
+     "cagr": 0.1398659568070808
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.38370714955655605,
+    "cagr_without_best_3_months": 0.1877332430919154
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.986222904220776,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": 0.003528893774755592,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": -2.7941336409820217e-05
+     },
+     "research_fx": {
+      "sharpe": -0.015666271508446964,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.00027610116642629023
+     },
+     "etp_all": {
+      "sharpe": -0.9744142620996584,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": -0.16477512264536667,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": -0.018028132931451113
+     },
+     "etp_real": {
+      "sharpe": -1.030162998597837,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -0.08972802386417111
+     },
+     "us_stocks": {
+      "sharpe": 0.23565903439180613,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.023269353679814087
+     }
+    },
+    "share_beating_benchmark": 0.14285714285714285
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.1464439693332238,
+    "vol": 0.17138276514945272,
+    "sharpe": 0.8834970819790852,
+    "sortino": 1.2429979784477112,
+    "maxdd": -0.5736261033131688,
+    "calmar": 0.25529516262838775,
+    "years": 16.563492063492063,
+    "skew": -0.31188812434512625,
+    "kurt": 9.298267122693725,
+    "trades": 186,
+    "trades_per_year": 11.229516051748922,
+    "turnover_per_year": 0.14026349401170932
+   },
+   "mc_dev": {
+    "cagr_p05": 0.13315218173975837,
+    "cagr_p50": 0.21201672895404933,
+    "maxdd_p05": -0.3996135733730416,
+    "maxdd_p50": -0.26529457110675453
+   },
+   "validation": {
+    "cagr": 0.1978337320153023,
+    "vol": 0.20344785848807379,
+    "sharpe": 0.9907534869230361,
+    "sortino": 1.3292034565981412,
+    "maxdd": -0.4518889737179208,
+    "calmar": 0.4377927843373194,
+    "years": 5.178571428571429,
+    "skew": -1.6316665998846092,
+    "kurt": 20.527784265617797,
+    "trades": 234,
+    "trades_per_year": 45.186206896551724,
+    "turnover_per_year": 8.89721912021881
+   },
+   "validation_benchmark": {
+    "cagr": 0.2183848789241194,
+    "vol": 0.200037784368008,
+    "sharpe": 1.0902795251501811,
+    "sortino": 1.3992718223812435,
+    "maxdd": -0.4447409679852342,
+    "calmar": 0.4910383675995641,
+    "years": 5.178571428571429,
+    "skew": -2.751870887220948,
+    "kurt": 33.42585966396519,
+    "trades": 246,
+    "trades_per_year": 47.50344827586207,
+    "turnover_per_year": 0.2643711424994948
+   },
+   "validation_vs_benchmark": {
+    "p": 0.637,
+    "diff_lo": -0.7493859086015008,
+    "diff_hi": 0.5574599495838823
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": -0.031785626879332285,
+      "benchmark": -0.2411271961547823
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.001611511925963316,
+      "benchmark": 0.01399277634805296
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.4262415926354046,
+      "benchmark": -0.43657610432631666
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.24790207255745622,
+      "benchmark_ann": 0.37392747447878877
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.15871668384631846,
+      "benchmark_ann": 0.07398848041779285
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.17885861929933672,
+      "benchmark_ann": -0.09004972605471781
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.038157241016698804,
+      "benchmark_ann": 0.12801589446229356
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.3028902907383268,
+      "benchmark_ann": 0.29306409839166225
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.38286258933236583,
+    "cagr_without_best_3_months": 0.12230098883388796
+   },
+   "exact": {
+    "cagr": 0.2028844502238698,
+    "vol": 0.16393451280410545,
+    "sharpe": 1.209740368243145,
+    "sortino": 1.700857235719817,
+    "maxdd": -0.4493112480493793,
+    "calmar": 0.45154545118704176,
+    "years": 21.74206349206349,
+    "skew": -0.9815672832522451,
+    "kurt": 18.028877222972145,
+    "trades": 824,
+    "trades_per_year": 37.8988866581493
+   },
+   "exact_gap": 0.013302127013908205,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "största nedgång i validering -45% sämre än -35%",
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "Deflated Sharpe 0.06 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "se_stocks",
+    "entry": {
+     "type": "donchian",
+     "n": 200
+    },
+    "exit": {
+     "type": "ma_below",
+     "n": 100
+    },
+    "filter": {
+     "type": "vol_below",
+     "q": 0.5
+    },
+    "confirm": 1,
+    "rank": "mom252",
+    "max_pos": 10,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "0e9683201d92",
+   "description": "se_stocks: entry high52(prox=0.1); exit atr_trail(k=6.0); filter er_above(L=50, thr=0.2); max 10 positioner rangordnat mom252; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.2050229382087847,
+    "vol": 0.14862816995277348,
+    "sharpe": 1.3296129669585182,
+    "sortino": 1.974815859438406,
+    "maxdd": -0.2426744476989351,
+    "calmar": 0.8448476555848133,
+    "years": 16.563492063492063,
+    "skew": -0.16301769580491476,
+    "kurt": 11.220767473394275,
+    "trades": 823,
+    "trades_per_year": 49.68758984187829,
+    "turnover_per_year": 9.914786982551515
+   },
+   "avg_hold_days": 36.638376383763834,
+   "dsr": {
+    "dsr": 0.04351790866815064,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9999999501267741
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.1258638024871077,
+     "vol": 0.17129376238948565,
+     "sharpe": 0.7778669011505104,
+     "sortino": 1.1367434513585983,
+     "maxdd": -0.42281099646345455,
+     "calmar": 0.297683370441825,
+     "years": 10.353174603174603,
+     "skew": 0.019386116022249777,
+     "kurt": 12.144643414993384
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "c7dad03624d0",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.2509456998630806,
+       "vol": 0.22749716122643934,
+       "sharpe": 1.0985861098426737,
+       "sortino": 1.571343241734722,
+       "maxdd": -0.25425304249295066,
+       "calmar": 0.9869919250623647,
+       "years": 2.0674603174603177,
+       "skew": -0.39854125681876207,
+       "kurt": 10.007818445393177,
+       "trades": 71,
+       "trades_per_year": 34.341650671785025,
+       "turnover_per_year": 13.504123692551893
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "420a6406044a",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.030399834086014543,
+       "vol": 0.10668464141638956,
+       "sharpe": 0.33396722863284195,
+       "sortino": 0.4802756525631319,
+       "maxdd": -0.1723070582250542,
+       "calmar": 0.17642825778099364,
+       "years": 2.0753968253968256,
+       "skew": -0.02089727396269794,
+       "kurt": 6.951664460012019,
+       "trades": 69,
+       "trades_per_year": 33.24665391969407,
+       "turnover_per_year": 6.218272771879457
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "420a6406044a",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.1601432699495956,
+       "vol": 0.16662106819696637,
+       "sharpe": -0.9640627172324839,
+       "sortino": -1.2837043588729056,
+       "maxdd": -0.3439306465769235,
+       "calmar": -0.4656266359031136,
+       "years": 2.0674603174603177,
+       "skew": 0.46298046519223746,
+       "kurt": 16.527452269331896,
+       "trades": 128,
+       "trades_per_year": 61.91170825335892,
+       "turnover_per_year": 12.29800670673483
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "0e9683201d92",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.2542497685614742,
+       "vol": 0.16377103087815276,
+       "sharpe": 1.4651930204714267,
+       "sortino": 2.361115615396069,
+       "maxdd": -0.19207068230512447,
+       "calmar": 1.3237302305073906,
+       "years": 2.0714285714285716,
+       "skew": 0.6660615168020644,
+       "kurt": 8.896114844456774,
+       "trades": 132,
+       "trades_per_year": 63.72413793103448,
+       "turnover_per_year": 12.346945814008384
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "0e9683201d92",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.33202795608593294,
+       "vol": 0.16939681969077208,
+       "sharpe": 1.7780078778815005,
+       "sortino": 2.755053054004459,
+       "maxdd": -0.14741313309171433,
+       "calmar": 2.2523634707591413,
+       "years": 2.0714285714285716,
+       "skew": -0.14478180348628744,
+       "kurt": 7.033070102180867,
+       "trades": 126,
+       "trades_per_year": 60.82758620689655,
+       "turnover_per_year": 11.764943035903835
+      }
+     }
+    ],
+    "stable_choice": 0.4
+   },
+   "stability": {
+    "base_sharpe": 1.3296129669585182,
+    "neighbors": [
+     {
+      "spec_id": "420a6406044a",
+      "sharpe": 1.2640975924619813
+     },
+     {
+      "spec_id": "46954a19018d",
+      "sharpe": 1.3174671392995583
+     },
+     {
+      "spec_id": "7ba256d57646",
+      "sharpe": 1.1066812077592303
+     },
+     {
+      "spec_id": "1b131822a318",
+      "sharpe": 1.1698038100822534
+     },
+     {
+      "spec_id": "c7dad03624d0",
+      "sharpe": 1.170058403553201
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.2050229382087847,
+     "sharpe": 1.3296129669585182
+    },
+    "2.0": {
+     "cagr": 0.12162878418324108,
+     "sharpe": 0.8210912698476643
+    },
+    "3.0": {
+     "cagr": -1.0,
+     "sharpe": -0.7006223181892006
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 1.4113130175701596,
+     "cagr": 0.18476902703763654
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.7771912794350755,
+     "cagr": 0.11752173180383685
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 1.2107921073659675,
+     "cagr": 0.2018208836470956
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.40096331096312815,
+    "cagr_without_best_3_months": 0.17916948012230316
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -1.0163868221052708,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": -0.24571068803310916,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": -4.4957674804724235e-05
+     },
+     "research_fx": {
+      "sharpe": -0.48800515571171516,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.006672748435959219
+     },
+     "etp_all": {
+      "sharpe": -1.0371340804057732,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": -1.1296983131687934,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": -0.09031004500095363
+     },
+     "etp_real": {
+      "sharpe": -0.974884495770837,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "us_stocks": {
+      "sharpe": 0.34270861138125075,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.03835552446654944
+     }
+    },
+    "share_beating_benchmark": 0.0
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.1464439693332238,
+    "vol": 0.17138276514945272,
+    "sharpe": 0.8834970819790852,
+    "sortino": 1.2429979784477112,
+    "maxdd": -0.5736261033131688,
+    "calmar": 0.25529516262838775,
+    "years": 16.563492063492063,
+    "skew": -0.31188812434512625,
+    "kurt": 9.298267122693725,
+    "trades": 186,
+    "trades_per_year": 11.229516051748922,
+    "turnover_per_year": 0.14026349401170932
+   },
+   "mc_dev": {
+    "cagr_p05": 0.12472089710783861,
+    "cagr_p50": 0.20399961236156483,
+    "maxdd_p05": -0.37212491754180227,
+    "maxdd_p50": -0.2517214098366957
+   },
+   "validation": {
+    "cagr": 0.16112743315355282,
+    "vol": 0.18603296366996264,
+    "sharpe": 0.8964999538143542,
+    "sortino": 1.2767399436952085,
+    "maxdd": -0.2982903096746802,
+    "calmar": 0.5401698544256459,
+    "years": 5.178571428571429,
+    "skew": -0.4125474830120803,
+    "kurt": 6.90107155387953,
+    "trades": 361,
+    "trades_per_year": 69.7103448275862,
+    "turnover_per_year": 13.848401260353024
+   },
+   "validation_benchmark": {
+    "cagr": 0.2183848789241194,
+    "vol": 0.200037784368008,
+    "sharpe": 1.0902795251501811,
+    "sortino": 1.3992718223812435,
+    "maxdd": -0.4447409679852342,
+    "calmar": 0.4910383675995641,
+    "years": 5.178571428571429,
+    "skew": -2.751870887220948,
+    "kurt": 33.42585966396519,
+    "trades": 246,
+    "trades_per_year": 47.50344827586207,
+    "turnover_per_year": 0.2643711424994948
+   },
+   "validation_vs_benchmark": {
+    "p": 0.712,
+    "diff_lo": -1.0007393239718065,
+    "diff_hi": 0.4661576520346246
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": -0.02298797674495079,
+      "benchmark": -0.2411271961547823
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.1129182702444902,
+      "benchmark": 0.01399277634805296
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.26317426690858103,
+      "benchmark": -0.43657610432631666
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.3123352238374,
+      "benchmark_ann": 0.37392747447878877
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.03217081668160792,
+      "benchmark_ann": 0.07398848041779285
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.024485466076412922,
+      "benchmark_ann": -0.09004972605471781
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": -0.05170642019174451,
+      "benchmark_ann": 0.12801589446229356
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.24063155469442968,
+      "benchmark_ann": 0.29306409839166225
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.43073841687625286,
+    "cagr_without_best_3_months": 0.0920755517591414
+   },
+   "exact": {
+    "cagr": 0.19299910593856673,
+    "vol": 0.15676129506800027,
+    "sharpe": 1.204644753598415,
+    "sortino": 1.7541845836199927,
+    "maxdd": -0.2883082391002342,
+    "calmar": 0.6694193219759773,
+    "years": 21.74206349206349,
+    "skew": -0.3437572813164353,
+    "kurt": 10.568367448845017,
+    "trades": 1188,
+    "trades_per_year": 54.64062785179778
+   },
+   "exact_gap": 0.013874525119054626,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "Deflated Sharpe 0.04 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "se_stocks",
+    "entry": {
+     "type": "high52",
+     "prox": 0.1
+    },
+    "exit": {
+     "type": "atr_trail",
+     "k": 6.0
+    },
+    "filter": {
+     "type": "er_above",
+     "L": 50,
+     "thr": 0.2
+    },
+    "confirm": 1,
+    "rank": "mom252",
+    "max_pos": 10,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "dcc248bbc184",
+   "description": "us_stocks: entry high52(prox=0.1); exit donchian_low(n=55); filter market_trend(n=200); max 10 positioner rangordnat mom252; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.12190028400368424,
+    "vol": 0.16039799406100955,
+    "sharpe": 0.7975937888105233,
+    "sortino": 1.1545502422649039,
+    "maxdd": -0.22609828553264588,
+    "calmar": 0.5391473169135699,
+    "years": 16.563492063492063,
+    "skew": -0.25919428036617626,
+    "kurt": 9.037487439681728,
+    "trades": 385,
+    "trades_per_year": 23.243890752275995,
+    "turnover_per_year": 4.613039191369189
+   },
+   "avg_hold_days": 67.87733333333334,
+   "dsr": {
+    "dsr": 5.482512181531618e-05,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9993516443255409
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.12698582213171528,
+     "vol": 0.16930409053659332,
+     "sharpe": 0.7909962519641311,
+     "sortino": 1.14762408580693,
+     "maxdd": -0.1900871925526353,
+     "calmar": 0.6680398633198437,
+     "years": 10.353174603174603,
+     "skew": -0.18396774519740844,
+     "kurt": 8.21953960358179
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "dcc248bbc184",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.020097125617925427,
+       "vol": 0.1769592122963274,
+       "sharpe": 0.2008994900781025,
+       "sortino": 0.2802860060862058,
+       "maxdd": -0.177517924536991,
+       "calmar": 0.11321181041488353,
+       "years": 2.0674603174603177,
+       "skew": -0.20220218717530783,
+       "kurt": 4.50349771240383,
+       "trades": 75,
+       "trades_per_year": 36.27639155470249,
+       "turnover_per_year": 7.292093621423349
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "76c2e7f83b09",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.08726747467741758,
+       "vol": 0.0935375720999535,
+       "sharpe": 0.9413351816860224,
+       "sortino": 1.4030800924530722,
+       "maxdd": -0.05661626595184244,
+       "calmar": 1.5413852045920324,
+       "years": 2.0753968253968256,
+       "skew": -0.18006206477562953,
+       "kurt": 11.523217164557458,
+       "trades": 24,
+       "trades_per_year": 11.564053537284893,
+       "turnover_per_year": 1.8232001836210594
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "76c2e7f83b09",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.06412095779164795,
+       "vol": 0.18405733529664517,
+       "sharpe": 0.4298533934719713,
+       "sortino": 0.6068190192125713,
+       "maxdd": -0.19008719255263362,
+       "calmar": 0.3373239245137116,
+       "years": 2.0674603174603177,
+       "skew": -0.37000354475113967,
+       "kurt": 10.918970513838048,
+       "trades": 71,
+       "trades_per_year": 34.341650671785025,
+       "turnover_per_year": 6.901767842995539
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "dcc248bbc184",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.22452472819337022,
+       "vol": 0.17673338642779574,
+       "sharpe": 1.2345485648982673,
+       "sortino": 1.916466873418604,
+       "maxdd": -0.10048338185748529,
+       "calmar": 2.2344463735487294,
+       "years": 2.0714285714285716,
+       "skew": 0.22526042626336723,
+       "kurt": 4.456600104616827,
+       "trades": 75,
+       "trades_per_year": 36.206896551724135,
+       "turnover_per_year": 6.771960620264585
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "dcc248bbc184",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.2576360468934482,
+       "vol": 0.19564768290919468,
+       "sharpe": 1.270059034311022,
+       "sortino": 1.8455154246730208,
+       "maxdd": -0.16270425819460355,
+       "calmar": 1.583462226202469,
+       "years": 2.0714285714285716,
+       "skew": -0.3293937771469415,
+       "kurt": 7.962786248361947,
+       "trades": 76,
+       "trades_per_year": 36.68965517241379,
+       "turnover_per_year": 6.876475202395596
+      }
+     }
+    ],
+    "stable_choice": 0.6
+   },
+   "stability": {
+    "base_sharpe": 0.7975937888105233,
+    "neighbors": [
+     {
+      "spec_id": "88c603450e97",
+      "sharpe": 0.6970527392153447
+     },
+     {
+      "spec_id": "76c2e7f83b09",
+      "sharpe": 0.7640762947189792
+     },
+     {
+      "spec_id": "4ead258e5142",
+      "sharpe": 0.7047155290067773
+     },
+     {
+      "spec_id": "83c82e71047b",
+      "sharpe": 0.7073337375594717
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.12190028400368424,
+     "sharpe": 0.7975937888105233
+    },
+    "2.0": {
+     "cagr": 0.09560796137635541,
+     "sharpe": 0.6454888025253329
+    },
+    "3.0": {
+     "cagr": 0.06840207521431196,
+     "sharpe": 0.48556064378883496
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.7747128591364599,
+     "cagr": 0.09617730015288695
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.6781989033458664,
+     "cagr": 0.0999094258582538
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.920769111907548,
+     "cagr": 0.16814723217421923
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.60141250733306,
+    "cagr_without_best_3_months": 0.09620378902222115
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.8839696390116591,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": -0.00038578677502379286,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.00027837185390700014
+     },
+     "etp_all": {
+      "sharpe": -0.0923995676028849,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": 0.13344142965978778,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": 0.008815181818735196
+     },
+     "etp_real": {
+      "sharpe": -0.9305792667279673,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "se_stocks": {
+      "sharpe": 1.0832494098261571,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.19979081276377397
+     }
+    },
+    "share_beating_benchmark": 0.42857142857142855
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.07990039185319309,
+    "vol": 0.15549691850886857,
+    "sharpe": 0.5721577922594836,
+    "sortino": 0.8288748747081549,
+    "maxdd": -0.36350527092218743,
+    "calmar": 0.21980531850471216,
+    "years": 16.563492063492063,
+    "skew": -0.027591595700947553,
+    "kurt": 6.6758246270818375,
+    "trades": 50,
+    "trades_per_year": 3.0186871106851942,
+    "turnover_per_year": 0.12091556665103616
+   },
+   "mc_dev": {
+    "cagr_p05": 0.061803439254287704,
+    "cagr_p50": 0.1211830134143087,
+    "maxdd_p05": -0.38937962994361225,
+    "maxdd_p50": -0.2527719259368533
+   },
+   "validation": {
+    "cagr": 0.21309835426231305,
+    "vol": 0.193620531970573,
+    "sharpe": 1.0951820947072721,
+    "sortino": 1.5526110406013542,
+    "maxdd": -0.18911670453714813,
+    "calmar": 1.1268087331780583,
+    "years": 5.178571428571429,
+    "skew": -0.491894984760664,
+    "kurt": 6.769238434427327,
+    "trades": 149,
+    "trades_per_year": 28.772413793103446,
+    "turnover_per_year": 5.600991891252231
+   },
+   "validation_benchmark": {
+    "cagr": 0.1998216591447275,
+    "vol": 0.19265069680695046,
+    "sharpe": 1.0426087226982688,
+    "sortino": 1.4796696989462328,
+    "maxdd": -0.2747533662859678,
+    "calmar": 0.727276472881318,
+    "years": 5.178571428571429,
+    "skew": -0.4423047137228504,
+    "kurt": 19.321706523202934,
+    "trades": 50,
+    "trades_per_year": 9.655172413793103,
+    "turnover_per_year": 0.24502391784619923
+   },
+   "validation_vs_benchmark": {
+    "p": 0.457,
+    "diff_lo": -0.5583385396086573,
+    "diff_hi": 0.5562861498042586
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.11469131462498927
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": 0.26052464815662457,
+      "benchmark": 0.16569043809323203
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.10430528808213546,
+      "benchmark": -0.23277059822462376
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.2516163644746671,
+      "benchmark_ann": 0.25505377625306824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.17545936561905906,
+      "benchmark_ann": 0.15074139347525692
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": 0.10435412593497534,
+      "benchmark_ann": 0.33913673020716045
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.610020976014982,
+      "benchmark_ann": 0.5147783442452827
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.16607689546244345,
+      "benchmark_ann": 0.12125536246855492
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.4176401019161429,
+    "cagr_without_best_3_months": 0.12357635414337809
+   },
+   "exact": {
+    "cagr": 0.13873859460350801,
+    "vol": 0.16547644497416558,
+    "sharpe": 0.8682408392641165,
+    "sortino": 1.2480116865312227,
+    "maxdd": -0.21567954353609242,
+    "calmar": 0.6432626494329126,
+    "years": 21.74206349206349,
+    "skew": -0.3360303839464217,
+    "kurt": 8.330725983266566,
+    "trades": 534,
+    "trades_per_year": 24.560686256616172
+   },
+   "exact_gap": 0.0028797540751888118,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "us_stocks",
+    "entry": {
+     "type": "high52",
+     "prox": 0.1
+    },
+    "exit": {
+     "type": "donchian_low",
+     "n": 55
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "mom252",
+    "max_pos": 10,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "635fa6494760",
+   "description": "us_stocks: entry donchian(n=100); exit mom_neg(L=126); filter market_trend(n=200); max 10 positioner rangordnat none; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.11621684734977134,
+    "vol": 0.16594238337685047,
+    "sharpe": 0.7457417149658676,
+    "sortino": 1.0781546852421589,
+    "maxdd": -0.1955431647393301,
+    "calmar": 0.5943283545844973,
+    "years": 16.563492063492063,
+    "skew": -0.18272666074093477,
+    "kurt": 7.267770111007758,
+    "trades": 478,
+    "trades_per_year": 28.858648778150457,
+    "turnover_per_year": 5.756968452678039
+   },
+   "avg_hold_days": 54.73717948717949,
+   "dsr": {
+    "dsr": 2.1617364851900245e-05,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9987217295454117
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.12113491134770227,
+     "vol": 0.17352291341690734,
+     "sharpe": 0.74587763775461,
+     "sortino": 1.0834367627024344,
+     "maxdd": -0.19197573737788265,
+     "calmar": 0.6309907335282782,
+     "years": 10.353174603174603,
+     "skew": -0.10884317260028904,
+     "kurt": 7.039904567978401
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "635fa6494760",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": -0.026866967561060218,
+       "vol": 0.17022761249130597,
+       "sharpe": -0.07488263957872203,
+       "sortino": -0.10279197395052772,
+       "maxdd": -0.190230872675187,
+       "calmar": -0.14123347689696344,
+       "years": 2.0674603174603177,
+       "skew": -0.19598497446207586,
+       "kurt": 5.340810416733747,
+       "trades": 83,
+       "trades_per_year": 40.145873320537426,
+       "turnover_per_year": 8.09393193883508
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "635fa6494760",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.12377902470787583,
+       "vol": 0.13718649899712956,
+       "sharpe": 0.919301907349776,
+       "sortino": 1.357948371665235,
+       "maxdd": -0.10819718776996112,
+       "calmar": 1.1440133265851915,
+       "years": 2.0753968253968256,
+       "skew": -0.010309541681123904,
+       "kurt": 11.115460125750236,
+       "trades": 34,
+       "trades_per_year": 16.382409177820268,
+       "turnover_per_year": 2.809993397054405
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "635fa6494760",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.10704927408017184,
+       "vol": 0.18708033573029975,
+       "sharpe": 0.6373676659622377,
+       "sortino": 0.9077625091819086,
+       "maxdd": -0.19197573737788243,
+       "calmar": 0.5576187675709119,
+       "years": 2.0674603174603177,
+       "skew": -0.37546800151899506,
+       "kurt": 9.61646230410513,
+       "trades": 69,
+       "trades_per_year": 33.37428023032629,
+       "turnover_per_year": 6.7254492140906335
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "635fa6494760",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.20263296789195562,
+       "vol": 0.18708176246683442,
+       "sharpe": 1.0797618027774405,
+       "sortino": 1.6593353749671058,
+       "maxdd": -0.12318751451893739,
+       "calmar": 1.6449148169216874,
+       "years": 2.0714285714285716,
+       "skew": 0.25143519368916784,
+       "kurt": 4.707037805314059,
+       "trades": 85,
+       "trades_per_year": 41.03448275862068,
+       "turnover_per_year": 7.795714817646153
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "635fa6494760",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.21620258337078835,
+       "vol": 0.18134489456714278,
+       "sharpe": 1.1703519476670525,
+       "sortino": 1.7161741087441262,
+       "maxdd": -0.13468417656035014,
+       "calmar": 1.6052560062533472,
+       "years": 2.0714285714285716,
+       "skew": -0.19923547750416853,
+       "kurt": 5.534014395607535,
+       "trades": 88,
+       "trades_per_year": 42.48275862068965,
+       "turnover_per_year": 8.034862721170567
+      }
+     }
+    ],
+    "stable_choice": 1.0
+   },
+   "stability": {
+    "base_sharpe": 0.7457417149658676,
+    "neighbors": [
+     {
+      "spec_id": "de4599413d4e",
+      "sharpe": 0.6918021586214199
+     },
+     {
+      "spec_id": "d6659188fcc4",
+      "sharpe": 0.6522170285152428
+     },
+     {
+      "spec_id": "2eef3a08ec20",
+      "sharpe": 0.6492403354584843
+     },
+     {
+      "spec_id": "b0e535817e44",
+      "sharpe": 0.5117379753379132
+     },
+     {
+      "spec_id": "87f6b318b8f3",
+      "sharpe": 0.6610019655607974
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.11621684734977134,
+     "sharpe": 0.7457417149658676
+    },
+    "2.0": {
+     "cagr": 0.08185488148334064,
+     "sharpe": 0.5523892641686792
+    },
+    "3.0": {
+     "cagr": 0.04830402170157999,
+     "sharpe": 0.36225163120207843
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.7672103946874217,
+     "cagr": 0.10570520730007216
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.5284443846194876,
+     "cagr": 0.07722905789364987
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.8572212838257772,
+     "cagr": 0.14895767060008813
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.5759216215271454,
+    "cagr_without_best_3_months": 0.09083317850679284
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.8210709023964077,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": -0.10601138555319586,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.0015302237801207985
+     },
+     "etp_all": {
+      "sharpe": -0.9314159267261247,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": 0.0003256108844962439,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": -0.006164832434244372
+     },
+     "etp_real": {
+      "sharpe": -0.5709968639279693,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "se_stocks": {
+      "sharpe": 0.8441292052789406,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.1544385380205595
+     }
+    },
+    "share_beating_benchmark": 0.0
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.07990039185319309,
+    "vol": 0.15549691850886857,
+    "sharpe": 0.5721577922594836,
+    "sortino": 0.8288748747081549,
+    "maxdd": -0.36350527092218743,
+    "calmar": 0.21980531850471216,
+    "years": 16.563492063492063,
+    "skew": -0.027591595700947553,
+    "kurt": 6.6758246270818375,
+    "trades": 50,
+    "trades_per_year": 3.0186871106851942,
+    "turnover_per_year": 0.12091556665103616
+   },
+   "mc_dev": {
+    "cagr_p05": 0.0579380949291356,
+    "cagr_p50": 0.11614951125440254,
+    "maxdd_p05": -0.3801133934679989,
+    "maxdd_p50": -0.24926816810430463
+   },
+   "validation": {
+    "cagr": 0.21206499467976858,
+    "vol": 0.1837985948316291,
+    "sharpe": 1.1389681810594157,
+    "sortino": 1.616892721038007,
+    "maxdd": -0.20979662612744232,
+    "calmar": 1.0108122260791188,
+    "years": 5.178571428571429,
+    "skew": -0.5397884352082201,
+    "kurt": 7.1468317613140435,
+    "trades": 182,
+    "trades_per_year": 35.144827586206894,
+    "turnover_per_year": 6.874825226878301
+   },
+   "validation_benchmark": {
+    "cagr": 0.1998216591447275,
+    "vol": 0.19265069680695046,
+    "sharpe": 1.0426087226982688,
+    "sortino": 1.4796696989462328,
+    "maxdd": -0.2747533662859678,
+    "calmar": 0.727276472881318,
+    "years": 5.178571428571429,
+    "skew": -0.4423047137228504,
+    "kurt": 19.321706523202934,
+    "trades": 50,
+    "trades_per_year": 9.655172413793103,
+    "turnover_per_year": 0.24502391784619923
+   },
+   "validation_vs_benchmark": {
+    "p": 0.435,
+    "diff_lo": -0.5811543052796193,
+    "diff_hi": 0.642462758103411
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.11469131462498927
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": 0.21771826241088887,
+      "benchmark": 0.16569043809323203
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.10862329978685525,
+      "benchmark": -0.23277059822462376
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.18778965102324088,
+      "benchmark_ann": 0.25505377625306824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.22927075099154207,
+      "benchmark_ann": 0.15074139347525692
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": 0.08193498631038475,
+      "benchmark_ann": 0.33913673020716045
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.415038402865536,
+      "benchmark_ann": 0.5147783442452827
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.1995079228066333,
+      "benchmark_ann": 0.12125536246855492
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.4458542985701841,
+    "cagr_without_best_3_months": 0.11670530076971097
+   },
+   "exact": {
+    "cagr": 0.13455886428481612,
+    "vol": 0.16727715622019457,
+    "sharpe": 0.8386717185799912,
+    "sortino": 1.2048300129972687,
+    "maxdd": -0.20290767215236616,
+    "calmar": 0.6631531615215319,
+    "years": 21.74206349206349,
+    "skew": -0.2971067051384808,
+    "kurt": 7.427188269397726,
+    "trades": 660,
+    "trades_per_year": 30.355904362109875
+   },
+   "exact_gap": 0.002652309262956898,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "us_stocks",
+    "entry": {
+     "type": "donchian",
+     "n": 100
+    },
+    "exit": {
+     "type": "mom_neg",
+     "L": 126
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "none",
+    "max_pos": 10,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "ceb9393199f1",
+   "description": "us_stocks: entry rsi_pullback(n=2, thr=10); exit donchian_low(n=20); filter market_trend(n=200); max 3 positioner rangordnat mom126; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.16155812472946018,
+    "vol": 0.21128905006051438,
+    "sharpe": 0.8144375116573781,
+    "sortino": 1.2219835732445423,
+    "maxdd": -0.3302392945522805,
+    "calmar": 0.4892153277776693,
+    "years": 16.563492063492063,
+    "skew": 0.22754749132624844,
+    "kurt": 10.170109327199462,
+    "trades": 195,
+    "trades_per_year": 11.772879731672257,
+    "turnover_per_year": 7.8615430517678355
+   },
+   "avg_hold_days": 37.302083333333336,
+   "dsr": {
+    "dsr": 6.0193071420022726e-05,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.9995556956487974
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.07549132538062753,
+     "vol": 0.21516160915004248,
+     "sharpe": 0.4454298616891733,
+     "sortino": 0.6625407086993168,
+     "maxdd": -0.3516295022199175,
+     "calmar": 0.21468996459066578,
+     "years": 10.353174603174603,
+     "skew": 0.48151835214421473,
+     "kurt": 11.302804087771882
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "671f955802b2",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.08967710679494967,
+       "vol": 0.209859785160569,
+       "sharpe": -0.3431891160656879,
+       "sortino": -0.48559609965204137,
+       "maxdd": -0.3012848489763953,
+       "calmar": -0.2976489096601588,
+       "years": 2.0674603174603177,
+       "skew": 0.42624068035507723,
+       "kurt": 8.464096708544165,
+       "trades": 40,
+       "trades_per_year": 19.34740882917466,
+       "turnover_per_year": 13.056441954923255
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "ceb9393199f1",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.1083556152515015,
+       "vol": 0.1544820789315448,
+       "sharpe": 0.7432281026396336,
+       "sortino": 1.100430093021331,
+       "maxdd": -0.12453259296001806,
+       "calmar": 0.8700984431143237,
+       "years": 2.0753968253968256,
+       "skew": -0.07702110942304988,
+       "kurt": 12.622939177817209,
+       "trades": 11,
+       "trades_per_year": 5.300191204588909,
+       "turnover_per_year": 3.0671869610600053
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "ceb9393199f1",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.10658231217782066,
+       "vol": 0.24832246866448893,
+       "sharpe": 0.531982770281744,
+       "sortino": 0.7785792915465143,
+       "maxdd": -0.306926131873415,
+       "calmar": 0.3472572098285141,
+       "years": 2.0674603174603177,
+       "skew": -0.06261700555920258,
+       "kurt": 8.363974639772056,
+       "trades": 30,
+       "trades_per_year": 14.510556621880996,
+       "turnover_per_year": 9.719708885247138
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "671f955802b2",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.2149037418407047,
+       "vol": 0.25934423584161537,
+       "sharpe": 0.8785703754960328,
+       "sortino": 1.4313917010247934,
+       "maxdd": -0.17128465297065765,
+       "calmar": 1.254658477064605,
+       "years": 2.0714285714285716,
+       "skew": 1.3032102441125162,
+       "kurt": 12.920365232126262,
+       "trades": 42,
+       "trades_per_year": 20.275862068965516,
+       "turnover_per_year": 13.10575124862179
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "9ac54ca58fd4",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.060460077192384,
+       "vol": 0.1867555221236617,
+       "sharpe": 0.4078021797283565,
+       "sortino": 0.5732691385846233,
+       "maxdd": -0.21226707841855508,
+       "calmar": 0.28483021315800494,
+       "years": 2.0714285714285716,
+       "skew": -0.3157468183879445,
+       "kurt": 5.766387947138265,
+       "trades": 42,
+       "trades_per_year": 20.275862068965516,
+       "turnover_per_year": 13.077734585090496
+      }
+     }
+    ],
+    "stable_choice": 0.4
+   },
+   "stability": {
+    "base_sharpe": 0.8144375116573781,
+    "neighbors": [
+     {
+      "spec_id": "e295f858c7ba",
+      "sharpe": 0.6874337389544234
+     },
+     {
+      "spec_id": "79ede68ab100",
+      "sharpe": 0.5770779217337229
+     },
+     {
+      "spec_id": "671f955802b2",
+      "sharpe": 0.7099484288355794
+     },
+     {
+      "spec_id": "f75ccdd28a09",
+      "sharpe": 0.6840008766757872
+     },
+     {
+      "spec_id": "9ac54ca58fd4",
+      "sharpe": 0.6913004500578545
+     },
+     {
+      "spec_id": "69413e4ab24f",
+      "sharpe": 0.5894284787169957
+     },
+     {
+      "spec_id": "1a545b6ba562",
+      "sharpe": 0.7218877037938992
+     }
+    ],
+    "share_ok": 1.0
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.16155812472946018,
+     "sharpe": 0.8144375116573781
+    },
+    "2.0": {
+     "cagr": 0.11399368824592626,
+     "sharpe": 0.6104988650305404
+    },
+    "3.0": {
+     "cagr": 0.06620573161128651,
+     "sharpe": 0.40236499320821795
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.8250434706488569,
+     "cagr": 0.1432929832961205
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.5145386838770022,
+     "cagr": 0.0910133220408349
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 1.064416724184656,
+     "cagr": 0.24553597568096586
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 0.7078815186287393,
+    "cagr_without_best_3_months": 0.11647496659150125
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.7304066511694504,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": -0.20406939552109635,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": -0.004428750969747819
+     },
+     "research_fx": {
+      "sharpe": -0.007798301784265617,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.0008538062913819866
+     },
+     "etp_all": {
+      "sharpe": -0.9841303946209637,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": -0.8482218474805627,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": -0.12672039763016396
+     },
+     "etp_real": {
+      "sharpe": -0.9347465531402012,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "se_stocks": {
+      "sharpe": 0.7563914376342615,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.19612672340381487
+     }
+    },
+    "share_beating_benchmark": 0.14285714285714285
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": true,
+   "tradable": true,
+   "proxy_share_dev": 0.0,
+   "dev_benchmark": {
+    "cagr": 0.07990039185319309,
+    "vol": 0.15549691850886857,
+    "sharpe": 0.5721577922594836,
+    "sortino": 0.8288748747081549,
+    "maxdd": -0.36350527092218743,
+    "calmar": 0.21980531850471216,
+    "years": 16.563492063492063,
+    "skew": -0.027591595700947553,
+    "kurt": 6.6758246270818375,
+    "trades": 50,
+    "trades_per_year": 3.0186871106851942,
+    "turnover_per_year": 0.12091556665103616
+   },
+   "mc_dev": {
+    "cagr_p05": 0.07427709749892938,
+    "cagr_p50": 0.16038522025260238,
+    "maxdd_p05": -0.5017543419889842,
+    "maxdd_p50": -0.3358293334559267
+   },
+   "validation": {
+    "cagr": 0.2811198212649355,
+    "vol": 0.24686859565770838,
+    "sharpe": 1.1275219730948307,
+    "sortino": 1.6411276683944513,
+    "maxdd": -0.27952631101823133,
+    "calmar": 1.0057007522508328,
+    "years": 5.178571428571429,
+    "skew": -0.14621774067206886,
+    "kurt": 9.265262739122646,
+    "trades": 77,
+    "trades_per_year": 14.868965517241378,
+    "turnover_per_year": 9.831397933982519
+   },
+   "validation_benchmark": {
+    "cagr": 0.1998216591447275,
+    "vol": 0.19265069680695046,
+    "sharpe": 1.0426087226982688,
+    "sortino": 1.4796696989462328,
+    "maxdd": -0.2747533662859678,
+    "calmar": 0.727276472881318,
+    "years": 5.178571428571429,
+    "skew": -0.4423047137228504,
+    "kurt": 19.321706523202934,
+    "trades": 50,
+    "trades_per_year": 9.655172413793103,
+    "turnover_per_year": 0.24502391784619923
+   },
+   "validation_vs_benchmark": {
+    "p": 0.474,
+    "diff_lo": -0.6467203036934671,
+    "diff_hi": 0.6803912533508052
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.11469131462498927
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": 0.32102209226323364,
+      "benchmark": 0.16569043809323203
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.09336610594314365,
+      "benchmark": -0.23277059822462376
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.25722785350270216,
+      "benchmark_ann": 0.25505377625306824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.29788286220741805,
+      "benchmark_ann": 0.15074139347525692
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": 0.019702937112284505,
+      "benchmark_ann": 0.33913673020716045
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.29445042430965884,
+      "benchmark_ann": 0.5147783442452827
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.3258613571044715,
+      "benchmark_ann": 0.12125536246855492
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.48324900432428197,
+    "cagr_without_best_3_months": 0.14178076351863012
+   },
+   "exact": {
+    "cagr": 0.18521723435145687,
+    "vol": 0.21881572985198403,
+    "sharpe": 0.886126680749626,
+    "sortino": 1.3159148815219126,
+    "maxdd": -0.32863044267595987,
+    "calmar": 0.5636033985265541,
+    "years": 21.74206349206349,
+    "skew": 0.10932128212764104,
+    "kurt": 10.101913609356515,
+    "trades": 272,
+    "trades_per_year": 12.510312100748314
+   },
+   "exact_gap": 0.001905774602193544,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)",
+    "universumet har överlevnadsbias (dagens bolag); kan inte verifieras"
+   ],
+   "spec": {
+    "universe": "us_stocks",
+    "entry": {
+     "type": "rsi_pullback",
+     "n": 2,
+     "thr": 10
+    },
+    "exit": {
+     "type": "donchian_low",
+     "n": 20
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "mom126",
+    "max_pos": 3,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "7b71213280d8",
+   "description": "etp_core: entry high52(prox=0.05); filter vol_below(q=0.8); alla positioner; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.024390817231450646,
+    "vol": 0.0744444067366042,
+    "sharpe": 0.3609770803684563,
+    "sortino": 0.5091333509940678,
+    "maxdd": -0.12576489644529742,
+    "calmar": 0.19393978702204595,
+    "years": 16.563492063492063,
+    "skew": -0.36604528375190454,
+    "kurt": 9.134434295598515,
+    "trades": 48,
+    "trades_per_year": 2.897939626257786,
+    "turnover_per_year": 0.619973992075935
+   },
+   "avg_hold_days": 322.70454545454544,
+   "dsr": {
+    "dsr": 7.868658891130309e-09,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.928143168638411
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.02017222221282622,
+     "vol": 0.0858248654008564,
+     "sharpe": 0.2756424006309922,
+     "sortino": 0.38733724411086956,
+     "maxdd": -0.11711681344495484,
+     "calmar": 0.17224019010991284,
+     "years": 10.353174603174603,
+     "skew": -0.23766608805055614,
+     "kurt": 7.406419252536025
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "aa1669769bc5",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.0242912368430519,
+       "vol": 0.08907276231899396,
+       "sharpe": -0.23154090381745504,
+       "sortino": -0.31205120598426367,
+       "maxdd": -0.11493005693688552,
+       "calmar": -0.21135669371843754,
+       "years": 2.0674603174603177,
+       "skew": -0.40323922262548045,
+       "kurt": 5.1580296171589834,
+       "trades": 14,
+       "trades_per_year": 6.771593090211132,
+       "turnover_per_year": 1.029120812838901
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "aa1669769bc5",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.013286214765952264,
+       "vol": 0.07223679424758826,
+       "sharpe": 0.21874252943289144,
+       "sortino": 0.32035556093970713,
+       "maxdd": -0.08671847540511135,
+       "calmar": 0.15321088965050175,
+       "years": 2.0753968253968256,
+       "skew": 0.2427523569359575,
+       "kurt": 7.0877920326806025,
+       "trades": 11,
+       "trades_per_year": 5.300191204588909,
+       "turnover_per_year": 0.7633076913671112
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "aa1669769bc5",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.018091398828984362,
+       "vol": 0.08246267911624552,
+       "sharpe": -0.18013277255334267,
+       "sortino": -0.24036438255763198,
+       "maxdd": -0.11711681344495528,
+       "calmar": -0.15447311361051752,
+       "years": 2.0674603174603177,
+       "skew": -0.6904453678850989,
+       "kurt": 7.576789987599714,
+       "trades": 16,
+       "trades_per_year": 7.738963531669865,
+       "turnover_per_year": 1.3615524564205819
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "aa1669769bc5",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.0112127033000613,
+       "vol": 0.08277537399573712,
+       "sharpe": 0.17597298335884554,
+       "sortino": 0.2581489590678563,
+       "maxdd": -0.0763308537724402,
+       "calmar": 0.1468960812817441,
+       "years": 2.0714285714285716,
+       "skew": 0.33171936458466716,
+       "kurt": 11.209333147852332,
+       "trades": 14,
+       "trades_per_year": 6.758620689655172,
+       "turnover_per_year": 1.0136906647929822
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "aa1669769bc5",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.12548135280071993,
+       "vol": 0.10016272171331113,
+       "sharpe": 1.230518015590827,
+       "sortino": 1.7695628277805118,
+       "maxdd": -0.11502063307396748,
+       "calmar": 1.0909464627970302,
+       "years": 2.0714285714285716,
+       "skew": -0.41352353509533024,
+       "kurt": 6.183627018519068,
+       "trades": 9,
+       "trades_per_year": 4.344827586206896,
+       "turnover_per_year": 0.6992543987112346
+      }
+     }
+    ],
+    "stable_choice": 0.0
+   },
+   "stability": {
+    "base_sharpe": 0.3609770803684563,
+    "neighbors": [
+     {
+      "spec_id": "058ff790f760",
+      "sharpe": -0.27091633063273696
+     },
+     {
+      "spec_id": "0b4ec3c810e7",
+      "sharpe": 0.36187911851855076
+     },
+     {
+      "spec_id": "36216ca20e57",
+      "sharpe": 0.26933452787719553
+     },
+     {
+      "spec_id": "aa1669769bc5",
+      "sharpe": 0.41135698378281876
+     }
+    ],
+    "share_ok": 0.75
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.024390817231450646,
+     "sharpe": 0.3609770803684563
+    },
+    "2.0": {
+     "cagr": 0.00738386594604834,
+     "sharpe": 0.13392512429133127
+    },
+    "3.0": {
+     "cagr": -0.012052987831766893,
+     "sharpe": -0.10398209752976315
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.4102436406215464,
+     "cagr": 0.02515705061169493
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": -0.04786785282920257,
+     "cagr": -0.006854036568911037
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.6965275366486491,
+     "cagr": 0.053726414970873604
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 1.1013549913782048,
+    "cagr_without_best_3_months": 0.013840792662381363
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.15440457905585708,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -0.01649329259373633
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": -0.012139450729000356,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.0022919821955917907
+     },
+     "etp_all": {
+      "sharpe": -0.16140491487262273,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -0.016868171667438925
+     },
+     "etp_equity": {
+      "sharpe": 0.22765199658500376,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": 0.018038320232173
+     },
+     "etp_real": {
+      "sharpe": -0.6656982362398535,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -0.05432692119959004
+     },
+     "se_stocks": {
+      "sharpe": 0.2721180113504661,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.01966576846296597
+     },
+     "us_stocks": {
+      "sharpe": 0.5590667494640613,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.05240348012991114
+     }
+    },
+    "share_beating_benchmark": 0.25
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": false,
+   "tradable": true,
+   "proxy_share_dev": 0.38380430975686186,
+   "dev_benchmark": {
+    "cagr": -0.0015504281696939737,
+    "vol": 0.14712066608066335,
+    "sharpe": 0.06305837172781865,
+    "sortino": 0.08848791242400744,
+    "maxdd": -0.5932691447526066,
+    "calmar": -0.002613363906428174,
+    "years": 16.563492063492063,
+    "skew": -0.0970420962407916,
+    "kurt": 7.0967842630299485,
+    "trades": 12,
+    "trades_per_year": 0.7244849065644465,
+    "turnover_per_year": 0.33828828706742997
+   },
+   "mc_dev": {
+    "cagr_p05": -0.0025786960896214506,
+    "cagr_p50": 0.023797735415531984,
+    "maxdd_p05": -0.310322440420735,
+    "maxdd_p50": -0.18155541383621565
+   },
+   "validation": {
+    "cagr": 0.021325478466625913,
+    "vol": 0.07531371620627483,
+    "sharpe": 0.3179454082422424,
+    "sortino": 0.4314626100257402,
+    "maxdd": -0.1376645760579024,
+    "calmar": 0.15490897569507142,
+    "years": 5.178571428571429,
+    "skew": -1.0290447855398015,
+    "kurt": 20.110746614658172,
+    "trades": 28,
+    "trades_per_year": 5.406896551724138,
+    "turnover_per_year": 0.7599337225230053
+   },
+   "validation_benchmark": {
+    "cagr": 0.23124177505874255,
+    "vol": 0.1569319878795977,
+    "sharpe": 1.404864122038585,
+    "sortino": 2.0369641250042245,
+    "maxdd": -0.2611412100956353,
+    "calmar": 0.8855047235710406,
+    "years": 5.178571428571429,
+    "skew": -0.7059838181453474,
+    "kurt": 13.668997856727666,
+    "trades": 13,
+    "trades_per_year": 2.5103448275862066,
+    "turnover_per_year": 0.5061414682845986
+   },
+   "validation_vs_benchmark": {
+    "p": 0.996,
+    "diff_lo": -1.700798611590146,
+    "diff_hi": -0.4625882185570996
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": -0.03290283549146933,
+      "benchmark": -0.052401171319731765
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": 0.01160037445371942,
+      "benchmark": -0.17932470289502744
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.09873393896538796,
+      "benchmark": -0.20393165190013474
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.013055904004403823,
+      "benchmark_ann": 0.1846037005077824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.034016256282512966,
+      "benchmark_ann": 0.2536347722159214
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.12780976866541985,
+      "benchmark_ann": -0.01666944071635592
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": -0.03540896417942893,
+      "benchmark_ann": 0.1335015443843126
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.06338469078805964,
+      "benchmark_ann": 0.281124909298687
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.9622705072277079,
+    "cagr_without_best_3_months": 0.0008249139406983907
+   },
+   "exact": {
+    "cagr": 0.024649917064238025,
+    "vol": 0.07367965617080915,
+    "sharpe": 0.36740158930787375,
+    "sortino": 0.5153533247262232,
+    "maxdd": -0.13111778940937036,
+    "calmar": 0.18799826610313805,
+    "years": 21.74206349206349,
+    "skew": -0.47223764309848615,
+    "kurt": 11.035878576804256,
+    "trades": 72,
+    "trades_per_year": 3.311553203139259
+   },
+   "exact_gap": 0.0005744142434620514,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "validerings-Sharpe 0.32 < 0.5",
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "walk-forward-Sharpe 0.28 < 0.3",
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "klarar inte FDR (q 1.00)"
+   ],
+   "spec": {
+    "universe": "etp_core",
+    "entry": {
+     "type": "high52",
+     "prox": 0.05
+    },
+    "exit": {
+     "type": "default"
+    },
+    "filter": {
+     "type": "vol_below",
+     "q": 0.8
+    },
+    "confirm": 1,
+    "rank": "none",
+    "max_pos": 0,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "8558cec57566",
+   "description": "etp_core: entry rsi_pullback(n=3, thr=10); exit mom_neg(L=63); filter er_above(L=100, thr=0.2); max 1 positioner rangordnat mom126; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.013660312442016709,
+    "vol": 0.05148063760239658,
+    "sharpe": 0.28933259631659336,
+    "sortino": 0.4163116318273093,
+    "maxdd": -0.11500287893329442,
+    "calmar": 0.11878235196129441,
+    "years": 16.563492063492063,
+    "skew": -0.5549424400338432,
+    "kurt": 70.00359788369916,
+    "trades": 9,
+    "trades_per_year": 0.5433636799233349,
+    "turnover_per_year": 1.0894356703286598
+   },
+   "avg_hold_days": 31.88888888888889,
+   "dsr": {
+    "dsr": 1.5657094509791136e-09,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.8786316993098213
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": 0.0023372533459120604,
+     "vol": 0.027385152039493113,
+     "sharpe": 0.0989862116913604,
+     "sortino": 0.13414055196742014,
+     "maxdd": -0.05720970700633743,
+     "calmar": 0.04085413941471768,
+     "years": 8.285714285714286,
+     "skew": -3.1170167676357248,
+     "kurt": 146.47546771417714
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": null
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "02c7d5507564",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.0,
+       "vol": 0.0,
+       "sharpe": 0.0,
+       "sortino": 0.0,
+       "maxdd": 0.0,
+       "calmar": 0.0,
+       "years": 2.0753968253968256,
+       "skew": 0.0,
+       "kurt": 0.0,
+       "trades": 0,
+       "trades_per_year": 0.0,
+       "turnover_per_year": 0.0
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "8558cec57566",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": -0.002155827814601219,
+       "vol": 0.029962071930498498,
+       "sharpe": -0.05706691095894481,
+       "sortino": -0.07914247171017166,
+       "maxdd": -0.05720970700633743,
+       "calmar": -0.03768290255991708,
+       "years": 2.0674603174603177,
+       "skew": -0.45121453659096344,
+       "kurt": 56.08653331964515,
+       "trades": 1,
+       "trades_per_year": 0.48368522072936654,
+       "turnover_per_year": 0.9692593116035476
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "8558cec57566",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.0009584936310198522,
+       "vol": 0.023654865474750375,
+       "sharpe": 0.052289626059381124,
+       "sortino": 0.07998776459597404,
+       "maxdd": -0.023912157898257957,
+       "calmar": 0.040083945376158635,
+       "years": 2.0714285714285716,
+       "skew": 1.401364040068739,
+       "kurt": 55.735176978062476,
+       "trades": 1,
+       "trades_per_year": 0.48275862068965514,
+       "turnover_per_year": 0.48275862068965514
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "8558cec57566",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.010589769734220544,
+       "vol": 0.03934640447799129,
+       "sharpe": 0.2875147866179989,
+       "sortino": 0.3712544535116379,
+       "maxdd": -0.0359641802933498,
+       "calmar": 0.2944532489783652,
+       "years": 2.0714285714285716,
+       "skew": -4.344900817948183,
+       "kurt": 112.01573586614153,
+       "trades": 1,
+       "trades_per_year": 0.48275862068965514,
+       "turnover_per_year": 0.9675697632670248
+      }
+     }
+    ],
+    "stable_choice": 0.6
+   },
+   "stability": {
+    "base_sharpe": 0.28933259631659336,
+    "neighbors": [
+     {
+      "spec_id": "aad6c584b572",
+      "sharpe": -0.11742828760533223
+     },
+     {
+      "spec_id": "c5ce533384e3",
+      "sharpe": 0.0
+     },
+     {
+      "spec_id": "39d222c08cb3",
+      "sharpe": -0.07905888076369808
+     },
+     {
+      "spec_id": "e3cef602c5d9",
+      "sharpe": 0.28933259631659336
+     },
+     {
+      "spec_id": "c0251526abca",
+      "sharpe": 0.012201275268797522
+     },
+     {
+      "spec_id": "ddf832474bac",
+      "sharpe": -0.48373592647592994
+     },
+     {
+      "spec_id": "02c7d5507564",
+      "sharpe": 0.2955987069189622
+     }
+    ],
+    "share_ok": 0.2857142857142857
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.013660312442016709,
+     "sharpe": 0.28933259631659336
+    },
+    "2.0": {
+     "cagr": 0.00901779018309723,
+     "sharpe": 0.19829230098308484
+    },
+    "3.0": {
+     "cagr": 0.004348793704853859,
+     "sharpe": 0.10817460825142897
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.7259507638280159,
+     "cagr": 0.035644344990544585
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.07572286873323063,
+     "cagr": 0.0024700855664827603
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.03164973818253084,
+     "cagr": 0.0004599642822875616
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 1.3279336207838608,
+    "cagr_without_best_3_months": 0.002826325041727751
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.10532273105231066,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -0.018947825228998516
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": -0.30525602664192514,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.0025548964388707462
+     },
+     "etp_all": {
+      "sharpe": -0.09134214190562692,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -0.01690488697013237
+     },
+     "etp_equity": {
+      "sharpe": 0.10788500136092148,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": 0.004933170473375492
+     },
+     "etp_real": {
+      "sharpe": -0.1258301406915872,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -0.017717282460148587
+     },
+     "se_stocks": {
+      "sharpe": 0.718035764557929,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.2068049379862662
+     },
+     "us_stocks": {
+      "sharpe": 0.07527388705290669,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": -0.0002883761797042306
+     }
+    },
+    "share_beating_benchmark": 0.125
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": false,
+   "tradable": true,
+   "proxy_share_dev": 0.38380430975686186,
+   "dev_benchmark": {
+    "cagr": -0.0015504281696939737,
+    "vol": 0.14712066608066335,
+    "sharpe": 0.06305837172781865,
+    "sortino": 0.08848791242400744,
+    "maxdd": -0.5932691447526066,
+    "calmar": -0.002613363906428174,
+    "years": 16.563492063492063,
+    "skew": -0.0970420962407916,
+    "kurt": 7.0967842630299485,
+    "trades": 12,
+    "trades_per_year": 0.7244849065644465,
+    "turnover_per_year": 0.33828828706742997
+   },
+   "mc_dev": {
+    "cagr_p05": -0.00018367789972404934,
+    "cagr_p50": 0.012978238945761111,
+    "maxdd_p05": -0.1862197207249779,
+    "maxdd_p50": -0.11274819740205966
+   },
+   "validation": {
+    "cagr": -0.008915041308785288,
+    "vol": 0.035290933355519354,
+    "sharpe": -0.2360648265456398,
+    "sortino": -0.30725475769354,
+    "maxdd": -0.11396093281278585,
+    "calmar": -0.07822892537595186,
+    "years": 5.178571428571429,
+    "skew": -1.6551865453505015,
+    "kurt": 76.10551245115043,
+    "trades": 2,
+    "trades_per_year": 0.38620689655172413,
+    "turnover_per_year": 0.7740394994268427
+   },
+   "validation_benchmark": {
+    "cagr": 0.23124177505874255,
+    "vol": 0.1569319878795977,
+    "sharpe": 1.404864122038585,
+    "sortino": 2.0369641250042245,
+    "maxdd": -0.2611412100956353,
+    "calmar": 0.8855047235710406,
+    "years": 5.178571428571429,
+    "skew": -0.7059838181453474,
+    "kurt": 13.668997856727666,
+    "trades": 13,
+    "trades_per_year": 2.5103448275862066,
+    "turnover_per_year": 0.5061414682845986
+   },
+   "validation_vs_benchmark": {
+    "p": 0.998,
+    "diff_lo": -2.6099660063531616,
+    "diff_hi": -0.6826734273452248
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.052401171319731765
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.003725869773652968,
+      "benchmark": -0.17932470289502744
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": 0.0,
+      "benchmark": -0.20393165190013474
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.01330612063052761,
+      "benchmark_ann": 0.1846037005077824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": -0.028340449638956582,
+      "benchmark_ann": 0.2536347722159214
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": 0.0,
+      "benchmark_ann": -0.01666944071635592
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": -0.012595550633408665,
+      "benchmark_ann": 0.1335015443843126
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": -0.009231736500932107,
+      "benchmark_ann": 0.281124909298687
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": null,
+    "cagr_without_best_3_months": -0.013722080621128452
+   },
+   "exact": {
+    "cagr": 0.00830486600954572,
+    "vol": 0.04777405183543756,
+    "sharpe": 0.1970427202822261,
+    "sortino": 0.2797072857662682,
+    "maxdd": -0.14718849637149367,
+    "calmar": 0.05642333615926619,
+    "years": 21.74206349206349,
+    "skew": -0.6574465007427615,
+    "kurt": 75.19611649963963,
+    "trades": 11,
+    "trades_per_year": 0.5059317393684979
+   },
+   "exact_gap": 6.78207333999481e-05,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "validerings-Sharpe -0.24 < 0.5",
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "walk-forward-Sharpe 0.10 < 0.3",
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "parameterkänslig: 29% av grannarna håller",
+    "klarar inte FDR (q 1.00)",
+    "för få affärer (0.5/år)",
+    "för få affärer totalt (9)"
+   ],
+   "spec": {
+    "universe": "etp_core",
+    "entry": {
+     "type": "rsi_pullback",
+     "n": 3,
+     "thr": 10
+    },
+    "exit": {
+     "type": "mom_neg",
+     "L": 63
+    },
+    "filter": {
+     "type": "er_above",
+     "L": 100,
+     "thr": 0.2
+    },
+    "confirm": 1,
+    "rank": "mom126",
+    "max_pos": 1,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "54b876b96a64",
+   "description": "etp_equity: entry high52(prox=0.1); filter market_trend(n=200); alla positioner; invvol; beslut monthly",
+   "dev": {
+    "cagr": 0.015899404487022872,
+    "vol": 0.09625691753204467,
+    "sharpe": 0.21214271718995112,
+    "sortino": 0.29021899892242986,
+    "maxdd": -0.25530220026217165,
+    "calmar": 0.06227680165190766,
+    "years": 16.563492063492063,
+    "skew": -0.7078145825520005,
+    "kurt": 11.095826670684295,
+    "trades": 162,
+    "trades_per_year": 9.78054623862003,
+    "turnover_per_year": 0.9801910596845395
+   },
+   "avg_hold_days": 260.5246913580247,
+   "dsr": {
+    "dsr": 1.9938634077121264e-10,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.8048393407640122
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": -0.012418116107260069,
+     "vol": 0.10984554750485845,
+     "sharpe": -0.05862122645425764,
+     "sortino": -0.07765043499831373,
+     "maxdd": -0.2601254888997059,
+     "calmar": -0.04773894384509164,
+     "years": 8.281746031746032,
+     "skew": -0.8840455266610666,
+     "kurt": 10.050132222920993
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "54b876b96a64",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": -0.03908603958553325,
+       "vol": 0.11962095040375505,
+       "sharpe": -0.2734631150281238,
+       "sortino": -0.3682731503988083,
+       "maxdd": -0.1370329236334875,
+       "calmar": -0.2852310127314657,
+       "years": 2.0674603174603177,
+       "skew": -0.3530140516343256,
+       "kurt": 4.909285573168293,
+       "trades": 29,
+       "trades_per_year": 14.026871401151631,
+       "turnover_per_year": 1.4989037149165667
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "54b876b96a64",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.024838702306095417,
+       "vol": 0.0508099638788599,
+       "sharpe": 0.5082462120060472,
+       "sortino": 0.7542434723847168,
+       "maxdd": -0.04367090114923844,
+       "calmar": 0.5687700883756224,
+       "years": 2.0753968253968256,
+       "skew": 0.2999488773327057,
+       "kurt": 21.531552653912854,
+       "trades": 21,
+       "trades_per_year": 10.118546845124282,
+       "turnover_per_year": 0.49247110904700925
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "54b876b96a64",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": -0.09237173385720598,
+       "vol": 0.11760653835663834,
+       "sharpe": -0.7647905873488628,
+       "sortino": -0.9521456752946705,
+       "maxdd": -0.25892301477880675,
+       "calmar": -0.3567536626132578,
+       "years": 2.0674603174603177,
+       "skew": -1.4706016723004287,
+       "kurt": 12.969645859004784,
+       "trades": 48,
+       "trades_per_year": 23.216890595009595,
+       "turnover_per_year": 2.0158060115326863
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": null
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "54b876b96a64",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.06394848693855826,
+       "vol": 0.13258639824509166,
+       "sharpe": 0.5340147142314888,
+       "sortino": 0.7249668465943321,
+       "maxdd": -0.17881161173322546,
+       "calmar": 0.3576305046339215,
+       "years": 2.0714285714285716,
+       "skew": -0.7409982912409498,
+       "kurt": 7.175254601188847,
+       "trades": 47,
+       "trades_per_year": 22.68965517241379,
+       "turnover_per_year": 1.8932844764781145
+      }
+     }
+    ],
+    "stable_choice": 0.8
+   },
+   "stability": {
+    "base_sharpe": 0.21214271718995112,
+    "neighbors": [
+     {
+      "spec_id": "458d9e467c8e",
+      "sharpe": 0.18109788697416784
+     },
+     {
+      "spec_id": "26db511e8fdf",
+      "sharpe": 0.03195685197918161
+     },
+     {
+      "spec_id": "aa64c6d3ec54",
+      "sharpe": -0.047331219126669724
+     }
+    ],
+    "share_ok": 0.3333333333333333
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.015899404487022872,
+     "sharpe": 0.21214271718995112
+    },
+    "2.0": {
+     "cagr": -0.019406907554677666,
+     "sharpe": -0.12870702149847849
+    },
+    "3.0": {
+     "cagr": -0.09087904686542259,
+     "sharpe": -0.5737786242919093
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.2722595372170244,
+     "cagr": 0.01864147828618612
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": -0.05270655547414526,
+     "cagr": -0.010355155096611335
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.28916566519482434,
+     "cagr": 0.026189451678652276
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 1.8850835336705283,
+    "cagr_without_best_3_months": 0.0049036686673611385
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.22273252665499385,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -0.020457456023907805
+     },
+     "research_crypto_x": {
+      "sharpe": 0.0,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": 0.0
+     },
+     "research_fx": {
+      "sharpe": -0.050012196952003644,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.0036465397330169846
+     },
+     "etp_all": {
+      "sharpe": -0.23844705402169145,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -0.02169649771247828
+     },
+     "etp_real": {
+      "sharpe": -0.4834121931424054,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -0.03450117604508052
+     },
+     "se_stocks": {
+      "sharpe": 0.798701395393265,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.07574742261117384
+     },
+     "us_stocks": {
+      "sharpe": 0.6297125775735255,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.06192386415429452
+     }
+    },
+    "share_beating_benchmark": 0.14285714285714285
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": false,
+   "tradable": true,
+   "proxy_share_dev": 0.5657984478976571,
+   "dev_benchmark": {
+    "cagr": 0.0011348533286084095,
+    "vol": 0.18373427628674305,
+    "sharpe": 0.0980795815107684,
+    "sortino": 0.13827648060985312,
+    "maxdd": -0.5883564467214183,
+    "calmar": 0.001928853393095823,
+    "years": 16.563492063492063,
+    "skew": -0.026687295304983497,
+    "kurt": 8.46930046725639,
+    "trades": 24,
+    "trades_per_year": 1.448969813128893,
+    "turnover_per_year": 0.15710385838370325
+   },
+   "mc_dev": {
+    "cagr_p05": -0.01887644198847589,
+    "cagr_p50": 0.015994755835214813,
+    "maxdd_p05": -0.4468900987527174,
+    "maxdd_p50": -0.2615809576655113
+   },
+   "validation": {
+    "cagr": 0.06980638538170592,
+    "vol": 0.10034701506022828,
+    "sharpe": 0.7228228031857938,
+    "sortino": 0.9881535793860515,
+    "maxdd": -0.16597933252153807,
+    "calmar": 0.42057275638608554,
+    "years": 5.178571428571429,
+    "skew": -0.7563028453199685,
+    "kurt": 9.524516284559525,
+    "trades": 81,
+    "trades_per_year": 15.641379310344826,
+    "turnover_per_year": 1.0726112274654171
+   },
+   "validation_benchmark": {
+    "cagr": 0.1308952078463339,
+    "vol": 0.16757383870118825,
+    "sharpe": 0.8185201704504191,
+    "sortino": 1.1252528521123137,
+    "maxdd": -0.3115325364542578,
+    "calmar": 0.4201654483224522,
+    "years": 5.178571428571429,
+    "skew": -0.8955706300905423,
+    "kurt": 16.000840521948795,
+    "trades": 26,
+    "trades_per_year": 5.020689655172413,
+    "turnover_per_year": 0.2389789491686289
+   },
+   "validation_vs_benchmark": {
+    "p": 0.654,
+    "diff_lo": -0.6119039794051983,
+    "diff_hi": 0.3867671570355501
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.1428666702254684
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": 0.016539768957128498,
+      "benchmark": 0.011560364966822334
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.13525086604691638,
+      "benchmark": -0.2997211017522686
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.0651774882668545,
+      "benchmark_ann": 0.1987990794942364
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.07933543413359538,
+      "benchmark_ann": 0.08016242937159786
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.09165159831209667,
+      "benchmark_ann": 0.0783644137967003
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.005496521455263629,
+      "benchmark_ann": 0.19458608519844853
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.11567637454869309,
+      "benchmark_ann": 0.13892798462807213
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.5042009373584475,
+    "cagr_without_best_3_months": 0.03525751976439073
+   },
+   "exact": {
+    "cagr": 0.02783625286924729,
+    "vol": 0.09521664629146219,
+    "sharpe": 0.33610900258632875,
+    "sortino": 0.45927358753092473,
+    "maxdd": -0.2522006216395978,
+    "calmar": 0.11037345066114122,
+    "years": 21.74206349206349,
+    "skew": -0.7321365015582237,
+    "kurt": 10.686684170125034,
+    "trades": 243,
+    "trades_per_year": 11.176492060595
+   },
+   "exact_gap": 0.0017851002644353464,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "walk-forward-Sharpe -0.06 < 0.3",
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "parameterkänslig: 33% av grannarna håller",
+    "ingen avkastning vid dubbla kostnader",
+    "klarar inte FDR (q 1.00)"
+   ],
+   "spec": {
+    "universe": "etp_equity",
+    "entry": {
+     "type": "high52",
+     "prox": 0.1
+    },
+    "exit": {
+     "type": "default"
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "none",
+    "max_pos": 0,
+    "sizing": "invvol",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "959bd112e1ab",
+   "description": "etp_core: entry mom(L=252); filter market_trend(n=200); max 10 positioner rangordnat mom252; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.007425053182816388,
+    "vol": 0.08138370500483909,
+    "sharpe": 0.13173727244366695,
+    "sortino": 0.17695915582640528,
+    "maxdd": -0.1810274315746132,
+    "calmar": 0.04101617704141176,
+    "years": 16.563492063492063,
+    "skew": -1.0726065208547089,
+    "kurt": 15.798886440166338,
+    "trades": 94,
+    "trades_per_year": 5.675131768088165,
+    "turnover_per_year": 1.1644555581341063
+   },
+   "avg_hold_days": 194.3404255319149,
+   "dsr": {
+    "dsr": 2.312200431120459e-11,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.7032068375741014
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": -0.0025729123021355216,
+     "vol": 0.08897827696980633,
+     "sharpe": 0.015690596315560183,
+     "sortino": 0.020995668091240975,
+     "maxdd": -0.19486328320707913,
+     "calmar": -0.013203679317059003,
+     "years": 10.353174603174603,
+     "skew": -0.9764003977488303,
+     "kurt": 14.251651949640925
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "dd132c869785",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.0446010573799146,
+       "vol": 0.11289085004033476,
+       "sharpe": -0.3476748329868581,
+       "sortino": -0.4667513206232436,
+       "maxdd": -0.1468739413449024,
+       "calmar": -0.3036689624552149,
+       "years": 2.0674603174603177,
+       "skew": -0.3727855144934681,
+       "kurt": 4.715108379527542,
+       "trades": 25,
+       "trades_per_year": 12.092130518234164,
+       "turnover_per_year": 2.452690413513315
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "dd132c869785",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.006643343213151853,
+       "vol": 0.04538868082205958,
+       "sharpe": 0.168495123461076,
+       "sortino": 0.2527315487452467,
+       "maxdd": -0.03416472747217392,
+       "calmar": 0.19445034995706156,
+       "years": 2.0753968253968256,
+       "skew": 0.9400510573503073,
+       "kurt": 21.136181783644332,
+       "trades": 11,
+       "trades_per_year": 5.300191204588909,
+       "turnover_per_year": 0.6237065613039646
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "dd132c869785",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.015239757913227958,
+       "vol": 0.08924835450265328,
+       "sharpe": -0.12706707087732608,
+       "sortino": -0.1597881454386509,
+       "maxdd": -0.12043294248517089,
+       "calmar": -0.1265414395658767,
+       "years": 2.0674603174603177,
+       "skew": -2.621405124017426,
+       "kurt": 29.3769149288992,
+       "trades": 19,
+       "trades_per_year": 9.190019193857964,
+       "turnover_per_year": 1.8686438582548053
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": "959bd112e1ab",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.0022520158004855073,
+       "vol": 0.066749241011435,
+       "sharpe": 0.06712672380256555,
+       "sortino": 0.09102938443896026,
+       "maxdd": -0.08107689135778273,
+       "calmar": 0.027776296830962943,
+       "years": 2.0714285714285716,
+       "skew": -1.191462972856748,
+       "kurt": 16.623266704308456,
+       "trades": 14,
+       "trades_per_year": 6.758620689655172,
+       "turnover_per_year": 1.148831211605551
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "959bd112e1ab",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.039881525269808815,
+       "vol": 0.11147546718174411,
+       "sharpe": 0.40661659994023247,
+       "sortino": 0.5548191530006112,
+       "maxdd": -0.1073914205578046,
+       "calmar": 0.37136602777632644,
+       "years": 2.0714285714285716,
+       "skew": -0.5598787480916554,
+       "kurt": 9.261756064148654,
+       "trades": 22,
+       "trades_per_year": 10.620689655172413,
+       "turnover_per_year": 2.1643759626464525
+      }
+     }
+    ],
+    "stable_choice": 0.4
+   },
+   "stability": {
+    "base_sharpe": 0.13173727244366695,
+    "neighbors": [
+     {
+      "spec_id": "8113fdf75772",
+      "sharpe": -0.16160417519268638
+     },
+     {
+      "spec_id": "c67ec3c631d0",
+      "sharpe": -0.18528138660724233
+     },
+     {
+      "spec_id": "dd132c869785",
+      "sharpe": 0.15310767842710832
+     },
+     {
+      "spec_id": "f2b7a5ce7919",
+      "sharpe": 0.07822701120150866
+     }
+    ],
+    "share_ok": 0.5
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.007425053182816388,
+     "sharpe": 0.13173727244366695
+    },
+    "2.0": {
+     "cagr": -0.032882118016915984,
+     "sharpe": -0.3043010645583816
+    },
+    "3.0": {
+     "cagr": -0.10890399753065061,
+     "sharpe": -0.8281722618580409
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.27933255395920664,
+     "cagr": 0.01577896257023914
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": -0.17964473930745065,
+     "cagr": -0.020730634250829327
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": 0.21599705394881877,
+     "cagr": 0.01541944378118143
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 3.731291267129163,
+    "cagr_without_best_3_months": -0.004501732459813668
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -1.105305055738536,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -0.22880357210233027
+     },
+     "research_crypto_x": {
+      "sharpe": -0.12701422181088656,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": -0.0006313310995387234
+     },
+     "research_fx": {
+      "sharpe": 0.012402260431913094,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": 6.561159021312157e-05
+     },
+     "etp_all": {
+      "sharpe": -0.943131379128465,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_equity": {
+      "sharpe": 0.17642426820684678,
+      "benchmark_sharpe": 0.0980795815107684,
+      "cagr": 0.013960032933282296
+     },
+     "etp_real": {
+      "sharpe": -0.9247357480068352,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "se_stocks": {
+      "sharpe": 1.1015935265819685,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": 0.2080175133019766
+     },
+     "us_stocks": {
+      "sharpe": 0.7273946027646505,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.1138595653431882
+     }
+    },
+    "share_beating_benchmark": 0.5
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": false,
+   "tradable": true,
+   "proxy_share_dev": 0.38380430975686186,
+   "dev_benchmark": {
+    "cagr": -0.0015504281696939737,
+    "vol": 0.14712066608066335,
+    "sharpe": 0.06305837172781865,
+    "sortino": 0.08848791242400744,
+    "maxdd": -0.5932691447526066,
+    "calmar": -0.002613363906428174,
+    "years": 16.563492063492063,
+    "skew": -0.0970420962407916,
+    "kurt": 7.0967842630299485,
+    "trades": 12,
+    "trades_per_year": 0.7244849065644465,
+    "turnover_per_year": 0.33828828706742997
+   },
+   "mc_dev": {
+    "cagr_p05": -0.019907660308163155,
+    "cagr_p50": 0.007052166909094826,
+    "maxdd_p05": -0.4098080538481607,
+    "maxdd_p50": -0.23959113528255238
+   },
+   "validation": {
+    "cagr": 0.12477034513147056,
+    "vol": 0.11600027410810385,
+    "sharpe": 1.0716466230693769,
+    "sortino": 1.6431240844913175,
+    "maxdd": -0.1679891917963694,
+    "calmar": 0.7427284088771187,
+    "years": 5.178571428571429,
+    "skew": 0.49512823295525416,
+    "kurt": 9.697141083248571,
+    "trades": 64,
+    "trades_per_year": 12.358620689655172,
+    "turnover_per_year": 2.4194675644060606
+   },
+   "validation_benchmark": {
+    "cagr": 0.23124177505874255,
+    "vol": 0.1569319878795977,
+    "sharpe": 1.404864122038585,
+    "sortino": 2.0369641250042245,
+    "maxdd": -0.2611412100956353,
+    "calmar": 0.8855047235710406,
+    "years": 5.178571428571429,
+    "skew": -0.7059838181453474,
+    "kurt": 13.668997856727666,
+    "trades": 13,
+    "trades_per_year": 2.5103448275862066,
+    "turnover_per_year": 0.5061414682845986
+   },
+   "validation_vs_benchmark": {
+    "p": 0.864,
+    "diff_lo": -0.9261886771678493,
+    "diff_hi": 0.19275400862789874
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.052401171319731765
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.09463977155660241,
+      "benchmark": -0.17932470289502744
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.11147420964502586,
+      "benchmark": -0.20393165190013474
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.06652033389824838,
+      "benchmark_ann": 0.1846037005077824
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.17775516192611604,
+      "benchmark_ann": 0.2536347722159214
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.07540767677942493,
+      "benchmark_ann": -0.01666944071635592
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": -0.09840390995581541,
+      "benchmark_ann": 0.1335015443843126
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.20051681265549864,
+      "benchmark_ann": 0.281124909298687
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.45613256100944366,
+    "cagr_without_best_3_months": 0.06847367246142388
+   },
+   "exact": {
+    "cagr": 0.03367687101873518,
+    "vol": 0.08924888230287122,
+    "sharpe": 0.415821436856836,
+    "sortino": 0.5849684288325042,
+    "maxdd": -0.1824812091646324,
+    "calmar": 0.1845498019927756,
+    "years": 21.74206349206349,
+    "skew": -0.33370653135536815,
+    "kurt": 13.951581120703079,
+    "trades": 157,
+    "trades_per_year": 7.221025734623107
+   },
+   "exact_gap": 0.0009440880144058195,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "walk-forward-Sharpe 0.02 < 0.3",
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "parameterkänslig: 50% av grannarna håller",
+    "ingen avkastning vid dubbla kostnader",
+    "klarar inte FDR (q 1.00)"
+   ],
+   "spec": {
+    "universe": "etp_core",
+    "entry": {
+     "type": "mom",
+     "L": 252
+    },
+    "exit": {
+     "type": "default"
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "mom252",
+    "max_pos": 10,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  },
+  {
+   "spec_id": "8c46bb8fc07b",
+   "description": "etp_equity: entry always(); exit atr_trail(k=3.0); filter market_trend(n=200); alla positioner; slot; beslut monthly",
+   "dev": {
+    "cagr": 0.003784720108432449,
+    "vol": 0.1178860434118184,
+    "sharpe": 0.09115779724796733,
+    "sortino": 0.12453932863695648,
+    "maxdd": -0.25019891067673194,
+    "calmar": 0.015126844869930208,
+    "years": 16.563492063492063,
+    "skew": -0.5857175880599159,
+    "kurt": 10.189492841437122,
+    "trades": 294,
+    "trades_per_year": 17.74988021082894,
+    "turnover_per_year": 1.8196845126601795
+   },
+   "avg_hold_days": 162.07823129251702,
+   "dsr": {
+    "dsr": 6.613876113448214e-12,
+    "sr0_annual": 1.7567229731294558,
+    "n_trials": 6511,
+    "psr": 0.6444263905802893
+   },
+   "walk_forward": {
+    "summary": {
+     "cagr": -0.02079752447833394,
+     "vol": 0.12931380734601636,
+     "sharpe": -0.09761998557362582,
+     "sortino": -0.13042883871292224,
+     "maxdd": -0.2628580925441716,
+     "calmar": -0.07912073117870264,
+     "years": 8.281746031746032,
+     "skew": -0.7118301831474976,
+     "kurt": 9.731153998285887
+    },
+    "folds": [
+     {
+      "train": [
+       "2000-01-03",
+       "2005-12-31"
+      ],
+      "test": [
+       "2006-01-01",
+       "2007-12-31"
+      ],
+      "chosen": "8c46bb8fc07b",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": -0.021231988931460166,
+       "vol": 0.14771242020218334,
+       "sharpe": -0.07147806471321294,
+       "sortino": -0.09908749544730978,
+       "maxdd": -0.1539973215397995,
+       "calmar": -0.13787245595679345,
+       "years": 2.0674603174603177,
+       "skew": -0.15646221079304168,
+       "kurt": 4.652783125377799,
+       "trades": 34,
+       "trades_per_year": 16.445297504798464,
+       "turnover_per_year": 1.8626634399449382
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2007-12-31"
+      ],
+      "test": [
+       "2008-01-01",
+       "2009-12-31"
+      ],
+      "chosen": "8c46bb8fc07b",
+      "same_as_base": true,
+      "test_summary": {
+       "cagr": 0.020383310862591042,
+       "vol": 0.09995238354461182,
+       "sharpe": 0.25178113335698377,
+       "sortino": 0.356154952353832,
+       "maxdd": -0.07568148587276691,
+       "calmar": 0.26933021501267507,
+       "years": 2.0753968253968256,
+       "skew": -0.025539618029362665,
+       "kurt": 13.112354821923468,
+       "trades": 28,
+       "trades_per_year": 13.491395793499043,
+       "turnover_per_year": 0.7333843748747376
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2009-12-31"
+      ],
+      "test": [
+       "2010-01-01",
+       "2011-12-31"
+      ],
+      "chosen": "d4376d34bf71",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": -0.0935074130524921,
+       "vol": 0.12101369623526198,
+       "sharpe": -0.750247657269791,
+       "sortino": -0.9430812630352059,
+       "maxdd": -0.25289840787588425,
+       "calmar": -0.36974298825314483,
+       "years": 2.0674603174603177,
+       "skew": -1.3429557255674258,
+       "kurt": 11.8318154053677,
+       "trades": 50,
+       "trades_per_year": 24.184261036468328,
+       "turnover_per_year": 2.138308500190991
+      }
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2011-12-31"
+      ],
+      "test": [
+       "2012-01-01",
+       "2013-12-31"
+      ],
+      "chosen": null
+     },
+     {
+      "train": [
+       "2000-01-03",
+       "2013-12-31"
+      ],
+      "test": [
+       "2014-01-01",
+       "2015-12-31"
+      ],
+      "chosen": "d4376d34bf71",
+      "same_as_base": false,
+      "test_summary": {
+       "cagr": 0.015275264486736884,
+       "vol": 0.14322629967505562,
+       "sharpe": 0.17782827416365685,
+       "sortino": 0.23380399174990849,
+       "maxdd": -0.24233778585218746,
+       "calmar": 0.06303294565897348,
+       "years": 2.0714285714285716,
+       "skew": -1.1146021789680396,
+       "kurt": 11.49652915616183,
+       "trades": 73,
+       "trades_per_year": 35.241379310344826,
+       "turnover_per_year": 2.985422195069862
+      }
+     }
+    ],
+    "stable_choice": 0.4
+   },
+   "stability": {
+    "base_sharpe": 0.09115779724796733,
+    "neighbors": [
+     {
+      "spec_id": "e6e28cb1850a",
+      "sharpe": -0.0845699407816029
+     },
+     {
+      "spec_id": "d4376d34bf71",
+      "sharpe": 0.12112307172567505
+     },
+     {
+      "spec_id": "d28a70e52cc7",
+      "sharpe": -0.4362834477264968
+     },
+     {
+      "spec_id": "03eeecdf0108",
+      "sharpe": -0.10422828266997504
+     }
+    ],
+    "share_ok": 0.25
+   },
+   "cost_stress": {
+    "1.0": {
+     "cagr": 0.003784720108432449,
+     "sharpe": 0.09115779724796733
+    },
+    "2.0": {
+     "cagr": -0.08496501723991745,
+     "sharpe": -0.5279081396186548
+    },
+    "3.0": {
+     "cagr": -1.0,
+     "sharpe": 0.1836326326220972
+    }
+   },
+   "subperiods": [
+    {
+     "from": "2000-01-03",
+     "to": "2005-12-31",
+     "sharpe": 0.2214406988528507,
+     "cagr": 0.018355098646767543
+    },
+    {
+     "from": "2006-01-01",
+     "to": "2010-12-31",
+     "sharpe": 0.015586610599056291,
+     "cagr": -0.00609768356505791
+    },
+    {
+     "from": "2011-01-01",
+     "to": "2015-12-31",
+     "sharpe": -0.07179832630162807,
+     "cagr": -0.015645966970534775
+    }
+   ],
+   "concentration_dev": {
+    "months": 192,
+    "share_from_best_5pct_months": 8.837137910475395,
+    "cagr_without_best_3_months": -0.007776474476430595
+   },
+   "cross_market": {
+    "universes": {
+     "research_all_etp": {
+      "sharpe": -0.7449687595521008,
+      "benchmark_sharpe": 0.12914014460767725,
+      "cagr": -1.0
+     },
+     "research_crypto_x": {
+      "sharpe": -0.06363760716798635,
+      "benchmark_sharpe": 0.09218112983859306,
+      "cagr": -0.029064524777789646
+     },
+     "research_fx": {
+      "sharpe": -0.10330849653856887,
+      "benchmark_sharpe": -0.04707802896134548,
+      "cagr": -0.008099804607315297
+     },
+     "etp_all": {
+      "sharpe": -0.7526503658706206,
+      "benchmark_sharpe": 0.09741582732025354,
+      "cagr": -1.0
+     },
+     "etp_real": {
+      "sharpe": -0.8570622033377427,
+      "benchmark_sharpe": -0.1005054102567509,
+      "cagr": -1.0
+     },
+     "se_stocks": {
+      "sharpe": -0.09503524587997542,
+      "benchmark_sharpe": 0.8834970819790852,
+      "cagr": -0.04252759586040544
+     },
+     "us_stocks": {
+      "sharpe": 0.7377573010843306,
+      "benchmark_sharpe": 0.5721577922594836,
+      "cagr": 0.09464192085525536
+     }
+    },
+    "share_beating_benchmark": 0.14285714285714285
+   },
+   "pbo": {
+    "pbo": 0.8849206349206349,
+    "logit_median": -1.2083112059245342,
+    "combinations": 252
+   },
+   "survivorship_biased": false,
+   "tradable": true,
+   "proxy_share_dev": 0.5657984478976571,
+   "dev_benchmark": {
+    "cagr": 0.0011348533286084095,
+    "vol": 0.18373427628674305,
+    "sharpe": 0.0980795815107684,
+    "sortino": 0.13827648060985312,
+    "maxdd": -0.5883564467214183,
+    "calmar": 0.001928853393095823,
+    "years": 16.563492063492063,
+    "skew": -0.026687295304983497,
+    "kurt": 8.46930046725639,
+    "trades": 24,
+    "trades_per_year": 1.448969813128893,
+    "turnover_per_year": 0.15710385838370325
+   },
+   "mc_dev": {
+    "cagr_p05": -0.03549801454297808,
+    "cagr_p50": 0.004038777949288752,
+    "maxdd_p05": -0.5741942733012184,
+    "maxdd_p50": -0.35384876027322676
+   },
+   "validation": {
+    "cagr": 0.06167901336623194,
+    "vol": 0.10688380736142236,
+    "sharpe": 0.6135223087443076,
+    "sortino": 0.8537098594250153,
+    "maxdd": -0.14339355105802565,
+    "calmar": 0.4301379867583648,
+    "years": 5.178571428571429,
+    "skew": -0.37947188957361666,
+    "kurt": 7.721721273246018,
+    "trades": 156,
+    "trades_per_year": 30.124137931034483,
+    "turnover_per_year": 2.2386590807356432
+   },
+   "validation_benchmark": {
+    "cagr": 0.1308952078463339,
+    "vol": 0.16757383870118825,
+    "sharpe": 0.8185201704504191,
+    "sortino": 1.1252528521123137,
+    "maxdd": -0.3115325364542578,
+    "calmar": 0.4201654483224522,
+    "years": 5.178571428571429,
+    "skew": -0.8955706300905423,
+    "kurt": 16.000840521948795,
+    "trades": 26,
+    "trades_per_year": 5.020689655172413,
+    "turnover_per_year": 0.2389789491686289
+   },
+   "validation_vs_benchmark": {
+    "p": 0.727,
+    "diff_lo": -0.8351621174931853,
+    "diff_hi": 0.37361459673283165
+   },
+   "regimes_validation": {
+    "crises": [
+     {
+      "name": "Kina/olja",
+      "strategy": 0.0,
+      "benchmark": -0.1428666702254684
+     },
+     {
+      "name": "Krypto-vintern 2018",
+      "strategy": -0.018579510589433967,
+      "benchmark": 0.011560364966822334
+     },
+     {
+      "name": "Coronakraschen",
+      "strategy": -0.040031027154120546,
+      "benchmark": -0.2997211017522686
+     }
+    ],
+    "regimes": {
+     "hög volatilitet": {
+      "days": 627,
+      "strategy_ann": 0.09841972238738658,
+      "benchmark_ann": 0.1987990794942364
+     },
+     "låg volatilitet": {
+      "days": 678,
+      "strategy_ann": 0.035202053690409414,
+      "benchmark_ann": 0.08016242937159786
+     },
+     "nedåttrend": {
+      "days": 186,
+      "strategy_ann": -0.03575927169828008,
+      "benchmark_ann": 0.0783644137967003
+     },
+     "sidled": {
+      "days": 161,
+      "strategy_ann": 0.01844922223156366,
+      "benchmark_ann": 0.19458608519844853
+     },
+     "uppåttrend": {
+      "days": 958,
+      "strategy_ann": 0.09317020678036254,
+      "benchmark_ann": 0.13892798462807213
+     }
+    }
+   },
+   "concentration_validation": {
+    "months": 60,
+    "share_from_best_5pct_months": 0.6547564515663367,
+    "cagr_without_best_3_months": 0.021632018985940693
+   },
+   "exact": {
+    "cagr": 0.014165567305244986,
+    "vol": 0.11058599487854426,
+    "sharpe": 0.18264528263205232,
+    "sortino": 0.24940954811158514,
+    "maxdd": -0.2652693514913884,
+    "calmar": 0.053400693391844216,
+    "years": 21.74206349206349,
+    "skew": -0.5980428894658351,
+    "kurt": 10.080130051794242,
+    "trades": 447,
+    "trades_per_year": 20.559226136156234
+   },
+   "exact_gap": 0.004107277761870254,
+   "fdr_q": 0.998,
+   "fdr_pass": false,
+   "failures": [
+    "slår inte likaviktat köp och behåll på Sharpe i validering",
+    "walk-forward-Sharpe -0.10 < 0.3",
+    "Deflated Sharpe 0.00 < 0.95",
+    "PBO 0.88 > 0.3",
+    "parameterkänslig: 25% av grannarna håller",
+    "ingen avkastning vid dubbla kostnader",
+    "klarar inte FDR (q 1.00)"
+   ],
+   "spec": {
+    "universe": "etp_equity",
+    "entry": {
+     "type": "always"
+    },
+    "exit": {
+     "type": "atr_trail",
+     "k": 3.0
+    },
+    "filter": {
+     "type": "market_trend",
+     "n": 200
+    },
+    "confirm": 1,
+    "rank": "none",
+    "max_pos": 0,
+    "sizing": "slot",
+    "schedule": "monthly"
+   }
+  }
+ ],
+ "champion": {
+  "verdict": "NO VERIFIED EDGE FOUND",
+  "note": "Ingen finalist klarade valideringskraven. Holdout-perioden har inte använts och sparas till en senare omgång."
+ },
+ "minutes": 11.034759219487508
+}

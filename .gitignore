@@ -11,3 +11,5 @@ research/engine/*.log
 __pycache__/
 research/borslabbet/data/
 research/borslabbet/ff/
+__pycache__/
+*.pyc

@@ -1,0 +1,14 @@
+{
+ "version": 1,
+ "name": "SwingEdge med guld (app 2.2)",
+ "spec": "incumbent",
+ "rules": [
+  "Bitcoin Trend 20 %: Bitcoin Tracker One när BTC-USD stängt över SMA150 tre dagar i rad, sälj efter tre under.",
+  "Lika vikt 40 %: XACT OMXS30, SXR8, Bitcoin Tracker One och Xetra-Gold, 10 % vardera, månadsvis ombalansering.",
+  "S&P 500 Trend 40 %: SXR8 när S&P 500 > SMA200 på månadens sista handelsdag."
+ ],
+ "round_id": null,
+ "approved_by": "befintlig strategi i appen (fryst 28 okt 2026, tredagarsregel 29 okt 2026)",
+ "approved_at": "2026-10-29",
+ "evidence": "research/archive/borslabbet (in-sample 2015–2026)"
+}

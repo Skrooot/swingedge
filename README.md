@@ -4,14 +4,14 @@ Android-app i Kotlin och Jetpack Compose för en enda fryst strategi, **SwingEdg
 signalerna på telefonen varje timme och visar vad du behöver köpa, sälja eller bevaka idag. Den har ingen server
 och inga API-nycklar och lägger inga ordrar. Affärer görs manuellt i Avanza och registreras i appen.
 
-Ladda ner: [SwingEdge.apk](https://github.com/Skrooot/swingedge/raw/main/SwingEdge.apk) (version 2.0).
+Ladda ner: [SwingEdge.apk](https://github.com/Skrooot/swingedge/raw/main/SwingEdge.apk) (version 2.2).
 Inget i appen är ett köp- eller säljråd.
 
 ## Strategin (fryst 28 okt 2026)
 
 | Del | Vikt | Regel | Produkt (Avanza) |
 | --- | --- | --- | --- |
-| Bitcoin Trend | 20 % | Investerad när BTC-USD:s senaste färdiga dagsstängning (00:00 UTC) är **över** SMA150, annars kontanter. Exakt lika = kontanter. | Bitcoin Tracker One, SE0007126024, First North Stockholm, SEK |
+| Bitcoin Trend | 20 % | Köp när BTC-USD:s färdiga dagsstängning (00:00 UTC) har varit **över** SMA150 **tre dagar i rad**, sälj efter tre stängningar i rad under (exakt lika räknas som under). Däremellan behålls läget. | Bitcoin Tracker One, SE0007126024, First North Stockholm, SEK |
 | Lika vikt | 40 % | 10 % vardera. Ombalansering efter Stockholmsbörsens sista handelsdag i månaden, när en vikt avviker mer än 2 procentenheter. | XACT OMXS30 (SE0000693293), SXR8 (IE00B5BMR087), Bitcoin Tracker One, Xetra-Gold (DE000A0S9GB0) |
 | S&P 500 Trend | 40 % | Beslut på NYSE:s sista handelsdag i månaden: investerad om S&P 500 > SMA200, annars kontanter. Oförändrat mellan besluten. | SXR8, Xetra, EUR |
 
@@ -37,13 +37,22 @@ tillgång sjönk avkastningen till 3 % per år, och största nedgången var −5
 lägre risk och höga Sharpe. Trend på SMA150 gav ingen fördel på 67 av 69 testade marknader (bara på Bitcoin och
 Ether). Momentum och faktorstrategier kunde inte testas utan överlevnadsbias.
 
-Hela portföljen jun 2015 – sep 2026: **32,5 % per år, Sharpe 1,31, största nedgång −19 %**. Världsindex gav
-11,9 %, 0,84 och −17 % under samma period.
+Hela portföljen jun 2015 – sep 2026: **31,2 % per år, Sharpe 1,28, största nedgång −19 %** med tredagarsregeln
+(32,5 %, 1,31 och −19 % med den dagliga regeln före 2.2). Världsindex gav 11,9 %, 0,84 och −17 % under samma period.
+
+### Tredagarsregeln (version 2.2)
+
+Bitcoin Trend byter läge först efter tre stängningar i rad på andra sidan SMA150, i stället för vid varje stängning.
+Det halverar antalet Bitcoin-affärer (cirka 3–4 i stället för 6–7 per år). Testerna i `research/archive/borslabbet/`:
+
+- **436 instrument** (`study_sma3d_many.py`): högre avkastning än den dagliga regeln på 84 %, högre Sharpe på 65 %.
+- **Filter från tradingkurser** (`study_filters.py`, `study_faber_cat.py`): för kryptor slog inget filter tredagarsregeln; månadskontroll (Faber) var bäst för aktier och index och motsvarar redan S&P 500 Trend.
+- **Hela portföljen på produkterna** (`revalidate_3d.py`): jan 2020 – sep 2026 24,3 % per år, Sharpe 1,09, −17 % (daglig 24,5 %, 1,09, −19 %). Över hela perioden 1,3 procentenheter lägre per år än daglig; skillnaden är inte statistiskt säkerställd.
 
 ### Kända svagheter
 
 - **Inget är statistiskt säkerställt.** Bitcoin Trend har 81 % sannolikhet i bootstrap, inte 95 %.
-- **Avkastningen kommer till stor del från Bitcoin.** Bitcoin Trend ensam föll −64 % på produkten 2017–2019.
+- **Avkastningen kommer till stor del från Bitcoin.** Bitcoin Trend ensam föll −63 % (månadsdata) med tredagarsregeln.
 - **S&P 500 Trend** är ett kraschskydd. Den har gett lägre avkastning än köp och behåll.
 - **Guldet lades till efter rapporten.** Det valdes bland sex varianter under en stark period för guld.
 - **Forward-testet började i oktober 2026.** Ett meningsfullt test tar flera år.
@@ -82,7 +91,7 @@ export JAVA_HOME=/c/Users/fredrik/android-build/jdk
 ./gradlew testDebugUnitTest assembleRelease
 ```
 
-Testerna (32 st) jämför bland annat reglerna med Python-originalet på över 4 000 BTC-dagar och över 230 S&P-månadsslut,
+Testerna (37 st) jämför bland annat reglerna med Python-originalet på över 4 000 BTC-dagar och över 230 S&P-månadsslut,
 och appens backtest med en oberoende Python-referens (`research/archive/borslabbet/ref_backtest.py`). APK:n hamnar i
 `app/build/outputs/apk/release/app-release.apk`. Installera den genom att öppna filen på telefonen och tillåta
 installation från okänd källa. Den är signerad med debug-nyckeln, för egen installation.

@@ -67,22 +67,24 @@ val RESEARCH = listOf(
 object Strategy {
     const val NAME = "SwingEdge med guld"
     val RULES = listOf(
-        "Bitcoin Trend, 20 %: äg Bitcoin Tracker One när BTC-USD:s dagsstängning (00:00 UTC) är över sitt 150-dagars glidande medelvärde, annars kontanter. Exakt på medelvärdet = kontanter.",
+        "Bitcoin Trend, 20 %: äg Bitcoin Tracker One när BTC-USD:s dagsstängning (00:00 UTC) har legat över sitt 150-dagars glidande medelvärde tre dagar i rad; sälj när den har legat under (eller exakt på) medelvärdet tre dagar i rad. Däremellan behålls läget.",
         "Lika vikt, 40 %: 10 % vardera i XACT OMXS30, iShares Core S&P 500 (SXR8), Bitcoin Tracker One och Xetra-Gold. Ombalansering efter Stockholmsbörsens sista handelsdag i månaden, när en vikt avviker mer än 2 procentenheter.",
         "S&P 500 Trend, 40 %: äg SXR8 när S&P 500-indexet stänger över sitt 200-dagars glidande medelvärde på månadens sista handelsdag, annars kontanter. Beslutet ändras inte mellan månadssluten.",
         "Exekvering: signalen räknas på färdiga dagsstaplar och handlas tidigast vid nästa börsöppning för produkten (Stockholm för XBT och XACT, Xetra för SXR8 och guld). Helgsignaler för Bitcoin väntar till måndag.",
         "Data äldre än en handelsdag ger inga nya signaler; äldre än fem dagar stoppar signalerna.",
     )
-    /** Hela portföljen, månadsdata i SEK efter kostnader (study_winner.py och study_combo.py). */
+    /** Hela portföljen, månadsdata i SEK efter kostnader (study_winner.py; tredagarsregeln i revalidate_3d.py). */
     val RESULTS = listOf(
-        ResearchRow("SwingEdge med guld, jun 2015 – sep 2026", 0.325, 1.31, -0.19, null, null, null, null),
-        ResearchRow("Samma, osedda data jan 2020 – sep 2026", 0.245, 1.09, -0.19, null, null, null, null),
+        ResearchRow("SwingEdge med guld, jun 2015 – sep 2026", 0.312, 1.28, -0.19, null, null, null, null),
+        ResearchRow("Samma, osedda data jan 2020 – sep 2026", 0.243, 1.09, -0.17, null, null, null, null),
+        ResearchRow("Med daglig Bitcoin-regel (före 2.2), jun 2015 – sep 2026", 0.325, 1.31, -0.19, null, null, null, null),
         ResearchRow("Världsindex (köp och behåll), jun 2015 – sep 2026", 0.119, 0.84, -0.17, null, null, null, null),
         ResearchRow("Köp och behåll BTC + ETH, jan 2020 – sep 2026", 0.561, 0.92, -0.71, null, null, null, null),
     )
     val WEAKNESSES = listOf(
         "Ingen del är statistiskt säkerställd. Bitcoin Trend har 81 % sannolikhet i bootstrap, inte 95 %.",
-        "Avkastningen kommer till stor del från Bitcoin (ungefär en tredjedel av portföljen när trenden är positiv). Bitcoin Trend ensam föll −64 % 2017–2019.",
+        "Avkastningen kommer till stor del från Bitcoin (ungefär en tredjedel av portföljen när trenden är positiv). Bitcoin Trend ensam föll −63 % (månadsdata) med tredagarsregeln.",
+        "Tredagarsregeln valdes för färre affärer (cirka 3–4 i stället för 6–7 per år). Sedan 2020 gav den samma resultat som den dagliga regeln, men över hela perioden 1,3 procentenheter lägre avkastning per år; skillnaden är inte statistiskt säkerställd.",
         "S&P 500 Trend gav kraftigt skydd men lägre avkastning än köp och behåll; den är ett kraschskydd, inte en edge.",
         "Guld lades till efter rapporten och valdes bland sex varianter under en stark period för guld.",
         "Perioden 2015–2026 är kort och präglad av Bitcoins uppgång. Forward test pågår från okt 2026.",

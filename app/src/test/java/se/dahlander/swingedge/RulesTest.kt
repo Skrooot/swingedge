@@ -21,9 +21,9 @@ import java.time.ZonedDateTime
 class RulesTest {
     private fun at(s: String): Instant = ZonedDateTime.parse(s).toInstant()
 
-    /** n dagliga BTC-staplar som slutar dagen före [end], alla på [base], sista på [last]. */
-    private fun btcBars(end: LocalDate, base: Double, last: Double, n: Int = 200): List<Bar> =
-        (n downTo 1).map { k -> Bar(end.minusDays(k.toLong()), if (k == 1) last else base) }
+    /** n dagliga BTC-staplar som slutar dagen före [end], alla på [base], de [days] sista på [last]. */
+    private fun btcBars(end: LocalDate, base: Double, last: Double, n: Int = 200, days: Int = Rules.CRYPTO_CONFIRM): List<Bar> =
+        (n downTo 1).map { k -> Bar(end.minusDays(k.toLong()), if (k <= days) last else base) }
 
     private fun nyseBars(from: LocalDate, to: LocalDate, price: (LocalDate) -> Double): List<Bar> {
         val out = mutableListOf<Bar>()
@@ -38,7 +38,41 @@ class RulesTest {
     @Test fun btcAboveSma150IsInvested() {
         val s = btcTrend(btcBars(LocalDate.of(2026, 10, 27), 100.0, 130.0))!!
         assertTrue(s.invested)
-        assertEquals(100.2, s.sma, 1e-9)
+        assertEquals(100.6, s.sma, 1e-9)
+        assertEquals(0, s.streak)
+    }
+
+    // ---------- Tredagarsregeln ----------
+    @Test fun btcNeedsThreeClosesAboveToBuy() {
+        val end = LocalDate.of(2026, 10, 27)
+        val two = btcTrend(btcBars(end, 100.0, 130.0, days = 2))!!
+        assertFalse(two.invested); assertEquals(2, two.streak)
+        assertTrue(btcTrend(btcBars(end, 100.0, 130.0, days = 3))!!.invested)
+    }
+
+    @Test fun btcNeedsThreeClosesBelowToSell() {
+        // 150 dagar över medelvärdet ger investerat läge, sedan två respektive tre dagar under
+        val end = LocalDate.of(2026, 10, 27)
+        fun bars(down: Int) = (240 downTo 1).map { k -> Bar(end.minusDays(k.toLong()), when { k <= down -> 50.0; k <= 90 -> 130.0; else -> 100.0 }) }
+        val two = btcTrend(bars(2))!!
+        assertTrue(two.invested); assertEquals(2, two.streak)
+        assertFalse(btcTrend(bars(3))!!.invested)
+    }
+
+    @Test fun interruptedStreakStartsOver() {
+        // två dagar över, en dag under, två dagar över: ingen trea i rad, alltså fortfarande kontanter
+        val end = LocalDate.of(2026, 10, 27)
+        val closes = List(195) { 100.0 } + listOf(130.0, 130.0, 90.0, 130.0, 130.0)
+        val bars = closes.mapIndexed { i, c -> Bar(end.minusDays((closes.size - i).toLong()), c) }
+        val s = btcTrend(bars)!!
+        assertFalse(s.invested); assertEquals(2, s.streak)
+    }
+
+    @Test fun confirmOneEqualsOriginalDailyRule() {
+        val end = LocalDate.of(2026, 10, 27)
+        val closes = (0 until 400).map { 100.0 + 30 * kotlin.math.sin(it / 17.0) }
+        val bars = closes.mapIndexed { i, c -> Bar(end.minusDays((closes.size - i).toLong()), c) }
+        assertEquals(trendSeries(bars, 150).map { it.second }, confirmedTrendSeries(bars, 150, 1).map { it.invested })
     }
 
     @Test fun btcBelowSma150IsCash() {
@@ -50,6 +84,7 @@ class RulesTest {
         val s = btcTrend(btcBars(LocalDate.of(2026, 10, 27), 100.0, 100.0))!!
         assertEquals(s.close, s.sma, 1e-12)
         assertFalse(s.invested)
+        assertEquals(0, s.streak)
     }
 
     @Test fun unfinishedBtcBarIsDropped() {

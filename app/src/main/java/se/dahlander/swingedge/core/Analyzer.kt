@@ -135,10 +135,11 @@ fun analyze(
             indicatorName = "SMA${Rules.CRYPTO_SMA}", indicatorValue = btc.sma,
             targetWeight = if (btc.invested) sleeves[StrategyId.BTC_TREND] else 0.0,
             action = if (btc.invested) "Bitcoin Trend ska vara investerad i Bitcoin Tracker One" else "Bitcoin Trend ska ligga i kontanter",
-            reason = "BTC-USD stängde ${num(btc.close)} USD ${if (btc.invested) "över" else "under eller på"} SMA${Rules.CRYPTO_SMA} ${num(btc.sma)} USD den ${btc.asOf}.",
+            reason = "BTC-USD har stängt ${if (btc.invested) "över" else "under eller på"} SMA${Rules.CRYPTO_SMA} ${Rules.CRYPTO_CONFIRM} dagar i rad; " +
+                "senast ${num(btc.close)} USD mot ${num(btc.sma)} USD den ${btc.asOf}.",
             executableFrom = btc.executableFrom.toEpochMilli(),
             inputs = mapOf("bars" to btcBars.size.toString(), "close" to btc.close.toString(), "sma" to btc.sma.toString(),
-                "asOf" to btc.asOf.toString(), "rule" to "investerad om close > SMA150"),
+                "asOf" to btc.asOf.toString(), "rule" to "byter läge efter ${Rules.CRYPTO_CONFIRM} stängningar i rad på andra sidan SMA150"),
         ))
     }
     val btcStatus = when {

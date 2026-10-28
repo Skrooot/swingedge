@@ -1,0 +1,194 @@
+{
+ "SwingEdge med guld jun 2015 – sep 2026": {
+  "daily": {
+   "from": "2015-06",
+   "to": "2026-09",
+   "years": 11.3,
+   "cagr": 0.3251067935664389,
+   "vol": 0.22800450534653507,
+   "sharpe": 1.3122378491415465,
+   "sortino": 3.279751693873397,
+   "maxdd": -0.19120878148793885,
+   "calmar": 1.7002712481955027,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2015-06",
+   "to": "2026-09",
+   "years": 11.3,
+   "cagr": 0.31217580835461667,
+   "vol": 0.2264332552868341,
+   "sharpe": 1.2752334970082257,
+   "sortino": 3.107618573906018,
+   "maxdd": -0.19072606355086774,
+   "calmar": 1.6367758162814365,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ },
+ "Bitcoin Trend (hink) jun 2015 – sep 2026": {
+  "daily": {
+   "from": "2015-06",
+   "to": "2026-09",
+   "years": 11.3,
+   "cagr": 0.7403841331155014,
+   "vol": 0.6521254847791917,
+   "sharpe": 1.1240814155391765,
+   "sortino": 3.218245113887819,
+   "maxdd": -0.49407588905413113,
+   "calmar": 1.4985231004348498,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2015-06",
+   "to": "2026-09",
+   "years": 11.3,
+   "cagr": 0.645611224010229,
+   "vol": 0.6585673141359024,
+   "sharpe": 1.0345365947072853,
+   "sortino": 2.6559518162685,
+   "maxdd": -0.6268171788845892,
+   "calmar": 1.0299832961806876,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ },
+ "SwingEdge med guld jan 2020 – sep 2026": {
+  "daily": {
+   "from": "2020-01",
+   "to": "2026-09",
+   "years": 6.8,
+   "cagr": 0.24522250432379256,
+   "vol": 0.20549513401574382,
+   "sharpe": 1.0913309869755785,
+   "sortino": 2.401279266928716,
+   "maxdd": -0.19120878148793885,
+   "calmar": 1.2824855763188932,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2020-01",
+   "to": "2026-09",
+   "years": 6.8,
+   "cagr": 0.24292244486484682,
+   "vol": 0.20394638760660266,
+   "sharpe": 1.0881226755016464,
+   "sortino": 2.3669625859456485,
+   "maxdd": -0.17075913539491294,
+   "calmar": 1.4226029213783644,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ },
+ "Bitcoin Trend (hink) jan 2020 – sep 2026": {
+  "daily": {
+   "from": "2020-01",
+   "to": "2026-09",
+   "years": 6.8,
+   "cagr": 0.38771892630517435,
+   "vol": 0.5186756025662376,
+   "sharpe": 0.8330045423420513,
+   "sortino": 1.9752187626024804,
+   "maxdd": -0.40613189034044384,
+   "calmar": 0.9546625998272762,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2020-01",
+   "to": "2026-09",
+   "years": 6.8,
+   "cagr": 0.36602758894640997,
+   "vol": 0.523408243440604,
+   "sharpe": 0.8028217109745532,
+   "sortino": 1.7751486194887702,
+   "maxdd": -0.42792606568018554,
+   "calmar": 0.8553524038424993,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ },
+ "SwingEdge med guld jun 2015 – dec 2019": {
+  "daily": {
+   "from": "2015-06",
+   "to": "2019-12",
+   "years": 4.6,
+   "cagr": 0.4521794592242594,
+   "vol": 0.2568635122785924,
+   "sharpe": 1.5977693781344386,
+   "sortino": 4.6411113778732505,
+   "maxdd": -0.1511685341671054,
+   "calmar": 2.991227385484926,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2015-06",
+   "to": "2019-12",
+   "years": 4.6,
+   "cagr": 0.42125433635926357,
+   "vol": 0.25584308292334723,
+   "sharpe": 1.5164408630278134,
+   "sortino": 4.212983010896015,
+   "maxdd": -0.19072606355086774,
+   "calmar": 2.2086878348795396,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ },
+ "Bitcoin Trend (hink) jun 2015 – dec 2019": {
+  "daily": {
+   "from": "2015-06",
+   "to": "2019-12",
+   "years": 4.6,
+   "cagr": 1.4292847431559506,
+   "vol": 0.7987052758704987,
+   "sharpe": 1.4742507144055899,
+   "sortino": 4.887552867868794,
+   "maxdd": -0.49407588905413113,
+   "calmar": 2.8928445504438645,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  },
+  "confirm3": {
+   "from": "2015-06",
+   "to": "2019-12",
+   "years": 4.6,
+   "cagr": 1.164828074698066,
+   "vol": 0.811486247186664,
+   "sharpe": 1.3146397594751857,
+   "sortino": 3.7624813222149402,
+   "maxdd": -0.6268171788845892,
+   "calmar": 1.8583218742837555,
+   "turnover": 0.0,
+   "winrate": null,
+   "hold_months": null,
+   "positions": 0
+  }
+ }
+}

@@ -89,6 +89,7 @@ private fun indicators(ins: Instrument, r: AnalysisResult): List<Pair<String, St
     Instrument.XBT -> r.btc?.let { b -> listOf(
         "BTC-USD ${fmtDate(b.asOf)}" to "${num(b.close)} USD",
         "SMA${Rules.CRYPTO_SMA}" to "${num(b.sma)} USD (${pct(b.close / b.sma - 1)})",
+        "Stängningar i rad mot läget" to "${b.streak} av ${Rules.CRYPTO_CONFIRM}",
         "Senaste trendbyte" to (b.lastSwitch?.let { fmtDate(it) } ?: "–"),
     ) } ?: listOf("Bitcoin-trend" to "data saknas")
     Instrument.SXR8 -> r.sp?.let { p -> listOfNotNull(
@@ -101,7 +102,7 @@ private fun indicators(ins: Instrument, r: AnalysisResult): List<Pair<String, St
 }
 
 private fun exitRule(ins: Instrument, r: AnalysisResult): String = when (ins) {
-    Instrument.XBT -> "Bitcoin Trend-delen (20 %) säljs när BTC-USD stänger under SMA150" +
+    Instrument.XBT -> "Bitcoin Trend-delen (20 %) säljs när BTC-USD har stängt under SMA150 tre dagar i rad" +
         (r.btc?.let { " (i dag ${num(it.sma)} USD)" } ?: "") + ". Lika vikt-delen (10 %) behålls och ombalanseras månadsvis."
     Instrument.SXR8 -> "S&P 500 Trend-delen (40 %) säljs om indexet stänger under SMA200 på månadens sista handelsdag" +
         (r.sp?.let { " (nästa kontroll ${fmtDate(it.nextCheck)})" } ?: "") + ". Lika vikt-delen (10 %) behålls."

@@ -11,9 +11,12 @@ data class Bar(val date: LocalDate, val close: Double)
  * Frysta regler från signals.py (studien "Swingstrategier via Avanza"). Ändra inte trösklar eller längder här
  * utan att köra om studien: CRYPTO_SMA = 150, STOCK_SMA = 200, investerad endast när stängning > medelvärde
  * (exakt lika = inte investerad, som `c[-1] > m` i originalet).
+ * Från 2.2 byter Bitcoin-trenden läge först efter CRYPTO_CONFIRM stängningar i rad på andra sidan medelvärdet
+ * (validerad i qa/bl/revalidate_3d.py, study_sma3d_many.py och study_filters.py).
  */
 object Rules {
     const val CRYPTO_SMA = 150
+    const val CRYPTO_CONFIRM = 3
     const val STOCK_SMA = 200
     /** signals.py stoppar rapporten när en kurs är mer än fem dagar gammal. */
     const val MAX_AGE_DAYS = 5L
@@ -70,11 +73,36 @@ fun trendSeries(bars: List<Bar>, n: Int): List<Pair<Bar, Boolean?>> {
     }
 }
 
+/** Ett dagsläge med bekräftelse: [streak] = stängningar i rad på andra sidan medelvärdet som ännu inte bytt läge. */
+data class TrendDay(val bar: Bar, val invested: Boolean?, val streak: Int)
+
+/**
+ * Trendläge per dag med bekräftelse: läget byter först efter [confirm] stängningar i rad på andra sidan SMA(n).
+ * Över = stängning > SMA; exakt lika räknas som under. Serien startar i kontanter vid första dagen med full
+ * historik. Dagar utan full historik ger null. confirm = 1 ger samma läge som [trendSeries].
+ */
+fun confirmedTrendSeries(bars: List<Bar>, n: Int, confirm: Int): List<TrendDay> {
+    var sum = 0.0
+    var on = false
+    var streak = 0
+    return bars.mapIndexed { i, b ->
+        sum += b.close
+        if (i >= n) sum -= bars[i - n].close
+        if (i < n - 1) return@mapIndexed TrendDay(b, null, 0)
+        val above = Rules.invested(b.close, sum / n)
+        streak = if (above != on) streak + 1 else 0
+        if (streak >= confirm) { on = above; streak = 0 }
+        TrendDay(b, on, streak)
+    }
+}
+
 data class BtcTrendState(
     val asOf: LocalDate,
     val close: Double,
     val sma: Double,
     val invested: Boolean,
+    /** Stängningar i rad på andra sidan medelvärdet (0 till CRYPTO_CONFIRM − 1); läget byter vid CRYPTO_CONFIRM. */
+    val streak: Int,
     /** Senaste stängning där läget bytte, och läget efter bytet. */
     val lastSwitch: LocalDate?,
     /** Tidigaste börsöppning för produkten efter att stängningen asOf blev känd. */
@@ -82,16 +110,16 @@ data class BtcTrendState(
 )
 
 fun btcTrend(completed: List<Bar>): BtcTrendState? {
-    val s = trendSeries(completed, Rules.CRYPTO_SMA).filter { it.second != null }
+    val s = confirmedTrendSeries(completed, Rules.CRYPTO_SMA, Rules.CRYPTO_CONFIRM).filter { it.invested != null }
     if (s.isEmpty()) return null
-    val (last, inv) = s.last()
+    val last = s.last()
     var switch: LocalDate? = null
     for (i in s.indices.reversed()) {
-        if (i > 0 && s[i].second != s[i - 1].second) { switch = s[i].first.date; break }
+        if (i > 0 && s[i].invested != s[i - 1].invested) { switch = s[i].bar.date; break }
     }
-    val known = last.date.plusDays(1).atStartOfDay(UTC).toInstant()
+    val known = last.bar.date.plusDays(1).atStartOfDay(UTC).toInstant()
     val sma = completed.map { it.close }.let { Rules.sma(it, Rules.CRYPTO_SMA)!! }
-    return BtcTrendState(last.date, last.close, sma, inv!!, switch, Instrument.XBT.exchange.nextOpenAtOrAfter(known))
+    return BtcTrendState(last.bar.date, last.bar.close, sma, last.invested!!, last.streak, switch, Instrument.XBT.exchange.nextOpenAtOrAfter(known))
 }
 
 data class MonthlyDecision(val date: LocalDate, val close: Double, val sma: Double, val invested: Boolean, val executableFrom: Instant)

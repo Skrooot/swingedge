@@ -25,11 +25,17 @@ def metrics(dates, r):
     mu = sum(r) / len(r); sd = math.sqrt(sum((x - mu) ** 2 for x in r) / (len(r) - 1))
     return {"cagr": eq ** (1 / yrs) - 1, "maxdd": mdd, "sharpe": mu / sd * math.sqrt(252)}
 
-# Bitcoin: SMA150 på BTC-USD, läget från BTC-dagar före produktdagen
+# Bitcoin: SMA150 på BTC-USD med tredagarsregeln (från 2.2): läget byter först efter tre stängningar i rad på
+# andra sidan medelvärdet (över = close > SMA, exakt lika räknas som under), start i kontanter. Läget från
+# BTC-dagar före produktdagen.
+CONFIRM = 3
 bd = [d for d, _ in btc]; bc = [c for _, c in btc]
-state = {}
+state, on, streak = {}, False, 0
 for i in range(149, len(bc)):
-    state[bd[i]] = bc[i] > sum(bc[i - 149:i + 1]) / 150
+    above = bc[i] > sum(bc[i - 149:i + 1]) / 150
+    streak = streak + 1 if above != on else 0
+    if streak >= CONFIRM: on, streak = above, 0
+    state[bd[i]] = on
 # w[i] = läget som är känt före nästa produktdags öppning; sim handlar på stängningen den dagen,
 # dvs. stängningen på första handelsdagen efter att BTC-stapeln blev klar (00:00 UTC)
 from datetime import date, timedelta

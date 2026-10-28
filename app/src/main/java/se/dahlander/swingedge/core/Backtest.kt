@@ -112,12 +112,12 @@ object Backtests {
      * rättat i kvalitetsgranskningen 28 okt 2026, se BacktestReferenceTest.)
      */
     fun btcOnProduct(btc: List<Bar>, xbt: List<Bar>): Pair<Sim, Sim> {
-        val trend = trendSeries(btc, Rules.CRYPTO_SMA)
+        val trend = confirmedTrendSeries(btc, Rules.CRYPTO_SMA, Rules.CRYPTO_CONFIRM)
         var k = 0
         var cur: Boolean? = null
         val w = xbt.indices.map { i ->
             val next = if (i + 1 < xbt.size) xbt[i + 1].date else xbt[i].date.plusDays(1)
-            while (k < trend.size && trend[k].first.date.isBefore(next)) { cur = trend[k].second ?: cur; k++ }
+            while (k < trend.size && trend[k].bar.date.isBefore(next)) { cur = trend[k].invested ?: cur; k++ }
             cur?.let { if (it) 1.0 else 0.0 }
         }
         val dates = xbt.map { it.date }

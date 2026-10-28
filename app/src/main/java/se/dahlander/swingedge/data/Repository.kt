@@ -4,6 +4,7 @@ import android.content.Context
 import se.dahlander.swingedge.core.AnalysisResult
 import se.dahlander.swingedge.core.BacktestLine
 import se.dahlander.swingedge.core.BacktestRun
+import se.dahlander.swingedge.core.Rules
 import se.dahlander.swingedge.core.Backtests
 import se.dahlander.swingedge.core.Instrument
 import se.dahlander.swingedge.core.SignalRecord
@@ -76,7 +77,7 @@ class Repository(context: Context) {
         if (result.valuation.totalSek > 0) store.saveSnapshot(kind, Snapshot(LocalDate.now().toString(), result.valuation.totalSek, led.depositedSek))
         store.appendRun(RunLog(
             now.toEpochMilli(), fetchOk, result.checks.values.map { "${it.status}: ${it.message}" } + cache.errors,
-            result.btc?.let { "BTC ${it.asOf} close ${it.close} SMA150 ${it.sma} -> ${if (it.invested) "investerad" else "kontanter"}" },
+            result.btc?.let { "BTC ${it.asOf} close ${it.close} SMA150 ${it.sma} streak ${it.streak}/${Rules.CRYPTO_CONFIRM} -> ${if (it.invested) "investerad" else "kontanter"}" },
             result.sp?.let { "S&P ${it.decision.date} close ${it.decision.close} SMA200 ${it.decision.sma} -> ${if (it.decision.invested) "investerad" else "kontanter"}" },
             result.target?.total?.mapKeys { it.key.name } ?: emptyMap(),
             result.orders.map { "${it.side} ${it.instrument.name} ${it.amountSek.toInt()} kr" },

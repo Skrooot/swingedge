@@ -36,6 +36,11 @@ data class UiState(
     val edge: se.dahlander.swingedge.data.EdgeRepository.Result? = null,
     val edgeLoading: Boolean = false,
     val backtestRunning: Boolean = false,
+    val allocation: se.dahlander.swingedge.data.FactorRepository.Allocation? = null,
+    val allocationLoading: Boolean = false,
+    val scanner: se.dahlander.swingedge.data.ScannerCache? = null,
+    /** Pågående Factor Scanner-skanning: (klara, totalt). */
+    val scanProgress: Pair<Int, Int>? = null,
     val message: String? = null,
 )
 
@@ -45,6 +50,33 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     val state: StateFlow<UiState> = _state
 
     private val edgeRepo = se.dahlander.swingedge.data.EdgeRepository(repo.store)
+    private val factorRepo = se.dahlander.swingedge.data.FactorRepository(repo.store, app)
+
+    fun refreshAllocation(force: Boolean) {
+        if (_state.value.allocationLoading) return
+        _state.update { it.copy(allocationLoading = true) }
+        viewModelScope.launch(Dispatchers.IO) {
+            val r = try { factorRepo.refreshAllocation(force) } catch (e: Exception) { null }
+            if (r != null && repo.store.settings.notifications && repo.store.settings.gtfNotify) Notifier.show(getApplication(), r.notify)
+            _state.update { it.copy(allocation = r ?: it.allocation, allocationLoading = false, message = if (r == null) "Fondvärdena kunde inte hämtas" else it.message) }
+        }
+    }
+
+    fun scan(force: Boolean) {
+        if (_state.value.scanProgress != null) return
+        _state.update { it.copy(scanProgress = 0 to 1) }
+        viewModelScope.launch(Dispatchers.IO) {
+            val r = try { factorRepo.scan(force) { d, n -> _state.update { it.copy(scanProgress = d to n) } } } catch (e: Exception) { null }
+            _state.update { it.copy(scanner = r ?: it.scanner, scanProgress = null, message = if (r == null || r.stocks.isEmpty()) "Skanningen misslyckades" else it.message) }
+        }
+    }
+
+    fun nextRebalance() = factorRepo.nextRebalance()
+
+    fun setGtfNotify(on: Boolean) {
+        repo.store.settings = repo.store.settings.copy(gtfNotify = on)
+        reload(null)
+    }
 
     fun refreshEdge(force: Boolean) {
         if (_state.value.edgeLoading) return
@@ -63,6 +95,7 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
 
     init {
         viewModelScope.launch(Dispatchers.IO) { _state.update { it.copy(edge = edgeRepo.cached()) }; refreshEdge(false) }
+        viewModelScope.launch(Dispatchers.IO) { _state.update { it.copy(allocation = factorRepo.cachedAllocation(), scanner = factorRepo.cachedScanner().takeIf { c -> c.at > 0 }) } }
         // Visa sparade kurser direkt och hämta nya i bakgrunden
         viewModelScope.launch(Dispatchers.IO) {
             // Utan sparade kurser finns inget att räkna på ännu; annars skulle det loggas som ett datafel

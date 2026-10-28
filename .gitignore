@@ -9,3 +9,5 @@ research/engine/edge.json
 research/engine/parity.json
 research/engine/*.log
 __pycache__/
+research/borslabbet/data/
+research/borslabbet/ff/

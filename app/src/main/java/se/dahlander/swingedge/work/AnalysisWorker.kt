@@ -36,6 +36,9 @@ class AnalysisWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(c
         // Global Opportunities: skanna ungefär en gång per dygn, skilt från SwingEdges egna strategier
         val edge = try { se.dahlander.swingedge.data.EdgeRepository(repo.store).refresh() } catch (e: Exception) { null }
         if (edge != null && repo.store.settings.notifications && repo.store.settings.edgeNotify) Notifier.show(applicationContext, edge.notify)
+        // Factor & Global Allocation: fondvärden högst två gånger per dygn, notis vid byte efter månadsslut
+        val alloc = try { se.dahlander.swingedge.data.FactorRepository(repo.store, applicationContext).refreshAllocation() } catch (e: Exception) { null }
+        if (alloc != null && repo.store.settings.notifications && repo.store.settings.gtfNotify) Notifier.show(applicationContext, alloc.notify)
         Result.success()
     }
 
@@ -73,7 +76,7 @@ object Notifier {
             val title = when (e.type) {
                 SignalType.BUY -> "Köpsignal: ${e.strategy?.displayName ?: ""}"
                 SignalType.SELL -> "Säljsignal: ${e.strategy?.displayName ?: ""}"
-                SignalType.REBALANCE -> "Dags för månatlig ombalansering"
+                SignalType.REBALANCE -> if (e.key.startsWith("gtf:")) "Global trendföljning byter innehav" else "Dags för månatlig ombalansering"
                 SignalType.DATA_ERROR -> "Datauppdateringen misslyckades"
                 SignalType.MISSED -> "Planerad kontroll kunde inte göras"
                 else -> e.type.label

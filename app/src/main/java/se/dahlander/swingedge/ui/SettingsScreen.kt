@@ -67,13 +67,17 @@ fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, request
                     Text("Notiser om signaler, ombalansering och datafel", Modifier.weight(1f))
                     Switch(checked = s.settings.notifications, onCheckedChange = { vm.setNotifications(it); if (it) requestNotifications() })
                 }
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text("Global trendföljning: notis när innehaven byts vid månadsskiftet (papperhandel)", Modifier.weight(1f))
+                    Switch(checked = s.settings.gtfNotify, onCheckedChange = { vm.setGtfNotify(it) })
+                }
                 Text("Appen kontrollerar ungefär en gång i timmen, även när den är stängd. Android kan skjuta upp kontrollen när batteriet sparas.",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
             }
         }
         item {
             SectionCard("Om appen") {
-                Text("SwingEdge räknar reglerna från rapporten Swingstrategier via Avanza direkt på telefonen. Kurser hämtas från Yahoo Finance, med Binance som reserv för Bitcoin. Alla innehav, affärer och signaler sparas bara på den här telefonen.",
+                Text("SwingEdge räknar reglerna från rapporten Swingstrategier via Avanza direkt på telefonen. Kurser hämtas från Yahoo Finance, med Binance som reserv för Bitcoin. Factor & Global Allocation hämtar fondvärden och nyckeltal från Avanzas publika webbsidor. Alla innehav, affärer och signaler sparas bara på den här telefonen.",
                     style = MaterialTheme.typography.bodySmall)
                 Text("Appen lägger inga ordrar. Avanza har inget officiellt API för privatkunders orderläggning, så ordrar läggs manuellt i Avanza och registreras sedan här.",
                     style = MaterialTheme.typography.bodySmall)

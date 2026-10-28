@@ -51,6 +51,16 @@ private fun liquidity(o: Opportunity): String {
 
 @Composable
 fun GlobalScreen(s: UiState, vm: AppViewModel, padding: PaddingValues) {
+    var mode by rememberSaveable { mutableStateOf(0) }
+    val header: @Composable () -> Unit = {
+        Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+            listOf("Edge Discovery", "Factor & Global Allocation").forEachIndexed { i, t ->
+                FilterChip(selected = mode == i, onClick = { mode = i }, label = { Text(t, fontWeight = FontWeight.SemiBold) })
+            }
+        }
+        HorizontalDivider(Modifier.padding(vertical = 8.dp))
+    }
+    if (mode == 1) { FactorScreen(s, vm, padding, header); return }
     var tab by rememberSaveable { mutableStateOf(GTab.OPP) }
     var cls by rememberSaveable { mutableStateOf<String?>(null) }
     var minEv by rememberSaveable { mutableStateOf(Evidence.HYPOTHESIS.rank) }
@@ -68,6 +78,7 @@ fun GlobalScreen(s: UiState, vm: AppViewModel, padding: PaddingValues) {
     val ctx = LocalContext.current
     LazyColumn(Modifier.padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
+            header()
             Row(horizontalArrangement = Arrangement.spacedBy(8.dp)) { GTab.entries.forEach { t -> FilterChip(selected = tab == t, onClick = { tab = t }, label = { Text(t.label) }) } }
             Text(
                 if (r == null) "Forskningsresultatet har inte hämtats än." else

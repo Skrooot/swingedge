@@ -85,3 +85,24 @@ Strategilämplighet, evidens och aktuellt tillfälle visas var för sig, inte so
 **Begränsningar:** Yahoo-terminer (t.ex. GC=F) är frontmånadskontrakt; avkastningen där är inte investerbar, därför
 krävs produkttestet. Dagens Avanza-utbud används för hela historiken (överlevnadsbias i urvalet av produkter).
 Valutapar saknar produkter utan hävstång och är bara forskning.
+
+## Factor & Global Allocation (version 1.3)
+
+Ny kategori under fliken Global, framtagen i en oberoende granskning av Börslabbets publika strategier
+(`research/borslabbet/`). Den påverkar inte SwingEdges befintliga strategier eller målportföljen.
+
+- **Strategier:** jämförelse av Global trendföljning, utökad global trendföljning, Sammansatt momentum, Trendande värde,
+  Trendande kvalitet och Trendande utdelning. För varje strategi visas regler, marknader, ombalansering,
+  historiska resultat, evidensstatus, forskningshinder och aktuella kandidater.
+- **Global Allocation:** Global trendföljning räknas i appen med nio produkter som går att köpa på Avanza
+  (indexfonder och Xetra-Gold). Fondvärdena hämtas från Avanzas publika fond-API, och guldet från Yahoo.
+  Appen visar topp 3, rangordningen för 3, 6 och 12 månader, en förhandsvisning för den pågående månaden,
+  historiken över byten och papperhandelns utveckling. När innehaven byts vid ett månadsskifte skickas en notis,
+  som kan stängas av i inställningarna. `GlobalAllocationParityTest` kontrollerar att appen ger samma innehav som
+  `gtf.py`, månad för månad.
+- **Factor Scanner:** rangordnar dagens Large och Mid Cap enligt förenklade versioner av de fyra aktiestrategierna.
+  Underlaget är Avanzas nyckeltal och kursändringar. Resultaten är forskningskandidater utan signaler, eftersom
+  historiska bokslut med publiceringsdatum saknas och strategierna därför inte kan backtestas.
+
+Evidensstatus: ingen strategi är oberoende verifierad. Global trendföljning, den utökade varianten och momentum är
+lovande men otillräckligt verifierade. Värde, kvalitet och utdelning är endast publikt dokumenterade.

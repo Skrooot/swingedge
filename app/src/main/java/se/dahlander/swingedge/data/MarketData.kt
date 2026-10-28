@@ -44,7 +44,7 @@ object MarketData {
         fun bars(): List<Bar> = dates.indices.map { Bar(LocalDate.parse(dates[it]), closes[it]) }
     }
 
-    private fun get(url: String): String {
+    internal fun get(url: String): String {
         var last: Exception? = null
         repeat(3) { attempt ->
             try {

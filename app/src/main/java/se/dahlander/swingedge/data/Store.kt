@@ -28,6 +28,29 @@ data class Settings(
     /** Notiser för nya köpsignaler i Global Opportunities, från och med denna evidensnivå. */
     val edgeNotify: Boolean = true,
     val edgeMinEvidence: String = "Stark hypotes",
+    /** Notis när Global trendföljning (papperhandel) byter innehav vid ett månadsskifte. */
+    val gtfNotify: Boolean = true,
+)
+
+/** Månadsslutsvärden för Global Allocation (hela månader) och senaste värden i pågående månad. */
+@Serializable
+data class AllocationCache(
+    val at: Long = 0,
+    val levels: Map<String, Map<String, Double>> = emptyMap(),
+    val partial: Map<String, Double> = emptyMap(),
+    val partialMonth: String? = null,
+    val errors: List<String> = emptyList(),
+    val notified: List<String> = emptyList(),
+    /** Första hela månaden appen följde strategin, för papperhandelns utveckling. */
+    val paperStart: String? = null,
+)
+
+/** Senaste Factor Scanner-hämtningen (Avanzas nyckeltal för dagens Large och Mid Cap). */
+@Serializable
+data class ScannerCache(
+    val at: Long = 0,
+    val stocks: List<se.dahlander.swingedge.factor.StockSnapshot> = emptyList(),
+    val errors: Int = 0,
 )
 
 /** Dagsserier för Global Opportunities: marknad -> datum och stängningar, plus vilka köpsignaler som redan notifierats. */
@@ -119,6 +142,14 @@ class Store(context: Context) {
     var edgeSeries: EdgeSeriesCache
         get() = read("edge_series.json", EdgeSeriesCache.serializer()) { EdgeSeriesCache() }
         set(v) = write("edge_series.json", EdgeSeriesCache.serializer(), v)
+
+    var allocation: AllocationCache
+        get() = read("allocation.json", AllocationCache.serializer()) { AllocationCache() }
+        set(v) = write("allocation.json", AllocationCache.serializer(), v)
+
+    var scanner: ScannerCache
+        get() = read("scanner.json", ScannerCache.serializer()) { ScannerCache() }
+        set(v) = write("scanner.json", ScannerCache.serializer(), v)
 
     /** Antal misslyckade datahämtningar i rad och om en notis redan skickats för dem. */
     var fetchFailures: Int

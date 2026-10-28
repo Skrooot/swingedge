@@ -1,0 +1,1889 @@
+{
+"built": "2026-10-28",
+"source": "kryptosentiment stocks.js + Avanza sök",
+"stocks": [
+{
+"name": "AAK",
+"id": "26268",
+"ticker": "AAK",
+"yahoo": "AAK.ST",
+"segment": "Large Cap"
+},
+{
+"name": "ABB",
+"id": "5447",
+"ticker": "ABB",
+"yahoo": "ABB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "AFRY",
+"id": "5301",
+"ticker": "AFRY",
+"yahoo": "AFRY.ST",
+"segment": "Large Cap"
+},
+{
+"name": "AQ Group",
+"id": "5534",
+"ticker": "AQ",
+"yahoo": "AQ.ST",
+"segment": "Large Cap"
+},
+{
+"name": "AcadeMedia",
+"id": "667476",
+"ticker": "ACAD",
+"yahoo": "ACAD.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Acast",
+"id": "1242014",
+"ticker": "ACAST",
+"yahoo": "ACAST.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "AddLife B",
+"id": "643541",
+"ticker": "ALIF B",
+"yahoo": "ALIF-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Addnode Group B",
+"id": "5442",
+"ticker": "ANOD B",
+"yahoo": "ANOD-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Addtech B",
+"id": "5537",
+"ticker": "ADDT B",
+"yahoo": "ADDT-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Alfa Laval",
+"id": "5580",
+"ticker": "ALFA",
+"yahoo": "ALFA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Alimak Group",
+"id": "572678",
+"ticker": "ALIG",
+"yahoo": "ALIG.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Alleima",
+"id": "1455120",
+"ticker": "ALLEI",
+"yahoo": "ALLEI.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Alligo B",
+"id": "765297",
+"ticker": "ALLIGO B",
+"yahoo": "ALLIGO-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Altra Fastigheter",
+"id": "907825",
+"ticker": "ALTRA",
+"yahoo": "ALTRA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Alvotech SDB",
+"id": "2067841",
+"ticker": "ALVO SDB",
+"yahoo": "ALVO-SDB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Ambea",
+"id": "741458",
+"ticker": "AMBEA",
+"yahoo": "AMBEA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Apotea",
+"id": "1908460",
+"ticker": "APOTEA",
+"yahoo": "APOTEA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Arctic Paper",
+"id": "388806",
+"ticker": "ARP",
+"yahoo": "ARP.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Arion Bank SDB",
+"id": "861076",
+"ticker": "ARION SDB",
+"yahoo": "ARION-SDB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Arjo",
+"id": "810953",
+"ticker": "ARJO B",
+"yahoo": "ARJO-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Asker Healthcare",
+"id": "2006454",
+"ticker": "ASKER",
+"yahoo": "ASKER.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Asmodee",
+"id": "1961461",
+"ticker": "ASMDEE B",
+"yahoo": "ASMDEE-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Assa Abloy B",
+"id": "5271",
+"ticker": "ASSA B",
+"yahoo": "ASSA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "AstraZeneca",
+"id": "5431",
+"ticker": "AZN",
+"yahoo": "AZN.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Atlas Copco B",
+"id": "5235",
+"ticker": "ATCO B",
+"yahoo": "ATCO-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Atrium Ljungberg B",
+"id": "5374",
+"ticker": "ATRLJ B",
+"yahoo": "ATRLJ-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Attendo",
+"id": "612517",
+"ticker": "ATT",
+"yahoo": "ATT.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Autoliv SDB",
+"id": "5236",
+"ticker": "ALIV SDB",
+"yahoo": "ALIV-SDB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Avanza Bank Holding",
+"id": "5361",
+"ticker": "AZA",
+"yahoo": "AZA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Avarda Bank",
+"id": "666685",
+"ticker": "AVARDA",
+"yahoo": "AVARDA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Axfood",
+"id": "5465",
+"ticker": "AXFO",
+"yahoo": "AXFO.ST",
+"segment": "Large Cap"
+},
+{
+"name": "BHG Group",
+"id": "838544",
+"ticker": "BHG",
+"yahoo": "BHG.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "BICO Group",
+"id": "702377",
+"ticker": "BICO",
+"yahoo": "BICO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "BONESUPPORT",
+"id": "765299",
+"ticker": "BONEX",
+"yahoo": "BONEX.ST",
+"segment": "Large Cap"
+},
+{
+"name": "BTS Group B",
+"id": "5503",
+"ticker": "BTS B",
+"yahoo": "BTS-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Balder B",
+"id": "5459",
+"ticker": "BALD B",
+"yahoo": "BALD-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Beijer Alma B",
+"id": "5303",
+"ticker": "BEIA B",
+"yahoo": "BEIA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Beijer Ref B",
+"id": "5274",
+"ticker": "BEIJ B",
+"yahoo": "BEIJ-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Bergman & Beving B",
+"id": "5275",
+"ticker": "BERG B",
+"yahoo": "BERG-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Besqab",
+"id": "1241650",
+"ticker": "BESQAB",
+"yahoo": "BESQAB.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Besqab Pref B",
+"id": "1173927",
+"ticker": "BESQAB PREF B",
+"yahoo": "BESQAB-PREF-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Betsson B",
+"id": "5482",
+"ticker": "BETS B",
+"yahoo": "BETS-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Better Collective",
+"id": "856638",
+"ticker": "BETCO",
+"yahoo": "BETCO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Bilia A",
+"id": "5276",
+"ticker": "BILI A",
+"yahoo": "BILI-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Billerud",
+"id": "5556",
+"ticker": "BILL",
+"yahoo": "BILL.ST",
+"segment": "Large Cap"
+},
+{
+"name": "BioArctic B",
+"id": "791946",
+"ticker": "BIOA B",
+"yahoo": "BIOA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "BioGaia B",
+"id": "5349",
+"ticker": "BIOG B",
+"yahoo": "BIOG-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "BioInvent International",
+"id": "5505",
+"ticker": "BINV",
+"yahoo": "BINV.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Boliden",
+"id": "5564",
+"ticker": "BOL",
+"yahoo": "BOL.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Bonava B",
+"id": "663399",
+"ticker": "BONAV B",
+"yahoo": "BONAV-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Boozt",
+"id": "757760",
+"ticker": "BOOZT",
+"yahoo": "BOOZT.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Bravida Holding",
+"id": "602637",
+"ticker": "BRAV",
+"yahoo": "BRAV.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Brinova Fastigheter B",
+"id": "694166",
+"ticker": "BRIN B",
+"yahoo": "BRIN-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Bufab",
+"id": "462932",
+"ticker": "BUFAB",
+"yahoo": "BUFAB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Bure Equity",
+"id": "5277",
+"ticker": "BURE",
+"yahoo": "BURE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Byggmax Group",
+"id": "233288",
+"ticker": "BMAX",
+"yahoo": "BMAX.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Byggmästare Anders J Ahlström Holding B",
+"id": "528935",
+"ticker": "AJA B",
+"yahoo": "AJA-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "CTT Systems",
+"id": "5425",
+"ticker": "CTT",
+"yahoo": "CTT.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Camurus",
+"id": "613452",
+"ticker": "CAMX",
+"yahoo": "CAMX.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Castellum",
+"id": "5353",
+"ticker": "CAST",
+"yahoo": "CAST.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Catella B",
+"id": "159629",
+"ticker": "CAT B",
+"yahoo": "CAT-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Catena",
+"id": "41007",
+"ticker": "CATE",
+"yahoo": "CATE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Cavotec Group",
+"id": "2107809",
+"ticker": "CCC",
+"yahoo": "CCC.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "CellaVision",
+"id": "81967",
+"ticker": "CEVI",
+"yahoo": "CEVI.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Cibus Real Estate",
+"id": "831975",
+"ticker": "CIBUS",
+"yahoo": "CIBUS.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Clas Ohlson B",
+"id": "5457",
+"ticker": "CLAS B",
+"yahoo": "CLAS-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Cloetta",
+"id": "163148",
+"ticker": "CLA B",
+"yahoo": "CLA-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Coor Service Management Holding",
+"id": "572375",
+"ticker": "COOR",
+"yahoo": "COOR.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Corem Property Group B",
+"id": "811076",
+"ticker": "CORE B",
+"yahoo": "CORE-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Corem Property Group Pref",
+"id": "216649",
+"ticker": "CORE PREF",
+"yahoo": "CORE-PREF.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Creades A",
+"id": "338588",
+"ticker": "CRED A",
+"yahoo": "CRED-A.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Cynca Nordic",
+"id": "126555",
+"ticker": "CYNCA",
+"yahoo": "CYNCA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Diös Fastigheter",
+"id": "43267",
+"ticker": "DIOS",
+"yahoo": "DIOS.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Dometic Group",
+"id": "611718",
+"ticker": "DOM",
+"yahoo": "DOM.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Duni",
+"id": "102327",
+"ticker": "DUNI",
+"yahoo": "DUNI.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Dustin Group",
+"id": "538819",
+"ticker": "DUST",
+"yahoo": "DUST.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Dynavox Group",
+"id": "1314432",
+"ticker": "DYVOX",
+"yahoo": "DYVOX.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "EQT",
+"id": "1001617",
+"ticker": "EQT",
+"yahoo": "EQT.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Eastnine",
+"id": "100687",
+"ticker": "EAST",
+"yahoo": "EAST.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Egetis Therapeutics",
+"id": "283294",
+"ticker": "EGTX",
+"yahoo": "EGTX.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Elanders B",
+"id": "5311",
+"ticker": "ELAN B",
+"yahoo": "ELAN-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Electrolux B",
+"id": "5238",
+"ticker": "ELUX B",
+"yahoo": "ELUX-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Electrolux Professional B",
+"id": "1072320",
+"ticker": "EPRO B",
+"yahoo": "EPRO-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Elekta B",
+"id": "5280",
+"ticker": "EKTA B",
+"yahoo": "EKTA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Embracer Group B",
+"id": "707695",
+"ticker": "EMBRAC B",
+"yahoo": "EMBRAC-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Emilshus B",
+"id": "1411569",
+"ticker": "EMIL B",
+"yahoo": "EMIL-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Emilshus Pref",
+"id": "1282321",
+"ticker": "EMIL PREF",
+"yahoo": "EMIL-PREF.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Enea",
+"id": "5416",
+"ticker": "ENEA",
+"yahoo": "ENEA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Enity",
+"id": "2086531",
+"ticker": "ENITY",
+"yahoo": "ENITY.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Ependion",
+"id": "5478",
+"ticker": "EPEN",
+"yahoo": "EPEN.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Epiroc B",
+"id": "861431",
+"ticker": "EPI B",
+"yahoo": "EPI-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Ericsson B",
+"id": "5240",
+"ticker": "ERIC B",
+"yahoo": "ERIC-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Essity B",
+"id": "764241",
+"ticker": "ESSITY B",
+"yahoo": "ESSITY-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Evolution",
+"id": "549768",
+"ticker": "EVO",
+"yahoo": "EVO.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Ework Group",
+"id": "127201",
+"ticker": "EWRK",
+"yahoo": "EWRK.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "FM Mattsson B",
+"id": "743016",
+"ticker": "FMM B",
+"yahoo": "FMM-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Fabege",
+"id": "5300",
+"ticker": "FABG",
+"yahoo": "FABG.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Fagerhult Group",
+"id": "5314",
+"ticker": "FAG",
+"yahoo": "FAG.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Fasadgruppen",
+"id": "1165693",
+"ticker": "FG",
+"yahoo": "FG.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Fastpartner A",
+"id": "5357",
+"ticker": "FPAR A",
+"yahoo": "FPAR-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Fenix Outdoor B",
+"id": "488741",
+"ticker": "FOI B",
+"yahoo": "FOI-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Flat Capital",
+"id": "1292424",
+"ticker": "FLAT B",
+"yahoo": "FLAT-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Flerie",
+"id": "695721",
+"ticker": "FLERIE",
+"yahoo": "FLERIE.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Genova Property Group",
+"id": "1109972",
+"ticker": "GPG",
+"yahoo": "GPG.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Gentoo Media",
+"id": "944557",
+"ticker": "G2M",
+"yahoo": "G2M.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Getinge B",
+"id": "5282",
+"ticker": "GETI B",
+"yahoo": "GETI-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Green Landscaping Group",
+"id": "837354",
+"ticker": "GREEN",
+"yahoo": "GREEN.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Gränges",
+"id": "510194",
+"ticker": "GRNG",
+"yahoo": "GRNG.ST",
+"segment": "Large Cap"
+},
+{
+"name": "H&M B",
+"id": "5364",
+"ticker": "HM B",
+"yahoo": "HM-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "HANZA",
+"id": "488235",
+"ticker": "HANZA",
+"yahoo": "HANZA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "HMS Networks",
+"id": "98412",
+"ticker": "HMS",
+"yahoo": "HMS.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hacksaw",
+"id": "2094659",
+"ticker": "HACK",
+"yahoo": "HACK.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Handelsbanken B",
+"id": "5265",
+"ticker": "SHB B",
+"yahoo": "SHB-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hansa Biopharma",
+"id": "98087",
+"ticker": "HNSA",
+"yahoo": "HNSA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Heba B",
+"id": "5363",
+"ticker": "HEBA B",
+"yahoo": "HEBA-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Hemnet Group",
+"id": "1220100",
+"ticker": "HEM",
+"yahoo": "HEM.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hexagon B",
+"id": "5286",
+"ticker": "HEXA B",
+"yahoo": "HEXA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hexatronic Group",
+"id": "299737",
+"ticker": "HTRO",
+"yahoo": "HTRO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Hexpol B",
+"id": "130828",
+"ticker": "HPOL B",
+"yahoo": "HPOL-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hoist Finance",
+"id": "550518",
+"ticker": "HOFI",
+"yahoo": "HOFI.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Holmen B",
+"id": "5251",
+"ticker": "HOLM B",
+"yahoo": "HOLM-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Hufvudstaden A",
+"id": "5287",
+"ticker": "HUFV A",
+"yahoo": "HUFV-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Humble Group",
+"id": "517315",
+"ticker": "HUMBLE",
+"yahoo": "HUMBLE.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Husqvarna B",
+"id": "45189",
+"ticker": "HUSQ B",
+"yahoo": "HUSQ-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "INVISIO",
+"id": "43788",
+"ticker": "IVSO",
+"yahoo": "IVSO.ST",
+"segment": "Large Cap"
+},
+{
+"name": "ITAB Group",
+"id": "134988",
+"ticker": "ITAB",
+"yahoo": "ITAB.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Industrivärden A",
+"id": "5244",
+"ticker": "INDU A",
+"yahoo": "INDU-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Indutrade",
+"id": "26607",
+"ticker": "INDT",
+"yahoo": "INDT.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Instalco",
+"id": "752039",
+"ticker": "INSTAL",
+"yahoo": "INSTAL.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Intea Fastigheter B",
+"id": "1918578",
+"ticker": "INTEA B",
+"yahoo": "INTEA-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "International Petroleum Corp.",
+"id": "746877",
+"ticker": "IPCO",
+"yahoo": "IPCO.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Intrum",
+"id": "5583",
+"ticker": "INTRUM",
+"yahoo": "INTRUM.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Investor B",
+"id": "5247",
+"ticker": "INVE B",
+"yahoo": "INVE-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Inwido",
+"id": "507540",
+"ticker": "INWI",
+"yahoo": "INWI.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "JM",
+"id": "5501",
+"ticker": "JM",
+"yahoo": "JM.ST",
+"segment": "Large Cap"
+},
+{
+"name": "John Mattson",
+"id": "965358",
+"ticker": "JOMA",
+"yahoo": "JOMA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "K-Fast Holding B",
+"id": "1022591",
+"ticker": "KFAST B",
+"yahoo": "KFAST-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "KABE Group B",
+"id": "5319",
+"ticker": "KABE B",
+"yahoo": "KABE-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Karnell",
+"id": "1739455",
+"ticker": "KARNEL B",
+"yahoo": "KARNEL-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Karnov Group",
+"id": "949326",
+"ticker": "KAR",
+"yahoo": "KAR.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Kinnevik B",
+"id": "5369",
+"ticker": "KINV B",
+"yahoo": "KINV-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Knowit",
+"id": "5428",
+"ticker": "KNOW",
+"yahoo": "KNOW.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Lagercrantz Group B",
+"id": "5536",
+"ticker": "LAGR B",
+"yahoo": "LAGR-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Latour B",
+"id": "5321",
+"ticker": "LATO B",
+"yahoo": "LATO-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Lifco B",
+"id": "520898",
+"ticker": "LIFCO B",
+"yahoo": "LIFCO-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Lime Technologies",
+"id": "910303",
+"ticker": "LIME",
+"yahoo": "LIME.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Linc",
+"id": "1233195",
+"ticker": "LINC",
+"yahoo": "LINC.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Lindab International",
+"id": "59810",
+"ticker": "LIAB",
+"yahoo": "LIAB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Linjemontage i Grästorp",
+"id": "2644714",
+"ticker": "LMGAB",
+"yahoo": "LMGAB.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Logistea B",
+"id": "1306448",
+"ticker": "LOGI B",
+"yahoo": "LOGI-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Loomis",
+"id": "154930",
+"ticker": "LOOMIS",
+"yahoo": "LOOMIS.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Lundberg B",
+"id": "5375",
+"ticker": "LUND B",
+"yahoo": "LUND-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Lundin Gold",
+"id": "528238",
+"ticker": "LUG",
+"yahoo": "LUG.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Lundin Mining Corporation",
+"id": "7010",
+"ticker": "LUMI",
+"yahoo": "LUMI.ST",
+"segment": "Large Cap"
+},
+{
+"name": "MEKO",
+"id": "5474",
+"ticker": "MEKO",
+"yahoo": "MEKO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "MTG B",
+"id": "5438",
+"ticker": "MTG B",
+"yahoo": "MTG-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "MedCap",
+"id": "46487",
+"ticker": "MCAP",
+"yahoo": "MCAP.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Medicover B",
+"id": "756355",
+"ticker": "MCOV B",
+"yahoo": "MCOV-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Meren Energy",
+"id": "250993",
+"ticker": "MER",
+"yahoo": "MER.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "MilDef Group",
+"id": "1235164",
+"ticker": "MILDEF",
+"yahoo": "MILDEF.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Mips",
+"id": "740416",
+"ticker": "MIPS",
+"yahoo": "MIPS.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Momentum Group B",
+"id": "1374804",
+"ticker": "MMGR B",
+"yahoo": "MMGR-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Morrow Bank",
+"id": "2274890",
+"ticker": "MORROW",
+"yahoo": "MORROW.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Munters Group",
+"id": "755803",
+"ticker": "MTRS",
+"yahoo": "MTRS.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Mycronic",
+"id": "5466",
+"ticker": "MYCR",
+"yahoo": "MYCR.ST",
+"segment": "Large Cap"
+},
+{
+"name": "NCAB Group",
+"id": "856458",
+"ticker": "NCAB",
+"yahoo": "NCAB.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "NCC B",
+"id": "5294",
+"ticker": "NCC B",
+"yahoo": "NCC-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "NOBA Bank",
+"id": "2172399",
+"ticker": "NOBA",
+"yahoo": "NOBA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "NP3 Fastigheter",
+"id": "522855",
+"ticker": "NP3",
+"yahoo": "NP3.ST",
+"segment": "Large Cap"
+},
+{
+"name": "NP3 Fastigheter Pref",
+"id": "832753",
+"ticker": "NP3 PREF",
+"yahoo": "NP3-PREF.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Nederman Holding",
+"id": "80187",
+"ticker": "NMAN",
+"yahoo": "NMAN.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Nelly Group",
+"id": "262988",
+"ticker": "NELLY",
+"yahoo": "NELLY.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Neobo Fastigheter",
+"id": "117108",
+"ticker": "NEOBO",
+"yahoo": "NEOBO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Net Insight B",
+"id": "5440",
+"ticker": "NETI B",
+"yahoo": "NETI-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "New Wave B",
+"id": "5324",
+"ticker": "NEWA B",
+"yahoo": "NEWA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Nibe Industrier B",
+"id": "5325",
+"ticker": "NIBE B",
+"yahoo": "NIBE-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Nivika",
+"id": "1311324",
+"ticker": "NIVI B",
+"yahoo": "NIVI-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Nobia",
+"id": "5586",
+"ticker": "NOBI",
+"yahoo": "NOBI.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Nolato B",
+"id": "5327",
+"ticker": "NOLA B",
+"yahoo": "NOLA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Nordea",
+"id": "5249",
+"ticker": "NDA SE",
+"yahoo": "NDA-SE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Nordnet",
+"id": "1162349",
+"ticker": "SAVE",
+"yahoo": "SAVE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Norion Bank",
+"id": "1447081",
+"ticker": "NORION",
+"yahoo": "NORION.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Note",
+"id": "6331",
+"ticker": "NOTE",
+"yahoo": "NOTE.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "OEM International B",
+"id": "5329",
+"ticker": "OEM B",
+"yahoo": "OEM-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Octave Intelligence SDB",
+"id": "2479521",
+"ticker": "OCTV SDB",
+"yahoo": "OCTV-SDB.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Orrön Energy",
+"id": "5698",
+"ticker": "ORRON",
+"yahoo": "ORRON.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Ovzon",
+"id": "852674",
+"ticker": "OVZON",
+"yahoo": "OVZON.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "PPI Public Property Invest",
+"id": "2473106",
+"ticker": "PUBLI",
+"yahoo": "PUBLI.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Pandox B",
+"id": "572898",
+"ticker": "PNDX B",
+"yahoo": "PNDX-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Paradox Interactive",
+"id": "661786",
+"ticker": "PDX",
+"yahoo": "PDX.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Peab B",
+"id": "5330",
+"ticker": "PEAB B",
+"yahoo": "PEAB-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Platzer Fastigheter Holding B",
+"id": "445784",
+"ticker": "PLAZ B",
+"yahoo": "PLAZ-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "PowerCell Sweden",
+"id": "527998",
+"ticker": "PCELL",
+"yahoo": "PCELL.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Prisma Properties",
+"id": "1798921",
+"ticker": "PRISMA",
+"yahoo": "PRISMA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Proact IT Group",
+"id": "5453",
+"ticker": "PACT",
+"yahoo": "PACT.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "RVRC Holding",
+"id": "1241651",
+"ticker": "RVRC",
+"yahoo": "RVRC.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Ratos B",
+"id": "5397",
+"ticker": "RATO B",
+"yahoo": "RATO-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "RaySearch Laboratories B",
+"id": "5410",
+"ticker": "RAY B",
+"yahoo": "RAY-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Rejlers B",
+"id": "62367",
+"ticker": "REJL B",
+"yahoo": "REJL-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Rusta",
+"id": "1655314",
+"ticker": "RUSTA",
+"yahoo": "RUSTA.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Röko B",
+"id": "1993897",
+"ticker": "ROKO B",
+"yahoo": "ROKO-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SAAB B",
+"id": "5401",
+"ticker": "SAAB B",
+"yahoo": "SAAB-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SBB Norden B",
+"id": "517316",
+"ticker": "SBB B",
+"yahoo": "SBB-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "SCA B",
+"id": "5263",
+"ticker": "SCA B",
+"yahoo": "SCA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SEB A",
+"id": "5255",
+"ticker": "SEB A",
+"yahoo": "SEB-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SKF B",
+"id": "5259",
+"ticker": "SKF B",
+"yahoo": "SKF-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SSAB B",
+"id": "5261",
+"ticker": "SSAB B",
+"yahoo": "SSAB-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Sagax B",
+"id": "405815",
+"ticker": "SAGA B",
+"yahoo": "SAGA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Salix Group",
+"id": "2510303",
+"ticker": "SALIX",
+"yahoo": "SALIX.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Sandvik",
+"id": "5471",
+"ticker": "SAND",
+"yahoo": "SAND.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Scandi Standard",
+"id": "488892",
+"ticker": "SCST",
+"yahoo": "SCST.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Scandic Hotels Group",
+"id": "613140",
+"ticker": "SHOT",
+"yahoo": "SHOT.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Sdiptech B",
+"id": "752256",
+"ticker": "SDIP B",
+"yahoo": "SDIP-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Sectra B",
+"id": "5426",
+"ticker": "SECT B",
+"yahoo": "SECT-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Securitas B",
+"id": "5270",
+"ticker": "SECU B",
+"yahoo": "SECU-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Silex Microsystems",
+"id": "2453258",
+"ticker": "SILEX",
+"yahoo": "SILEX.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Sinch",
+"id": "599956",
+"ticker": "SINCH",
+"yahoo": "SINCH.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Skanska B",
+"id": "5257",
+"ticker": "SKA B",
+"yahoo": "SKA-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SkiStar B",
+"id": "5339",
+"ticker": "SKIS B",
+"yahoo": "SKIS-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "SmartCraft Group",
+"id": "2378377",
+"ticker": "SMCRT",
+"yahoo": "SMCRT.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Stendörren Fastigheter B",
+"id": "273449",
+"ticker": "STEF B",
+"yahoo": "STEF-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Stenhus Fastigheter i Norden",
+"id": "1162078",
+"ticker": "SFAST",
+"yahoo": "SFAST.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Stillfront Group",
+"id": "614237",
+"ticker": "SF",
+"yahoo": "SF.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Stockholm Nordtech Group",
+"id": "2499617",
+"ticker": "NTECH",
+"yahoo": "NTECH.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Stora Enso A",
+"id": "5421",
+"ticker": "STE A",
+"yahoo": "STE-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Stora Enso R",
+"id": "5422",
+"ticker": "STE R",
+"yahoo": "STE-R.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Storskogen B",
+"id": "1284767",
+"ticker": "STOR B",
+"yahoo": "STOR-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Storytel B",
+"id": "32576",
+"ticker": "STORY B",
+"yahoo": "STORY-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Sveafastigheter",
+"id": "1869788",
+"ticker": "SVEAF B",
+"yahoo": "SVEAF-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Svedbergs Group B",
+"id": "5335",
+"ticker": "SVED B",
+"yahoo": "SVED-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Svolder B",
+"id": "5337",
+"ticker": "SVOL B",
+"yahoo": "SVOL-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Sweco B",
+"id": "5409",
+"ticker": "SWEC B",
+"yahoo": "SWEC-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Swedbank A",
+"id": "5241",
+"ticker": "SWED A",
+"yahoo": "SWED-A.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Swedish Logistic Property B",
+"id": "1370669",
+"ticker": "SLP B",
+"yahoo": "SLP-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Swedish Orphan Biovitrum",
+"id": "51308",
+"ticker": "SOBI",
+"yahoo": "SOBI.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Synsam",
+"id": "1296601",
+"ticker": "SYNSAM",
+"yahoo": "SYNSAM.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Systemair",
+"id": "97407",
+"ticker": "SYSR",
+"yahoo": "SYSR.ST",
+"segment": "Large Cap"
+},
+{
+"name": "TRATON SE",
+"id": "972553",
+"ticker": "8TRA",
+"yahoo": "8TRA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Tele2 B",
+"id": "5386",
+"ticker": "TEL2 B",
+"yahoo": "TEL2-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Telia Company",
+"id": "5479",
+"ticker": "TELIA",
+"yahoo": "TELIA.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Thule Group",
+"id": "521491",
+"ticker": "THULE",
+"yahoo": "THULE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Tieto",
+"id": "5455",
+"ticker": "TIETOS",
+"yahoo": "TIETOS.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Traction B",
+"id": "5472",
+"ticker": "TRAC B",
+"yahoo": "TRAC-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Trelleborg B",
+"id": "5267",
+"ticker": "TREL B",
+"yahoo": "TREL-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Trianon B",
+"id": "765298",
+"ticker": "TRIAN B",
+"yahoo": "TRIAN-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Troax Group",
+"id": "551073",
+"ticker": "TROAX",
+"yahoo": "TROAX.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Truecaller",
+"id": "1286052",
+"ticker": "TRUE B",
+"yahoo": "TRUE-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Tången Industrikapital",
+"id": "2502364",
+"ticker": "TANGEN B",
+"yahoo": "TANGEN-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "VBG Group B",
+"id": "5342",
+"ticker": "VBG B",
+"yahoo": "VBG-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "VEF",
+"id": "579702",
+"ticker": "VEFAB",
+"yahoo": "VEFAB.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "VNV Global",
+"id": "87027",
+"ticker": "VNV",
+"yahoo": "VNV.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Verisure",
+"id": "2185531",
+"ticker": "VSURE",
+"yahoo": "VSURE.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Viaplay Group B",
+"id": "945460",
+"ticker": "VPLAY B",
+"yahoo": "VPLAY-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Vicore Pharma Holding",
+"id": "614837",
+"ticker": "VICO",
+"yahoo": "VICO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Vimian Group",
+"id": "1242474",
+"ticker": "VIMIAN",
+"yahoo": "VIMIAN.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Viscaria",
+"id": "68827",
+"ticker": "VISC",
+"yahoo": "VISC.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Vitec Software Group B",
+"id": "5526",
+"ticker": "VIT B",
+"yahoo": "VIT-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Vitrolife",
+"id": "5508",
+"ticker": "VITR",
+"yahoo": "VITR.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Volati",
+"id": "709195",
+"ticker": "VOLO",
+"yahoo": "VOLO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Volati Pref",
+"id": "568098",
+"ticker": "VOLO PREF",
+"yahoo": "VOLO-PREF.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Volvo B",
+"id": "5269",
+"ticker": "VOLV B",
+"yahoo": "VOLV-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Volvo Car B",
+"id": "1296604",
+"ticker": "VOLCAR B",
+"yahoo": "VOLCAR-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Wallenstam B",
+"id": "5344",
+"ticker": "WALL B",
+"yahoo": "WALL-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Wihlborgs Fastigheter",
+"id": "18813",
+"ticker": "WIHL",
+"yahoo": "WIHL.ST",
+"segment": "Large Cap"
+},
+{
+"name": "XANO Industri B",
+"id": "5415",
+"ticker": "XANO B",
+"yahoo": "XANO-B.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Xvivo Perfusion",
+"id": "376275",
+"ticker": "XVIVO",
+"yahoo": "XVIVO.ST",
+"segment": "Mid Cap"
+},
+{
+"name": "Yubico",
+"id": "1206860",
+"ticker": "YUBICO",
+"yahoo": "YUBICO.ST",
+"segment": "Large Cap"
+},
+{
+"name": "engcon B",
+"id": "1418985",
+"ticker": "ENGCON B",
+"yahoo": "ENGCON-B.ST",
+"segment": "Large Cap"
+},
+{
+"name": "Öresund",
+"id": "5302",
+"ticker": "ORES",
+"yahoo": "ORES.ST",
+"segment": "Mid Cap"
+}
+]
+}

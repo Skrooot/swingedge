@@ -117,8 +117,10 @@ class FactorRepository(private val store: Store, private val context: Context? =
         return Allocation(decisions, c.levels, preview, pm, c.at, c.errors, c.paperStart, notify)
     }
 
-    @Synchronized
-    fun refreshAllocation(force: Boolean = false): Allocation {
+    /** Processgemensamt lås: appen och bakgrundsjobbet har var sin instans (annars kunde samma notis skickas två gånger). */
+    fun refreshAllocation(force: Boolean = false): Allocation = synchronized(FactorRepository::class.java) { refreshLocked(force) }
+
+    private fun refreshLocked(force: Boolean): Allocation {
         var c = store.allocation
         if (!force && System.currentTimeMillis() - c.at < ALLOCATION_EVERY_MS && c.levels.size == ALLOCATION_ASSETS.size) return build(c)
         val month = currentMonth()

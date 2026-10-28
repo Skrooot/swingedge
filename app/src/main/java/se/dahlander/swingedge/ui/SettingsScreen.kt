@@ -4,6 +4,9 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.horizontalScroll
+import androidx.compose.foundation.rememberScrollState
+import androidx.compose.material3.FilterChip
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.material3.Button
@@ -34,7 +37,7 @@ fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, request
             SectionCard("Portföljdelarnas vikter") {
                 Text("Testad modell: Bitcoin Trend 20 %, Lika vikt 40 %, S&P 500 Trend 40 %. Andra vikter är avvikelser från det som testades och märks så i appen.",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)
-                StrategyId.entries.forEach { id ->
+                DEFAULT_SLEEVES.keys.forEach { id ->
                     Column {
                         Text("${id.displayName}: ${pct(draft[id] ?: 0.0, 0)}")
                         Slider(value = (draft[id] ?: 0.0).toFloat(), onValueChange = { v -> draft = draft + (id to (v * 20).roundToInt() / 20.0) }, valueRange = 0f..1f, steps = 19)
@@ -47,6 +50,25 @@ fun SettingsScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, request
                     Button(onClick = { vm.setSleeves(draft) }, enabled = kotlin.math.abs(sum - 1.0) < 1e-6 && draft != s.settings.sleeves) { Text("Spara") }
                     OutlinedButton(onClick = { vm.resetSleeves() }) { Text("Återställ 20/40/40") }
                 }
+            }
+        }
+        item {
+            SectionCard("Avantis-kärna") {
+                Text("Andel av portföljen i Avantis Global Equity, Global Small Cap Value och Emerging Markets, en tredjedel var. Resten följer SwingEdge med vikterna ovan.",
+                    style = MaterialTheme.typography.bodyMedium)
+                Row(Modifier.horizontalScroll(rememberScrollState()), horizontalArrangement = Arrangement.spacedBy(8.dp)) {
+                    listOf(0.0 to "Av", 0.25 to "25 %", 0.5 to "50 %", 0.75 to "75 %").forEach { (v, l) ->
+                        FilterChip(selected = kotlin.math.abs(s.settings.avantisShare - v) < 1e-9, onClick = { vm.setAvantisShare(v) }, label = { Text(l) })
+                    }
+                }
+                if (s.settings.avantisShare > 0) {
+                    val e = se.dahlander.swingedge.core.effectiveSleeves(s.settings.sleeves, s.settings.avantisShare)
+                    Text("Vikter nu: " + e.entries.joinToString { "${it.key.shortName} ${pct(it.value, 0)}" }, style = MaterialTheme.typography.bodySmall)
+                }
+                Text("Köp och behåll med ombalansering vid månadsslut, ingen trendregel. Handlas på Xetra i EUR med courtage och 0,25 % växling.",
+                    style = MaterialTheme.typography.bodySmall)
+                Text("Tillägg efter rapporten. Okt 2019 – sep 2026 (amerikanska Avantis-fonder som proxy, korrelation 0,98–0,99 mot UCITS-fonderna): 50 % Avantis + 50 % SwingEdge med guld gav 19,5 %/år, Sharpe 1,12, största nedgång −19 %, mot 23,7 %, 1,07 och −19 % för SwingEdge med guld. Kort period och inget signifikanstest.",
+                    style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
             }
         }
         item {

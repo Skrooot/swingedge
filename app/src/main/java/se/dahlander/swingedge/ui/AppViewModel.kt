@@ -33,6 +33,7 @@ data class UiState(
     val snapshots: List<Snapshot> = emptyList(),
     val backtests: List<BacktestRun> = emptyList(),
     val runs: List<RunLog> = emptyList(),
+    val forward: List<se.dahlander.swingedge.core.ForwardEntry> = emptyList(),
     val edge: se.dahlander.swingedge.data.EdgeRepository.Result? = null,
     val edgeLoading: Boolean = false,
     val backtestRunning: Boolean = false,
@@ -109,7 +110,8 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
         val kind = s.settings.active
         _state.update {
             it.copy(result = result ?: it.result, cache = s.cache, signals = s.signals(kind).reversed(), trades = s.trades(kind),
-                settings = s.settings, snapshots = s.snapshots(kind), backtests = s.backtests.reversed(), runs = s.runs().reversed())
+                settings = s.settings, snapshots = s.snapshots(kind), backtests = s.backtests.reversed(), runs = s.runs().reversed(),
+                forward = s.forward(kind).reversed())
         }
     }
 
@@ -150,6 +152,11 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     }
 
     fun resetSleeves() = setSleeves(DEFAULT_SLEEVES)
+
+    fun setAvantisShare(v: Double) {
+        repo.store.settings = repo.store.settings.copy(avantisShare = v)
+        recompute()
+    }
 
     fun setIncludeGold(on: Boolean) {
         repo.store.settings = repo.store.settings.copy(includeGold = on)

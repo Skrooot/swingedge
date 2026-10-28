@@ -106,3 +106,15 @@ Ny kategori under fliken Global, framtagen i en oberoende granskning av Börslab
 
 Evidensstatus: ingen strategi är oberoende verifierad. Global trendföljning, den utökade varianten och momentum är
 lovande men otillräckligt verifierade. Värde, kvalitet och utdelning är endast publikt dokumenterade.
+
+## Avantis-kärna (version 1.4)
+
+Tillval under Inställningar: 25, 50 eller 75 % av portföljen i Avantis Global Equity (AVWC), Global Small Cap Value (AVWS)
+och Emerging Markets Equity (AVEM), en tredjedel var. Alla tre är UCITS-ETF:er på Xetra som går att köpa på Avanza.
+SwingEdges hinkar skalas ned i samma proportion. Kärnan köps och behålls utan trendregel och ombalanseras vid
+månadsslut tillsammans med lika vikt.
+
+Testet ligger i `research/borslabbet/study_avantis.py`. Det täcker okt 2019 – sep 2026 och använder de amerikanska
+Avantis-fonderna som proxy (korrelation 0,98–0,99 mot UCITS-fonderna). 50 % Avantis plus 50 % SwingEdge med guld gav
+19,5 % per år, Sharpe 1,12 och största nedgång −19 %. SwingEdge med guld ensamt gav 23,7 %, 1,07 och −19 %.
+Perioden är kort och inget signifikanstest har gjorts.

@@ -105,13 +105,19 @@ object Backtests {
     const val COST_FOREIGN = 0.0040
     const val COST_CRYPTO = 0.0040
 
-    /** Bitcoin Trend på produkten: signal från BTC-USD med datum före produktdagen. */
+    /**
+     * Bitcoin Trend på produkten. w[i] = läget som är känt före nästa produktdags öppning (BTC-staplar med datum
+     * före den dagen), och simulate handlar på den dagens stängning: första produktstängningen efter att
+     * BTC-stapeln blev klar. (Tidigare användes läget före dag i, vilket gav en handelsdag för sent;
+     * rättat i kvalitetsgranskningen 28 okt 2026, se BacktestReferenceTest.)
+     */
     fun btcOnProduct(btc: List<Bar>, xbt: List<Bar>): Pair<Sim, Sim> {
         val trend = trendSeries(btc, Rules.CRYPTO_SMA)
         var k = 0
         var cur: Boolean? = null
-        val w = xbt.map { p ->
-            while (k < trend.size && trend[k].first.date.isBefore(p.date)) { cur = trend[k].second ?: cur; k++ }
+        val w = xbt.indices.map { i ->
+            val next = if (i + 1 < xbt.size) xbt[i + 1].date else xbt[i].date.plusDays(1)
+            while (k < trend.size && trend[k].first.date.isBefore(next)) { cur = trend[k].second ?: cur; k++ }
             cur?.let { if (it) 1.0 else 0.0 }
         }
         val dates = xbt.map { it.date }

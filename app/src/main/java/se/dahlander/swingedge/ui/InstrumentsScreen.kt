@@ -75,6 +75,8 @@ private fun ProductCard(ins: Instrument, s: UiState, ctx: android.content.Contex
             Instrument.SXR8 -> "S&P 500 Trend och Lika vikt"
             Instrument.XACT -> "Lika vikt"
             Instrument.GOLD -> if (s.settings.includeGold) "Lika vikt (tillval)" else "Ingen strategi just nu. Kan slås på under Inställningar."
+            Instrument.AVWC, Instrument.AVWS, Instrument.AVEM ->
+                if (s.settings.avantisShare > 0) "Avantis-kärna (tillval), ${pct(s.settings.avantisShare / 3, 1)} av portföljen" else "Ingen strategi just nu. Avantis-kärnan kan slås på under Inställningar."
         }
         KeyValue("Används av", strategies)
         if (ins == Instrument.XBT) Text("Priset ovan är certifikatets pris i SEK, inte Bitcoins marknadspris. Signalen räknas på BTC-USD.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))

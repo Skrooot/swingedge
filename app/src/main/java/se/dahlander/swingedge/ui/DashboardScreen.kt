@@ -107,6 +107,7 @@ private fun TodoCard(r: AnalysisResult) {
 private fun statusPill(status: SignalStatus, invested: Boolean?) {
     when {
         status == SignalStatus.INVALID || invested == null -> StatusPill("Ogiltig, data saknas", Tone.NEGATIVE)
+        status == SignalStatus.STALE -> StatusPill(if (invested) "Investerad, men data är föråldrade" else "Kontanter, men data är föråldrade", Tone.NEGATIVE)
         status == SignalStatus.PENDING -> StatusPill(if (invested) "Köp väntar på börsöppning" else "Sälj väntar på börsöppning", Tone.PENDING)
         invested -> StatusPill("Positiv trend: Behåll", Tone.POSITIVE)
         else -> StatusPill("Negativ trend: Avvakta i kontanter", Tone.NEGATIVE)
@@ -180,16 +181,16 @@ private fun TargetCard(r: AnalysisResult) {
     val t = r.target ?: return
     SectionCard("Målportfölj") {
         val colors = listOf(MaterialTheme.colorScheme.primary, toneColor(Tone.PENDING), toneColor(Tone.POSITIVE), MaterialTheme.colorScheme.secondary)
-        val parts = listOf(Instrument.SXR8, Instrument.XBT, Instrument.XACT, Instrument.GOLD).map { it.shortName to (t.total[it] ?: 0.0) }.filter { it.second > 0 }
+        val parts = Instrument.entries.map { it.shortName to (t.total[it] ?: 0.0) }.filter { it.second > 0 }
         AllocationBar(parts, colors)
         parts.forEach { (n, w) -> KeyValue(n, pct(w)) }
         KeyValue("Kontanter", pct(t.cash))
         HorizontalDivider()
         Text("Per strategi", style = MaterialTheme.typography.labelLarge)
-        StrategyId.entries.forEach { id ->
+        StrategyId.entries.filter { it in t.perStrategy }.forEach { id ->
             val m = t.perStrategy[id] ?: emptyMap()
             KeyValue(id.displayName, if (m.isEmpty()) "Kontanter" else m.entries.joinToString { "${it.key.shortName} ${pct(it.value)}" })
         }
-        if (r.customSleeves) Text("Avviker från den testade modellen: standardvikter ${DEFAULT_SLEEVES.values.joinToString("/") { pct(it, 0) }}, lika vikt utan guld.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+        if (r.customSleeves) Text("Avviker från den testade modellen: standardvikter ${DEFAULT_SLEEVES.values.joinToString("/") { pct(it, 0) }}, lika vikt utan guld, ingen Avantis-kärna.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
     }
 }

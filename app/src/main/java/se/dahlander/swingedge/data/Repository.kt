@@ -19,6 +19,7 @@ import java.time.LocalDate
 
 /** Samordnar hämtning, analys och lagring. Används av både appen och bakgrundsjobbet. */
 class Repository(context: Context) {
+    companion object { private val REFRESH_LOCK = Any() }
     val store = Store(context.applicationContext)
 
     data class Outcome(val result: AnalysisResult, val cache: MarketData.Cache, val fetchOk: Boolean, val notify: List<SignalRecord>)
@@ -27,8 +28,11 @@ class Repository(context: Context) {
      * Hämtar kurser (om [fetch]) och kör analysen för den aktiva portföljen. Misslyckas hämtningen används
      * tidigare kurser, och datakontrollen avgör om de är för gamla för nya signaler.
      */
-    @Synchronized
-    fun refresh(trigger: String, fetch: Boolean = true, now: Instant = Instant.now()): Outcome {
+    // Ett lås för hela processen: appen och bakgrundsjobbet har var sin Repository-instans. Utan det kunde två
+    // samtidiga körningar läsa samma tidigare läge och skicka samma notis två gånger.
+    fun refresh(trigger: String, fetch: Boolean = true, now: Instant = Instant.now()): Outcome = synchronized(REFRESH_LOCK) { refreshLocked(trigger, fetch, now) }
+
+    private fun refreshLocked(trigger: String, fetch: Boolean, now: Instant): Outcome {
         val settings = store.settings
         val prevCache = store.cache
         var cache = prevCache ?: MarketData.Cache()
@@ -43,9 +47,11 @@ class Repository(context: Context) {
         }
         val kind = settings.active
         val prev = store.engine(kind)
-        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, settings.sleeves, se.dahlander.swingedge.core.equalWeightInstruments(settings.includeGold))
+        val result = analyze(now, MarketData.snapshot(cache), store.trades(kind), prev, se.dahlander.swingedge.core.effectiveSleeves(settings.sleeves, settings.avantisShare), se.dahlander.swingedge.core.equalWeightInstruments(settings.includeGold))
         store.saveEngine(kind, result.state)
         store.appendSignals(kind, result.newSignals)
+        // forward test: bara signaler som skapas nu, följda med produktens kurser
+        store.saveForward(kind, se.dahlander.swingedge.core.ForwardTest.update(store.forward(kind), result.newSignals, MarketData.snapshot(cache).quotes, now.toEpochMilli()))
 
         val notify = result.newSignals.filter { it.type != SignalType.START && it.type != SignalType.HOLD }.toMutableList()
         // Misslyckad uppdatering: notis efter tre misslyckade försök i rad, högst en gång per dag
@@ -82,7 +88,7 @@ class Repository(context: Context) {
     /** Valfri portfölj räknad mot senaste kurser, utan att ändra den aktiva portföljens tillstånd. */
     fun preview(kind: PortfolioKind, now: Instant = Instant.now()): AnalysisResult? {
         val cache = store.cache ?: return null
-        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), store.settings.sleeves, se.dahlander.swingedge.core.equalWeightInstruments(store.settings.includeGold))
+        return analyze(now, MarketData.snapshot(cache), store.trades(kind), store.engine(kind), se.dahlander.swingedge.core.effectiveSleeves(store.settings.sleeves, store.settings.avantisShare), se.dahlander.swingedge.core.equalWeightInstruments(store.settings.includeGold))
     }
 
     /** Nytt backtest med de frysta reglerna på hela den historik som Yahoo har. */

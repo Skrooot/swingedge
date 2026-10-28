@@ -101,28 +101,55 @@ fun target(states: StrategyStates, sleeves: Map<StrategyId, Double> = DEFAULT_SL
     val btc = sleeves.getValue(StrategyId.BTC_TREND)
     val ewSleeve = sleeves.getValue(StrategyId.EQUAL_WEIGHT)
     val sp = sleeves.getValue(StrategyId.SP500_TREND)
+    val core = sleeves[StrategyId.AVANTIS_CORE] ?: 0.0
     val per = mapOf(
         StrategyId.BTC_TREND to if (states.btcInvested) mapOf(Instrument.XBT to btc) else emptyMap(),
         StrategyId.EQUAL_WEIGHT to ew.associateWith { ewSleeve / ew.size },
         StrategyId.SP500_TREND to if (states.spInvested) mapOf(Instrument.SXR8 to sp) else emptyMap(),
-    )
+    ) + (if (core > 0) mapOf(StrategyId.AVANTIS_CORE to AVANTIS_CORE.associateWith { core / AVANTIS_CORE.size }) else emptyMap())
     val total = Instrument.entries.associateWith { ins -> per.values.sumOf { it[ins] ?: 0.0 } }
     return Target(per, total, 1.0 - total.values.sum())
 }
 
-data class Order(val instrument: Instrument, val side: Side, val amountSek: Double, val fromWeight: Double, val toWeight: Double, val reason: String)
+data class Order(
+    val instrument: Instrument, val side: Side, val amountSek: Double, val fromWeight: Double, val toWeight: Double, val reason: String,
+    /** Hela andelar till senaste kurs (Avanza handlar inte bråkdelar av börshandlade produkter). Null utan kurs. */
+    val quantity: Long? = null,
+    /** Uppskattat courtage + valutaväxling i SEK, courtageklass Medium. */
+    val costSek: Double? = null,
+    /** Kostnaden överstiger 1 % av beloppet. */
+    val small: Boolean = false,
+)
+
+/**
+ * Avanzas courtageklass Medium (prislista okt 2026): Stockholm 0,069 %, minst 69 kr; Xetra 0,089 %, minst 8 EUR.
+ * Valutaväxling 0,25 % på affärer i utländsk valuta. Användarens faktiska courtageklass kan skilja sig.
+ */
+fun tradeCostSek(ins: Instrument, amountSek: Double, eurSek: Double): Double = when (ins.exchange) {
+    Exchange.XSTO -> maxOf(amountSek * 0.00069, 69.0)
+    else -> maxOf(amountSek * 0.00089, 8.0 * eurSek) + amountSek * 0.0025
+}
 
 /**
  * En order per instrument, även när flera strategier äger samma instrument (vikterna summeras först).
  * [instruments] begränsar vilka instrument som får ordrar (t.ex. bara de vars trend just bytt läge).
  */
-fun orders(valuation: Valuation, target: Target, instruments: Set<Instrument>, tolerance: Double, reason: (Instrument) -> String): List<Order> {
+fun orders(valuation: Valuation, target: Target, instruments: Set<Instrument>, tolerance: Double,
+           quotes: Map<Instrument, Quote> = emptyMap(), reason: (Instrument) -> String): List<Order> {
     if (valuation.totalSek <= 0) return emptyList()
     return instruments.sortedBy { it.ordinal }.mapNotNull { ins ->
         val now = valuation.holdings[ins]?.weight ?: 0.0
         val goal = target.total[ins] ?: 0.0
         val diff = goal - now
         if (abs(diff) <= tolerance) null
-        else Order(ins, if (diff > 0) Side.BUY else Side.SELL, abs(diff) * valuation.totalSek, now, goal, reason(ins))
+        else {
+            val amount = abs(diff) * valuation.totalSek
+            val q = quotes[ins]
+            val unit = q?.let { it.price * it.fxToSek }?.takeIf { it > 0 }
+            val eur = quotes.values.firstOrNull { it.instrument.currency == "EUR" }?.fxToSek ?: 11.0
+            val cost = tradeCostSek(ins, amount, if (ins.currency == "EUR" && q != null) q.fxToSek else eur)
+            Order(ins, if (diff > 0) Side.BUY else Side.SELL, amount, now, goal, reason(ins),
+                quantity = unit?.let { kotlin.math.floor(amount / it).toLong() }, costSek = cost, small = cost > amount * 0.01)
+        }
     }
 }

@@ -35,12 +35,40 @@ enum class Instrument(
         Exchange.XETR, "EUR", "Fysiskt guld, ETC från Deutsche Börse Commodities. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
         "4GLD.DE",
         "https://www.avanza.se/borshandlade-produkter/certifikat-torg/om-certifikatet.html/1077331/xetra-gold-etc",
+    ),
+    AVWC(
+        "Avantis Global Equity UCITS ETF", "Avantis Global Equity", "AVWC", "IE000RJECXS5",
+        Exchange.XETR, "EUR", "Globala aktier, bred portfölj med lutning mot billiga och lönsamma bolag. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
+        "AVWC.DE",
+        "https://www.avanza.se/borshandlade-produkter/etf-torg/om-fonden.html/1858742/avantis-global-equity-ucits-etf",
+    ),
+    AVWS(
+        "Avantis Global Small Cap Value UCITS ETF", "Avantis Global Small Cap Value", "AVWS", "IE0003R87OG3",
+        Exchange.XETR, "EUR", "Globala småbolag med lutning mot värde och lönsamhet. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
+        "AVWS.DE",
+        "https://www.avanza.se/borshandlade-produkter/etf-torg/om-fonden.html/1858741/avantis-global-small-cap-value-ucits-etf",
+    ),
+    AVEM(
+        "Avantis Emerging Markets Equity UCITS ETF", "Avantis Emerging Markets", "AVEM", "IE000K975W13",
+        Exchange.XETR, "EUR", "Tillväxtmarknader, bred portfölj med lutning mot billiga och lönsamma bolag. Handlas i EUR på Xetra; Avanza växlar SEK med 0,25 %.",
+        "AVEM.DE",
+        "https://www.avanza.se/borshandlade-produkter/etf-torg/om-fonden.html/1918246/avantis-emerging-markets-equity-ucits-etf",
     );
 }
 
 /** Lika vikt enligt rapporten. Guld är ett tillval som testades efter rapporten (study3.py, 28 okt 2026). */
 val EW_BASE = listOf(Instrument.XACT, Instrument.SXR8, Instrument.XBT)
 fun equalWeightInstruments(includeGold: Boolean) = if (includeGold) EW_BASE + Instrument.GOLD else EW_BASE
+
+/**
+ * Avantis-kärna: köp och behåll av tre Avantis-ETF:er i lika delar, ombalanseras vid månadsslut som lika vikt.
+ * Tillval efter rapporten (study_avantis.py, okt 2019 – sep 2026 med amerikanska Avantis-fonder som proxy).
+ */
+val AVANTIS_CORE = listOf(Instrument.AVWC, Instrument.AVWS, Instrument.AVEM)
+
+/** Vikter med Avantis-kärnan: SwingEdges hinkar skalas ned och kärnan får [avantis] av portföljen. */
+fun effectiveSleeves(base: Map<StrategyId, Double>, avantis: Double): Map<StrategyId, Double> =
+    if (avantis <= 0.0) base else base.mapValues { it.value * (1 - avantis) } + (StrategyId.AVANTIS_CORE to avantis)
 
 /** Signalkällor. Priset på signalkällan är aldrig priset på produkten. */
 enum class SignalSource(val displayName: String, val yahoo: String, val currency: String) {
@@ -52,6 +80,7 @@ enum class StrategyId(val displayName: String, val shortName: String) {
     BTC_TREND("Bitcoin Trend", "Bitcoin Trend"),
     EQUAL_WEIGHT("Lika vikt", "Lika vikt"),
     SP500_TREND("S&P 500 Trend", "S&P 500 Trend"),
+    AVANTIS_CORE("Avantis-kärna", "Avantis"),
 }
 
 /** Testade standardvikter. Andra vikter är avvikelser från den testade modellen och märks så i appen. */

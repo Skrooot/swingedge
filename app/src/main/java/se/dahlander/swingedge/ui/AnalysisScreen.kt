@@ -40,6 +40,25 @@ fun AnalysisScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, openIns
             }
         }
         item {
+            SectionCard("Forward test") {
+                Text("Köp- och säljsignaler loggas när appen räknar fram dem och följs upp med produktens kurs därefter. Inget läggs in i efterhand. Kostnad 0,40 % per sida, som i backtestet.",
+                    style = MaterialTheme.typography.bodySmall)
+                val fw = s.forward
+                val done = fw.filter { !it.open && it.returnSek() != null }
+                KeyValue("Loggade signaler", "${fw.size} (${fw.count { it.open }} öppna, ${done.size} avslutade)")
+                if (done.isNotEmpty()) KeyValue("Snitt per avslutad affär", pct(done.mapNotNull { it.returnSek() }.average()))
+                fw.take(10).forEach { e ->
+                    val r = e.returnSek()
+                    Text("${e.strategy.shortName}: köp ${fmtDate(e.signalDate)} (loggad ${fmtTime(e.loggedAt)})" +
+                        (e.entryPrice?.let { " · ingång ${num(it, 2)} ${e.instrument.currency}" } ?: " · väntar på första handelsbara kurs") +
+                        (e.exitReason?.let { " · $it" } ?: "") + (r?.let { " · ${pct(it)}" } ?: ""), style = MaterialTheme.typography.bodySmall)
+                }
+                Text(if (done.size < 20) "För få avslutade affärer för slutsatser. Bitcoin Trend ger cirka 4 affärer per år och S&P 500 Trend färre, så ett meningsfullt forward test tar flera år."
+                    else "Jämför med backtestets antaganden: affär på stängningen dagen efter signalen.",
+                    style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+            }
+        }
+        item {
             SectionCard("Nytt backtest på aktuella kurser") {
                 Text("Kör samma frysta regler på hela den historik som Yahoo Finance har idag. Appen har bara stängningskurser, så affären görs på stängningen dagen efter signalen. Resultaten kan därför skilja något från rapporten.",
                     style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant)

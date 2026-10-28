@@ -46,8 +46,10 @@ class EdgeRepository(private val store: Store) {
     private fun toSeries(c: EdgeSeriesCache) = c.series.mapValues { (_, rows) -> rows.map { it[0] } to rows.map { it[1].toDouble() } }
 
     /** Hämtar forskning (högst en gång per dygn) och kurser, räknar dagens signaler och väljer vilka som ska notifieras. */
-    @Synchronized
-    fun refresh(force: Boolean = false): Result {
+    /** Processgemensamt lås: appen och bakgrundsjobbet har var sin instans (annars kunde samma notis skickas två gånger). */
+    fun refresh(force: Boolean = false): Result = synchronized(EdgeRepository::class.java) { refreshLocked(force) }
+
+    private fun refreshLocked(force: Boolean): Result {
         val errors = mutableListOf<String>()
         var cache = store.edgeSeries
         if (force || System.currentTimeMillis() - cache.researchAt > 24 * 3600_000L || store.edgeRaw == null) {

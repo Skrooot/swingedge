@@ -105,7 +105,12 @@ data class Sp500TrendState(
     val nextCheck: LocalDate,
 )
 
-/** Månadsbeslut på varje NYSE-månadsslut i de färdiga staplarna. Mellan besluten ändras inget. */
+/**
+ * Månadsbeslut på varje månads sista stapel i de färdiga staplarna (som engine.month_end_flags i studien).
+ * Den allra sista stapeln räknas bara som månadsslut om den är kalenderns sista NYSE-handelsdag; annars kan
+ * månaden fortfarande få fler staplar. En oväntat stängd börs eller en saknad kurs på månadens sista dag
+ * gör då att föregående handelsdag används, i stället för att månadens beslut uteblir.
+ */
 fun monthlyDecisions(completed: List<Bar>): List<MonthlyDecision> {
     val closes = completed.map { it.close }
     val out = mutableListOf<MonthlyDecision>()
@@ -114,7 +119,9 @@ fun monthlyDecisions(completed: List<Bar>): List<MonthlyDecision> {
         sum += closes[i]
         if (i >= Rules.STOCK_SMA) sum -= closes[i - Rules.STOCK_SMA]
         val d = completed[i].date
-        if (i >= Rules.STOCK_SMA - 1 && Exchange.NYSE.isLastTradingDayOfMonth(d)) {
+        val monthEnd = if (i + 1 < completed.size) completed[i + 1].date.month != d.month || completed[i + 1].date.year != d.year
+            else Exchange.NYSE.isLastTradingDayOfMonth(d)
+        if (i >= Rules.STOCK_SMA - 1 && monthEnd) {
             val sma = sum / Rules.STOCK_SMA
             // NYSE stänger 22:00 svensk tid; SXR8 kan handlas först vid Xetras nästa öppning
             val exec = Instrument.SXR8.exchange.nextOpenAtOrAfter(Exchange.NYSE.closeInstant(d))

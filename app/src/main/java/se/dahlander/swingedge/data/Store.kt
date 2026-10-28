@@ -25,6 +25,8 @@ data class Settings(
     val experimentalRotation: Boolean = false,
     /** Tillval: Xetra-Gold som fjärde instrument i lika vikt (testat efter rapporten). */
     val includeGold: Boolean = false,
+    /** Andel av portföljen i Avantis-kärnan (0 = av). SwingEdges hinkar skalas ned i proportion. */
+    val avantisShare: Double = 0.0,
     /** Notiser för nya köpsignaler i Global Opportunities, från och med denna evidensnivå. */
     val edgeNotify: Boolean = true,
     val edgeMinEvidence: String = "Stark hypotes",
@@ -84,7 +86,9 @@ data class RunLog(
 class Store(context: Context) {
     private val dir = File(context.filesDir, "swingedge").apply { mkdirs() }
     private val json = Json { ignoreUnknownKeys = true; encodeDefaults = true; allowStructuredMapKeys = true }
-    private val lock = Any()
+    // processgemensamt lås: appen och bakgrundsjobbet har var sin Store-instans mot samma filer
+    private val lock = LOCK
+    companion object { private val LOCK = Any() }
 
     private fun <T> read(name: String, ser: KSerializer<T>, default: () -> T): T = synchronized(lock) {
         val f = File(dir, name)
@@ -142,6 +146,12 @@ class Store(context: Context) {
     var edgeSeries: EdgeSeriesCache
         get() = read("edge_series.json", EdgeSeriesCache.serializer()) { EdgeSeriesCache() }
         set(v) = write("edge_series.json", EdgeSeriesCache.serializer(), v)
+
+    /** Forward test: tidsstämplade signaler och deras utfall, per portfölj. */
+    fun forward(kind: PortfolioKind): List<se.dahlander.swingedge.core.ForwardEntry> =
+        read("forward_${kind.name}.json", ListSerializer(se.dahlander.swingedge.core.ForwardEntry.serializer())) { emptyList() }
+    fun saveForward(kind: PortfolioKind, v: List<se.dahlander.swingedge.core.ForwardEntry>) =
+        write("forward_${kind.name}.json", ListSerializer(se.dahlander.swingedge.core.ForwardEntry.serializer()), v.takeLast(500))
 
     var allocation: AllocationCache
         get() = read("allocation.json", AllocationCache.serializer()) { AllocationCache() }

@@ -86,6 +86,8 @@ fun GlobalScreen(s: UiState, vm: AppViewModel, padding: PaddingValues) {
                 style = MaterialTheme.typography.bodySmall, color = MaterialTheme.colorScheme.onSurfaceVariant,
             )
             Text("Separat från dina SwingEdge-strategier. Påverkar inte målportföljen.", style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.PENDING))
+            Text("Rankingen har inget dokumenterat prognosvärde: kombinationer valda på träningsdata (till 2015) gav 3,0 %/år och Sharpe 0,51 på testperioden 2016–2026, mot 10,9 % och 0,80 för köp och behåll av samma marknader. Ingen kombination är validerad. Signalerna här är hypoteser, inte köpmöjligheter.",
+                style = MaterialTheme.typography.bodySmall, color = toneColor(Tone.NEGATIVE))
         }
         if (r == null) {
             item { SectionCard { Button(onClick = { vm.refreshEdge(true) }, enabled = !s.edgeLoading) { Text(if (s.edgeLoading) "Hämtar…" else "Hämta forskning och kurser") } } }

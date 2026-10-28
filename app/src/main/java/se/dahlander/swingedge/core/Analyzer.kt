@@ -61,7 +61,7 @@ enum class Severity { INFO, ACTION, WARNING }
 
 data class TodoItem(val severity: Severity, val title: String, val detail: String, val instrument: Instrument? = null)
 
-enum class SignalStatus(val label: String) { ACTIVE("Aktiv"), PENDING("Väntar på börsöppning"), INVALID("Ogiltig, data saknas") }
+enum class SignalStatus(val label: String) { ACTIVE("Aktiv"), PENDING("Väntar på börsöppning"), STALE("Föråldrad, nya data saknas"), INVALID("Ogiltig, data saknas") }
 
 data class AnalysisResult(
     val time: Instant,
@@ -143,7 +143,8 @@ fun analyze(
     }
     val btcStatus = when {
         btc == null || btcInvested == null -> SignalStatus.INVALID
-        btcFresh && now.isBefore(btc.executableFrom) -> SignalStatus.PENDING
+        !btcFresh -> SignalStatus.STALE
+        now.isBefore(btc.executableFrom) -> SignalStatus.PENDING
         else -> SignalStatus.ACTIVE
     }
 
@@ -179,6 +180,7 @@ fun analyze(
     }
     val spStatus = when {
         sp == null || spInvested == null -> SignalStatus.INVALID
+        spCheck.status != DataStatus.OK -> SignalStatus.STALE
         now.isBefore(sp.decision.executableFrom) -> SignalStatus.PENDING
         else -> SignalStatus.ACTIVE
     }
@@ -209,12 +211,15 @@ fun analyze(
         if (empty) flagged += Instrument.entries
         if (prev.alignedBtc != null && prev.alignedBtc != states.btcInvested) flagged += Instrument.XBT
         if (prev.alignedSp != null && prev.alignedSp != states.spInvested) flagged += Instrument.SXR8
-        if (rebalanceDue) flagged += ew
-        ords += orders(valuation, tgt, flagged, Rules.REBALANCE_TOLERANCE) { ins ->
+        // instrument som ombalanseras vid månadsslut: lika vikt och, om den är påslagen, Avantis-kärnan
+        val monthly = ew + (if ((sleeves[StrategyId.AVANTIS_CORE] ?: 0.0) > 0) AVANTIS_CORE else emptyList())
+        if (rebalanceDue) flagged += monthly
+        ords += orders(valuation, tgt, flagged, Rules.REBALANCE_TOLERANCE, market.quotes) { ins ->
             when {
                 empty -> "Bygg upp målportföljen"
                 ins == Instrument.XBT && prev.alignedBtc != states.btcInvested -> if (states.btcInvested) "Bitcoin-trenden blev positiv" else "Bitcoin-trenden blev negativ"
                 ins == Instrument.SXR8 && prev.alignedSp != states.spInvested -> if (states.spInvested) "S&P 500 över SMA200 vid månadsskiftet" else "S&P 500 under SMA200 vid månadsskiftet"
+                ins in AVANTIS_CORE -> "Månatlig ombalansering av Avantis-kärnan"
                 else -> "Månatlig ombalansering till lika vikt"
             }
         }
@@ -223,13 +228,14 @@ fun analyze(
         aligned = aligned.copy(
             alignedBtc = if (prev.alignedBtc == null || within(Instrument.XBT)) states.btcInvested else prev.alignedBtc,
             alignedSp = if (prev.alignedSp == null || within(Instrument.SXR8)) states.spInvested else prev.alignedSp,
-            rebalancedFor = if (rebalanceDue && ew.all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
+            rebalancedFor = if (rebalanceDue && monthly.all(within)) schedule.lastRebalanceClose.toString() else prev.rebalancedFor,
         )
         if (rebalanceDue) emit(SignalRecord(
             key = "rebalance:${schedule.lastRebalanceClose}", time = now.toEpochMilli(), strategy = StrategyId.EQUAL_WEIGHT,
             type = SignalType.REBALANCE, signalDate = schedule.lastRebalanceClose.toString(),
             targetWeight = sleeves[StrategyId.EQUAL_WEIGHT]!! / ew.size,
-            action = "Ombalansera ${ew.joinToString { it.shortName }} till lika vikt",
+            action = "Ombalansera ${ew.joinToString { it.shortName }} till lika vikt" +
+                if (monthly.size > ew.size) " och Avantis-kärnan till tredjedelar" else "",
             reason = "Månadsslut på Stockholmsbörsen ${schedule.lastRebalanceClose}. Handel från ${schedule.tradeDay}.",
         ))
     }
@@ -249,6 +255,9 @@ fun analyze(
         todo += TodoItem(Severity.ACTION,
             "${if (o.side == Side.BUY) "Köp" else "Sälj"} ${o.instrument.shortName} för cirka ${sek(o.amountSek)}",
             "${o.reason}. Från ${pct(o.fromWeight)} till ${pct(o.toWeight)} av portföljen." +
+                (o.quantity?.let { q -> " Cirka $q st." } ?: "") +
+                (o.costSek?.let { c -> " Uppskattad kostnad ${sek(c)} (${pct(c / o.amountSek, 2)}, courtageklass Medium" + (if (o.instrument.currency != "SEK") " + växling" else "") + ")." } ?: "") +
+                (if (o.small) " Liten affär: kostnaden är över 1 % av beloppet, överväg att vänta till nästa ombalansering." else "") +
                 if (pending || now.isBefore(openAt)) " Kan läggas tidigast ${stockholmTime(openAt)}." else "",
             o.instrument)
     }

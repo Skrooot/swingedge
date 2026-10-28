@@ -33,6 +33,8 @@ data class UiState(
     val snapshots: List<Snapshot> = emptyList(),
     val backtests: List<BacktestRun> = emptyList(),
     val runs: List<RunLog> = emptyList(),
+    val edge: se.dahlander.swingedge.data.EdgeRepository.Result? = null,
+    val edgeLoading: Boolean = false,
     val backtestRunning: Boolean = false,
     val message: String? = null,
 )
@@ -42,7 +44,25 @@ class AppViewModel(app: Application) : AndroidViewModel(app) {
     private val _state = MutableStateFlow(UiState())
     val state: StateFlow<UiState> = _state
 
+    private val edgeRepo = se.dahlander.swingedge.data.EdgeRepository(repo.store)
+
+    fun refreshEdge(force: Boolean) {
+        if (_state.value.edgeLoading) return
+        _state.update { it.copy(edgeLoading = true) }
+        viewModelScope.launch(Dispatchers.IO) {
+            val r = try { edgeRepo.refresh(force) } catch (e: Exception) { null }
+            if (r != null && repo.store.settings.notifications && repo.store.settings.edgeNotify) Notifier.show(getApplication(), r.notify)
+            _state.update { it.copy(edge = r ?: it.edge, edgeLoading = false, message = if (r == null) "Skanningen misslyckades" else it.message) }
+        }
+    }
+
+    fun setEdgeNotify(on: Boolean, min: String) {
+        repo.store.settings = repo.store.settings.copy(edgeNotify = on, edgeMinEvidence = min)
+        reload(null)
+    }
+
     init {
+        viewModelScope.launch(Dispatchers.IO) { _state.update { it.copy(edge = edgeRepo.cached()) }; refreshEdge(false) }
         // Visa sparade kurser direkt och hämta nya i bakgrunden
         viewModelScope.launch(Dispatchers.IO) {
             // Utan sparade kurser finns inget att räkna på ännu; annars skulle det loggas som ett datafel

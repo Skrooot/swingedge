@@ -11,10 +11,10 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.material.icons.Icons
-import androidx.compose.material.icons.automirrored.filled.ShowChart
 import androidx.compose.material.icons.filled.AccountBalanceWallet
 import androidx.compose.material.icons.filled.Dashboard
 import androidx.compose.material.icons.filled.Insights
+import androidx.compose.material.icons.filled.Public
 import androidx.compose.material.icons.filled.NotificationsActive
 import androidx.compose.material.icons.filled.Refresh
 import androidx.compose.material.icons.filled.Settings
@@ -46,6 +46,7 @@ import androidx.navigation.compose.rememberNavController
 import se.dahlander.swingedge.ui.AnalysisScreen
 import se.dahlander.swingedge.ui.AppViewModel
 import se.dahlander.swingedge.ui.DashboardScreen
+import se.dahlander.swingedge.ui.GlobalScreen
 import se.dahlander.swingedge.ui.InstrumentsScreen
 import se.dahlander.swingedge.ui.PortfolioScreen
 import se.dahlander.swingedge.ui.SettingsScreen
@@ -56,10 +57,10 @@ private data class Tab(val route: String, val label: String, val icon: ImageVect
 
 private val TABS = listOf(
     Tab("dashboard", "Översikt", Icons.Filled.Dashboard),
+    Tab("global", "Global", Icons.Filled.Public),
     Tab("signals", "Signaler", Icons.Filled.NotificationsActive),
     Tab("portfolio", "Portfölj", Icons.Filled.AccountBalanceWallet),
     Tab("analysis", "Analys", Icons.Filled.Insights),
-    Tab("instruments", "Instrument", Icons.AutoMirrored.Filled.ShowChart),
 )
 
 class MainActivity : ComponentActivity() {
@@ -92,7 +93,7 @@ private fun App(startTab: String?) {
         topBar = {
             Column {
                 TopAppBar(
-                    title = { Text(TABS.firstOrNull { it.route == route }?.label?.let { if (it == "Översikt") "SwingEdge" else it } ?: "Inställningar") },
+                    title = { Text(TABS.firstOrNull { it.route == route }?.label?.let { if (it == "Översikt") "SwingEdge" else if (it == "Global") "Global Opportunities" else it } ?: if (route == "instruments") "Instrument" else "Inställningar") },
                     actions = {
                         IconButton(onClick = { vm.refresh() }, enabled = !s.loading) { Icon(Icons.Filled.Refresh, contentDescription = "Uppdatera nu") }
                         IconButton(onClick = { nav.navigate("settings") { launchSingleTop = true } }) { Icon(Icons.Filled.Settings, contentDescription = "Inställningar") }
@@ -108,7 +109,7 @@ private fun App(startTab: String?) {
                         selected = route == t.route,
                         onClick = {
                             // Inställningar är ingen flik: stäng den först, annars sparas den i flikens tillstånd och kommer tillbaka
-                            if (route == "settings") nav.popBackStack()
+                            if (route == "settings" || route == "instruments") nav.popBackStack()
                             nav.navigate(t.route) { popUpTo(nav.graph.findStartDestination().id) { saveState = true }; launchSingleTop = true; restoreState = true }
                         },
                         icon = { Icon(t.icon, contentDescription = null) },
@@ -123,7 +124,8 @@ private fun App(startTab: String?) {
             composable("dashboard") { DashboardScreen(s, padding) }
             composable("signals") { SignalsScreen(s, padding) }
             composable("portfolio") { PortfolioScreen(s, vm, padding) }
-            composable("analysis") { AnalysisScreen(s, vm, padding) }
+            composable("global") { GlobalScreen(s, vm, padding) }
+            composable("analysis") { AnalysisScreen(s, vm, padding) { nav.navigate("instruments") { launchSingleTop = true } } }
             composable("instruments") { InstrumentsScreen(s, padding) }
             composable("settings") { SettingsScreen(s, vm, padding, requestNotifications) }
         }

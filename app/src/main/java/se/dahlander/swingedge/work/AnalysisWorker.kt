@@ -33,6 +33,9 @@ class AnalysisWorker(ctx: Context, params: WorkerParameters) : CoroutineWorker(c
         val repo = Repository(applicationContext)
         val out = repo.refresh("bakgrund")
         if (repo.store.settings.notifications) Notifier.show(applicationContext, out.notify)
+        // Global Opportunities: skanna ungefär en gång per dygn, skilt från SwingEdges egna strategier
+        val edge = try { se.dahlander.swingedge.data.EdgeRepository(repo.store).refresh() } catch (e: Exception) { null }
+        if (edge != null && repo.store.settings.notifications && repo.store.settings.edgeNotify) Notifier.show(applicationContext, edge.notify)
         Result.success()
     }
 

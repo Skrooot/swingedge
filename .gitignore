@@ -4,3 +4,8 @@ app/build/
 local.properties
 *.iml
 .idea/
+research/engine/data/
+research/engine/edge.json
+research/engine/parity.json
+research/engine/*.log
+__pycache__/

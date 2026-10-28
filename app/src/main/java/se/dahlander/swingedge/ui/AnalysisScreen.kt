@@ -22,9 +22,10 @@ import se.dahlander.swingedge.core.num
 import se.dahlander.swingedge.core.pct
 
 @Composable
-fun AnalysisScreen(s: UiState, vm: AppViewModel, padding: PaddingValues) {
+fun AnalysisScreen(s: UiState, vm: AppViewModel, padding: PaddingValues, openInstruments: () -> Unit = {}) {
     LazyColumn(Modifier.padding(padding), contentPadding = PaddingValues(16.dp), verticalArrangement = Arrangement.spacedBy(12.dp)) {
         item {
+            androidx.compose.material3.OutlinedButton(onClick = openInstruments) { Text("Instrument och kursdiagram") }
             Text("Forskningsrapportens resultat", style = MaterialTheme.typography.titleLarge)
             Text("Historiska backtester från rapporten Swingstrategier via Avanza, 27 okt 2026. Det här är inte din portföljs resultat.",
                 style = MaterialTheme.typography.bodyMedium, color = MaterialTheme.colorScheme.onSurfaceVariant)

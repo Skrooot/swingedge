@@ -1,0 +1,717 @@
+{
+ "version": 1,
+ "updated": "2026-10-28",
+ "markets": [
+  {
+   "id": "sp500",
+   "name": "S&P 500",
+   "assetClass": "Aktieindex",
+   "underlying": "^GSPC",
+   "kind": "index",
+   "productQueries": [
+    "iShares Core S&P 500 UCITS ETF USD (Acc)"
+   ]
+  },
+  {
+   "id": "nasdaq100",
+   "name": "Nasdaq 100",
+   "assetClass": "Aktieindex",
+   "underlying": "^NDX",
+   "kind": "index",
+   "productQueries": [
+    "iShares NASDAQ 100 UCITS ETF USD (Acc)"
+   ]
+  },
+  {
+   "id": "dow",
+   "name": "Dow Jones Industrial Average",
+   "assetClass": "Aktieindex",
+   "underlying": "^DJI",
+   "kind": "index",
+   "productQueries": [
+    "iShares Dow Jones Industrial Average UCITS"
+   ]
+  },
+  {
+   "id": "russell2000",
+   "name": "Russell 2000",
+   "assetClass": "Aktieindex",
+   "underlying": "^RUT",
+   "kind": "index",
+   "productQueries": [
+    "Xtrackers Russell 2000 UCITS"
+   ]
+  },
+  {
+   "id": "omxs30",
+   "name": "OMXS30",
+   "assetClass": "Aktieindex",
+   "underlying": "^OMX",
+   "kind": "index",
+   "productQueries": [
+    "XACT OMXS30"
+   ]
+  },
+  {
+   "id": "stoxx600",
+   "name": "STOXX Europe 600",
+   "assetClass": "Aktieindex",
+   "underlying": "^STOXX",
+   "kind": "index",
+   "productQueries": [
+    "iShares STOXX Europe 600 UCITS ETF (DE)"
+   ]
+  },
+  {
+   "id": "eurostoxx50",
+   "name": "EURO STOXX 50",
+   "assetClass": "Aktieindex",
+   "underlying": "^STOXX50E",
+   "kind": "index",
+   "productQueries": [
+    "iShares Core EURO STOXX 50 UCITS"
+   ]
+  },
+  {
+   "id": "dax",
+   "name": "DAX",
+   "assetClass": "Aktieindex",
+   "underlying": "^GDAXI",
+   "kind": "index",
+   "productQueries": [
+    "iShares Core DAX UCITS"
+   ]
+  },
+  {
+   "id": "ftse100",
+   "name": "FTSE 100",
+   "assetClass": "Aktieindex",
+   "underlying": "^FTSE",
+   "kind": "index",
+   "productQueries": [
+    "iShares Core FTSE 100 UCITS"
+   ]
+  },
+  {
+   "id": "japan",
+   "name": "Japan (Nikkei 225)",
+   "assetClass": "Aktieindex",
+   "underlying": "^N225",
+   "kind": "index",
+   "productQueries": [
+    "iShares Core MSCI Japan IMI UCITS"
+   ]
+  },
+  {
+   "id": "em",
+   "name": "Tillväxtmarknader",
+   "assetClass": "Aktieindex",
+   "underlying": "EEM",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares Core MSCI EM IMI UCITS",
+    "Xtrackers MSCI Emerging Markets UCITS ETF 1C"
+   ]
+  },
+  {
+   "id": "world",
+   "name": "Världen (MSCI World)",
+   "assetClass": "Aktieindex",
+   "underlying": "URTH",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares Core MSCI World UCITS"
+   ]
+  },
+  {
+   "id": "worldsmall",
+   "name": "Världen småbolag",
+   "assetClass": "Aktieindex",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "iShares MSCI World Small Cap UCITS"
+   ]
+  },
+  {
+   "id": "india",
+   "name": "Indien",
+   "assetClass": "Aktieindex",
+   "underlying": "^NSEI",
+   "kind": "index",
+   "productQueries": [
+    "iShares MSCI India UCITS"
+   ]
+  },
+  {
+   "id": "hongkong",
+   "name": "Hongkong (Hang Seng)",
+   "assetClass": "Aktieindex",
+   "underlying": "^HSI",
+   "kind": "index",
+   "productQueries": [
+    "iShares MSCI China UCITS"
+   ]
+  },
+  {
+   "id": "gold",
+   "name": "Guld",
+   "assetClass": "Ädelmetaller",
+   "underlying": "GC=F",
+   "kind": "future_front",
+   "productQueries": [
+    "Xetra-Gold ETC",
+    "iShares Physical Gold ETC",
+    "Invesco Physical Gold ETC"
+   ]
+  },
+  {
+   "id": "silver",
+   "name": "Silver",
+   "assetClass": "Ädelmetaller",
+   "underlying": "SI=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Physical Silver",
+    "iShares Physical Silver"
+   ]
+  },
+  {
+   "id": "platinum",
+   "name": "Platina",
+   "assetClass": "Ädelmetaller",
+   "underlying": "PL=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Physical Platinum"
+   ]
+  },
+  {
+   "id": "palladium",
+   "name": "Palladium",
+   "assetClass": "Ädelmetaller",
+   "underlying": "PA=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Physical Palladium"
+   ]
+  },
+  {
+   "id": "copper",
+   "name": "Koppar",
+   "assetClass": "Industrimetaller",
+   "underlying": "HG=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Copper"
+   ]
+  },
+  {
+   "id": "aluminium",
+   "name": "Aluminium",
+   "assetClass": "Industrimetaller",
+   "underlying": "ALI=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Aluminium"
+   ]
+  },
+  {
+   "id": "nickel",
+   "name": "Nickel",
+   "assetClass": "Industrimetaller",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "WisdomTree Nickel"
+   ]
+  },
+  {
+   "id": "zinc",
+   "name": "Zink",
+   "assetClass": "Industrimetaller",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "WisdomTree Zinc"
+   ]
+  },
+  {
+   "id": "tin",
+   "name": "Tenn",
+   "assetClass": "Industrimetaller",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "WisdomTree Tin"
+   ]
+  },
+  {
+   "id": "indmetals",
+   "name": "Industrimetaller, korg",
+   "assetClass": "Industrimetaller",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "WisdomTree Industrial Metals"
+   ]
+  },
+  {
+   "id": "brent",
+   "name": "Brentolja",
+   "assetClass": "Energi",
+   "underlying": "BZ=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Brent Crude Oil"
+   ]
+  },
+  {
+   "id": "wti",
+   "name": "WTI-olja",
+   "assetClass": "Energi",
+   "underlying": "CL=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree WTI Crude Oil"
+   ]
+  },
+  {
+   "id": "natgas",
+   "name": "Naturgas",
+   "assetClass": "Energi",
+   "underlying": "NG=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Natural Gas"
+   ]
+  },
+  {
+   "id": "uranium",
+   "name": "Uran (gruvbolag)",
+   "assetClass": "Energi",
+   "underlying": "URA",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "Global X Uranium UCITS",
+    "VanEck Uranium and Nuclear Technologies UCITS"
+   ]
+  },
+  {
+   "id": "energy",
+   "name": "Energisektorn USA",
+   "assetClass": "Energi",
+   "underlying": "XLE",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Energy Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "wheat",
+   "name": "Vete",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "ZW=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Wheat"
+   ]
+  },
+  {
+   "id": "corn",
+   "name": "Majs",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "ZC=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Corn"
+   ]
+  },
+  {
+   "id": "soy",
+   "name": "Sojabönor",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "ZS=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Soybeans"
+   ]
+  },
+  {
+   "id": "coffee",
+   "name": "Kaffe",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "KC=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Coffee"
+   ]
+  },
+  {
+   "id": "cocoa",
+   "name": "Kakao",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "CC=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Cocoa"
+   ]
+  },
+  {
+   "id": "sugar",
+   "name": "Socker",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "SB=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Sugar"
+   ]
+  },
+  {
+   "id": "cotton",
+   "name": "Bomull",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": "CT=F",
+   "kind": "future_front",
+   "productQueries": [
+    "WisdomTree Cotton"
+   ]
+  },
+  {
+   "id": "agri",
+   "name": "Jordbruk, korg",
+   "assetClass": "Jordbruksråvaror",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "WisdomTree Agriculture"
+   ]
+  },
+  {
+   "id": "ust_long",
+   "name": "USA statsobligationer 20+ år",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "TLT",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ Treasury Bond 20+yr UCITS"
+   ]
+  },
+  {
+   "id": "ust_mid",
+   "name": "USA statsobligationer 7–10 år",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "IEF",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ Treasury Bond 7-10yr UCITS"
+   ]
+  },
+  {
+   "id": "ust_short",
+   "name": "USA statsobligationer 1–3 år",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "SHY",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ Treasury Bond 1-3yr UCITS"
+   ]
+  },
+  {
+   "id": "eur_govt",
+   "name": "Euroområdet statsobligationer",
+   "assetClass": "Räntor och obligationer",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "iShares Core Euro Government Bond UCITS"
+   ]
+  },
+  {
+   "id": "ig",
+   "name": "Företagsobligationer, investment grade",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "LQD",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ Corp Bond UCITS",
+    "iShares Core € Corp Bond UCITS"
+   ]
+  },
+  {
+   "id": "hy",
+   "name": "Företagsobligationer, high yield",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "HYG",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ High Yield Corp Bond UCITS",
+    "iShares € High Yield Corp Bond UCITS"
+   ]
+  },
+  {
+   "id": "tips",
+   "name": "Inflationsskyddade obligationer USA",
+   "assetClass": "Räntor och obligationer",
+   "underlying": "TIP",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares $ TIPS UCITS"
+   ]
+  },
+  {
+   "id": "eurusd",
+   "name": "EUR/USD",
+   "assetClass": "Valutor",
+   "underlying": "EURUSD=X",
+   "kind": "fx",
+   "productQueries": []
+  },
+  {
+   "id": "usdjpy",
+   "name": "USD/JPY",
+   "assetClass": "Valutor",
+   "underlying": "USDJPY=X",
+   "kind": "fx",
+   "productQueries": []
+  },
+  {
+   "id": "gbpusd",
+   "name": "GBP/USD",
+   "assetClass": "Valutor",
+   "underlying": "GBPUSD=X",
+   "kind": "fx",
+   "productQueries": []
+  },
+  {
+   "id": "usdsek",
+   "name": "USD/SEK",
+   "assetClass": "Valutor",
+   "underlying": "USDSEK=X",
+   "kind": "fx",
+   "productQueries": []
+  },
+  {
+   "id": "eursek",
+   "name": "EUR/SEK",
+   "assetClass": "Valutor",
+   "underlying": "EURSEK=X",
+   "kind": "fx",
+   "productQueries": []
+  },
+  {
+   "id": "reit_us",
+   "name": "Fastigheter USA (REIT)",
+   "assetClass": "Fastigheter och infrastruktur",
+   "underlying": "VNQ",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares US Property Yield UCITS"
+   ]
+  },
+  {
+   "id": "reit_eu",
+   "name": "Fastigheter Europa",
+   "assetClass": "Fastigheter och infrastruktur",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "iShares European Property Yield UCITS"
+   ]
+  },
+  {
+   "id": "reit_world",
+   "name": "Fastigheter globalt",
+   "assetClass": "Fastigheter och infrastruktur",
+   "underlying": null,
+   "kind": "product_only",
+   "productQueries": [
+    "iShares Developed Markets Property Yield UCITS"
+   ]
+  },
+  {
+   "id": "infra",
+   "name": "Infrastruktur globalt",
+   "assetClass": "Fastigheter och infrastruktur",
+   "underlying": "IGF",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares Global Infrastructure UCITS"
+   ]
+  },
+  {
+   "id": "utilities",
+   "name": "Kraftbolag USA",
+   "assetClass": "Fastigheter och infrastruktur",
+   "underlying": "XLU",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Utilities Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "tech",
+   "name": "Teknik USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLK",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Technology Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "financials",
+   "name": "Finans USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLF",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Financials Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "health",
+   "name": "Hälsovård USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLV",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Health Care Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "industrials",
+   "name": "Industri USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLI",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Industrials Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "staples",
+   "name": "Dagligvaror USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLP",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Consumer Staples Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "discretionary",
+   "name": "Sällanköpsvaror USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLY",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Consumer Discretionary Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "materials",
+   "name": "Material USA",
+   "assetClass": "Sektorer och teman",
+   "underlying": "XLB",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "SPDR S&P U.S. Materials Select Sector UCITS"
+   ]
+  },
+  {
+   "id": "semis",
+   "name": "Halvledare",
+   "assetClass": "Sektorer och teman",
+   "underlying": "SOXX",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "VanEck Semiconductor UCITS",
+    "iShares MSCI Global Semiconductors UCITS"
+   ]
+  },
+  {
+   "id": "defense",
+   "name": "Försvar",
+   "assetClass": "Sektorer och teman",
+   "underlying": "ITA",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "VanEck Defense UCITS"
+   ]
+  },
+  {
+   "id": "goldminers",
+   "name": "Guldgruvbolag",
+   "assetClass": "Sektorer och teman",
+   "underlying": "GDX",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "VanEck Gold Miners UCITS"
+   ]
+  },
+  {
+   "id": "robotics",
+   "name": "Automation och AI",
+   "assetClass": "Sektorer och teman",
+   "underlying": "BOTZ",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares Automation & Robotics UCITS"
+   ]
+  },
+  {
+   "id": "cleanenergy",
+   "name": "Förnybar energi",
+   "assetClass": "Sektorer och teman",
+   "underlying": "ICLN",
+   "kind": "etf_proxy",
+   "productQueries": [
+    "iShares Global Clean Energy UCITS"
+   ]
+  },
+  {
+   "id": "bitcoin",
+   "name": "Bitcoin",
+   "assetClass": "Kryptovalutor",
+   "underlying": "BTC-USD",
+   "kind": "crypto",
+   "productQueries": [
+    "Bitcoin Tracker One",
+    "21Shares Bitcoin ETP"
+   ]
+  },
+  {
+   "id": "ether",
+   "name": "Ether",
+   "assetClass": "Kryptovalutor",
+   "underlying": "ETH-USD",
+   "kind": "crypto",
+   "productQueries": [
+    "Ether Tracker One"
+   ]
+  },
+  {
+   "id": "solana",
+   "name": "Solana",
+   "assetClass": "Kryptovalutor",
+   "underlying": "SOL-USD",
+   "kind": "crypto",
+   "productQueries": [
+    "21Shares Solana",
+    "Virtune Solana"
+   ]
+  },
+  {
+   "id": "xrp",
+   "name": "XRP",
+   "assetClass": "Kryptovalutor",
+   "underlying": "XRP-USD",
+   "kind": "crypto",
+   "productQueries": [
+    "21Shares XRP",
+    "Virtune XRP"
+   ]
+  }
+ ]
+}

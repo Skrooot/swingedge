@@ -58,3 +58,30 @@ Testfixturen `app/src/test/resources/parity.json` är exporterad från `qa/swing
 - Android kan skjuta upp bakgrundskontrollen vid batterisparläge.
 - Nya backtester i appen handlar på stängningen dagen efter signalen (studien använde öppningen), så siffrorna skiljer något.
 - Inget i appen är ett köp- eller säljråd.
+
+## Global Opportunities (version 1.2)
+
+En separat forsknings- och skanningsmotor över 71 marknader i tio tillgångsslag: aktieindex, ädelmetaller,
+industrimetaller, energi, jordbruksråvaror, räntor, valutor, fastigheter och infrastruktur, sektorer och krypto.
+Den ändrar inte SwingEdges tre strategier eller målportföljen.
+
+**Forskning (dator, `qa/edge/`):**
+
+1. `universe.json` – marknaderna, deras underliggande serie (nivå A) och sökord för Avanza-produkter. Nya marknader läggs till här.
+2. `mapper.py` och `mapper_fix.py` – hittar köpbara produkter utan hävstång via Avanzas offentliga produktdata, läser ISIN,
+   handelsplats, status och hävstång, och godtar en Yahoo-kursserie bara om kursen stämmer med Avanzas inom 3 %.
+3. `edge.py` – testar sju strategifamiljer (SMA150, SMA200 månadsvis, tidsseriemomentum, Donchian 55/20,
+   volatilitetsstyrd trend, samt kandidaterna dipp i upptrend och relativt momentum) på varje marknad och på produkten (nivå B).
+   Validering: träning till och med 2015, test 2016–2026, blockbootstrap, Benjamini–Hochberg, Deflated Sharpe Ratio,
+   PBO (CSCV), parametervarianter, tre delperioder, kontroll av att urvalet håller på test, och ett portföljtest av kombinationer valda på träningsdata.
+4. `export_app.py` – skriver `research/edge-app.json`, som appen hämtar från GitHub.
+
+Klassning: *Validerad*, *Stark hypotes*, *Hypotes* eller *Ingen edge* (regler i appen under Global → Metod).
+Strategilämplighet, evidens och aktuellt tillfälle visas var för sig, inte som en sammanvägd poäng.
+
+**Appen:** fliken Global hämtar forskningen och skannar dagligen de underliggande serierna med samma frysta familjer
+(`edge/EdgeEngine.kt`, verifierade mot Python i `EdgeParityTest`). Notis vid ny köpsignal för vald evidensnivå.
+
+**Begränsningar:** Yahoo-terminer (t.ex. GC=F) är frontmånadskontrakt; avkastningen där är inte investerbar, därför
+krävs produkttestet. Dagens Avanza-utbud används för hela historiken (överlevnadsbias i urvalet av produkter).
+Valutapar saknar produkter utan hävstång och är bara forskning.

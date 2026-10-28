@@ -25,6 +25,19 @@ data class Settings(
     val experimentalRotation: Boolean = false,
     /** Tillval: Xetra-Gold som fjärde instrument i lika vikt (testat efter rapporten). */
     val includeGold: Boolean = false,
+    /** Notiser för nya köpsignaler i Global Opportunities, från och med denna evidensnivå. */
+    val edgeNotify: Boolean = true,
+    val edgeMinEvidence: String = "Stark hypotes",
+)
+
+/** Dagsserier för Global Opportunities: marknad -> datum och stängningar, plus vilka köpsignaler som redan notifierats. */
+@Serializable
+data class EdgeSeriesCache(
+    val at: Long = 0,
+    val researchAt: Long = 0,
+    val series: Map<String, List<List<String>>> = emptyMap(),
+    val errors: List<String> = emptyList(),
+    val notified: List<String> = emptyList(),
 )
 
 /** Ett dagligt värde per portfölj, för utvecklingsgrafen. */
@@ -97,6 +110,15 @@ class Store(context: Context) {
     var backtests: List<BacktestRun>
         get() = read("backtests.json", ListSerializer(BacktestRun.serializer())) { emptyList() }
         set(v) = write("backtests.json", ListSerializer(BacktestRun.serializer()), v.takeLast(10))
+
+    /** Forskningsresultatet från edge.py (edge-app.json) som det senast hämtades. */
+    var edgeRaw: String?
+        get() = synchronized(this) { File(dir, "edge-app.json").takeIf { it.exists() }?.readText() }
+        set(v) { synchronized(this) { if (v != null) File(dir, "edge-app.json").writeText(v) } }
+
+    var edgeSeries: EdgeSeriesCache
+        get() = read("edge_series.json", EdgeSeriesCache.serializer()) { EdgeSeriesCache() }
+        set(v) = write("edge_series.json", EdgeSeriesCache.serializer(), v)
 
     /** Antal misslyckade datahämtningar i rad och om en notis redan skickats för dem. */
     var fetchFailures: Int
